@@ -76,20 +76,33 @@ def sub_select_cluster(X, Y, n_samples, embed):
     Y_sub.append(Y[closest[i]])
   return np.array(X_sub), np.array(Y_sub)
 
-def make_knn(self, X, Y, embed=True):
-  X_emb = self.embed(X) if embed else X
+# ------------------------- do a knn classification -----------------------------------
+def make_knn(X, Y):
   from sklearn import neighbors
-  # I HRD SOMEWHERE THAT USING k = LOG(len(DATA)) is good
   clf = neighbors.KNeighborsClassifier(1+int(np.log(len(Y))))
-  # clf = neighbors.KNeighborsClassifier(1+int(np.log(len(Y))), weights='distance')
-  knn_cl = clf.fit(X_emb, Y)
+  knn_cl = clf.fit(X, Y)
   def classify(X_new):
-    X_new_emb = self.embed(X_new) if embed else X_new
-    return knn_cl.predict(X_new_emb)
+    return knn_cl.predict(X_new)
   return classify
 
-def sub_select_knn_feature_sample(X, Y, n_samples):
-  X_emb = [feature(x) for x in X]
+def knn_loss(clf, X, Y):
+  pred = clf(X)
+  incorrect = (pred != Y)
+  return sum(incorrect)
+
+def sub_select_knn_sample(X, Y, n_samples, embed):
+  X_emb = np.array([feature(x) for x in X]) if embed else X
+  # make the sub and preserve the original information
+  def make_sub():
+    r_idxs = np.random.choice(np.arange(len(X)), n_samples, replace=False)
+    X_emb_sub = X_emb[r_idxs, :]
+    X_sub = X[r_idxs, :]
+    return X_emb_sub, X_sub, Y[r_idxs]
+  diff_subs = [make_sub() for _ in range(1000)]
+  diff_knns = [make_knn(sub[0], sub[2]) for sub in diff_subs]
+  diff_loss = [knn_loss(knn, X_emb, Y) for knn in diff_knns]
+  best_knn_id = np.argmin(diff_loss)
+  return diff_subs[best_knn_id][1], diff_subs[best_knn_id][2]
 
 
 # ========================= LOGISTIC REGRESSION CLASSIFIER ========================
@@ -109,6 +122,11 @@ class LRegr:
     label_pred = self.logisticRegr.predict(test_data)
     return np.sum(label_pred == test_label) / len(test_label)
 
+def get_acc(X_sub, Y_sub, X_t, Y_t):
+  lregr = LRegr()
+  lregr.learn((X_sub, Y_sub))
+  return lregr.evaluate((X_t,Y_t)) 
+
 # ======================== RUNNING THE EXPERIMENT ===========================
 def run_subset_size(X_tr, Y_tr, X_t, Y_t, n_sub):
   ret_dict = dict()
@@ -120,33 +138,35 @@ def run_subset_size(X_tr, Y_tr, X_t, Y_t, n_sub):
   print ( "all result : ", all_result)
   ret_dict['all'] = all_result
 
-  X_rand, Y_rand = X_tr[:n_sub], Y_tr[:n_sub]
-  lregr = LRegr()
-  lregr.learn((X_rand, Y_rand))
-  rand_result = lregr.evaluate((X_t,Y_t)) 
-  print ( "rand_subset result : ", rand_result)
-  ret_dict['rand'] = rand_result
+  # X_sub, Y_sub = X_tr[:n_sub], Y_tr[:n_sub]
+  # rand_result = get_acc(X_sub, Y_sub, X_t, Y_t)
+  # print ( "rand_subset result : ", rand_result)
+  # ret_dict['rand'] = rand_result
 
-  X_sub, Y_sub = sub_select_hash_feature(X_tr, Y_tr, n_sub)
-  lregr = LRegr()
-  lregr.learn((X_sub, Y_sub))
-  hash_result = lregr.evaluate((X_t,Y_t))
-  print ( "hash_subset result : ", hash_result )
-  ret_dict['hash'] = hash_result
+  # X_sub, Y_sub = sub_select_hash_feature(X_tr, Y_tr, n_sub)
+  # hash_result = get_acc(X_sub, Y_sub, X_t,Y_t)
+  # print ( "hash_subset result : ", hash_result )
+  # ret_dict['hash'] = hash_result
 
-  X_sub, Y_sub = sub_select_cluster(X_tr, Y_tr, n_sub, False)
-  lregr = LRegr()
-  lregr.learn((X_sub, Y_sub))
-  clus_raw = lregr.evaluate((X_t,Y_t))
-  print ( "raw_cluster_subset result : ", clus_raw )
-  ret_dict['clus_raw'] = clus_raw
+  # X_sub, Y_sub = sub_select_cluster(X_tr, Y_tr, n_sub, False)
+  # clus_raw = get_acc(X_sub, Y_sub, X_t,Y_t)
+  # print ( "raw_cluster_subset result : ", clus_raw )
+  # ret_dict['clus_raw'] = clus_raw
 
-  X_sub, Y_sub = sub_select_cluster(X_tr, Y_tr, n_sub, True)
-  lregr = LRegr()
-  lregr.learn((X_sub, Y_sub))
-  clus_feat = lregr.evaluate((X_t,Y_t)) 
-  print ( "feature_cluster_subset result : ", clus_feat )
-  ret_dict['clus_feat'] = clus_feat
+  # X_sub, Y_sub = sub_select_cluster(X_tr, Y_tr, n_sub, True)
+  # clus_feat = get_acc(X_sub, Y_sub, X_t,Y_t)
+  # print ( "feature_cluster_subset result : ", clus_feat )
+  # ret_dict['clus_feat'] = clus_feat
+
+  X_sub, Y_sub = sub_select_knn_sample(X, Y, n_sub, False)
+  knn_raw = get_acc(X_sub, Y_sub, X_t,Y_t)
+  print ( "knn_raw_subset result : ", knn_raw )
+  ret_dict['knn_raw'] = knn_raw
+
+  X_sub, Y_sub = sub_select_knn_sample(X, Y, n_sub, True)
+  knn_feat = get_acc(X_sub, Y_sub, X_t, Y_t)
+  print ( "knn_feat_subset result : ", knn_feat )
+  ret_dict['knn_feat'] = knn_feat
 
   return ret_dict
 
