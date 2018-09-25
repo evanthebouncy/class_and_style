@@ -11,7 +11,7 @@ def feature(x):
 
 # do a 2D visualization of the space of things
 def tsne(embedded_X, labels=None, name=None):
-  cl_colors = np.linspace(0, 1, len(labels)) if (labels is not None) else ['blue']
+  cl_colors = np.linspace(0, 1, len(set(labels))) if (labels is not None) else ['blue']
   from sklearn.manifold import TSNE
   X_tsne = TSNE(n_components=2).fit_transform(embedded_X)
   # import matplotlib
@@ -25,6 +25,21 @@ def tsne(embedded_X, labels=None, name=None):
   plt.clf()
   return X_tsne
 
+# plot the progress of accuracy over time
+def plot_progress(x_vals, diff_y_name_vals):
+  cmap = plt.cm.get_cmap('hsv', 1+len(diff_y_name_vals))
+
+  for ii, y_name_vals in enumerate(diff_y_name_vals):
+    y_name, y_vals = y_name_vals
+    plt.plot(x_vals, y_vals, color=cmap(ii), label=y_name)
+  
+  plt.legend()
+  plt.savefig('acc_progress.png')
+  plt.clf()
+
+# ========================== SUBSET SELECTION SCHEMES =======================
+
+# ------------------------------------- greedy hash --------------------------------
 # greedily hash the feature space and try to get "distinct" elements
 def sub_select_hash_feature(X_tr, Y_tr, n_sub):
   seen = set()
@@ -38,9 +53,11 @@ def sub_select_hash_feature(X_tr, Y_tr, n_sub):
       seen.add(feat)
   return X_sub[:n_sub], Y_sub[:n_sub]
 
-def sub_select_cluster_feature(X, Y, n_samples):
+# ----------------- cluster in ( raw_input / embedded feature ) space ----------------
+def sub_select_cluster(X, Y, n_samples, embed):
   
-  X_emb = [feature(x) for x in X]
+  # either embed the X into feature space or leave it as is
+  X_emb = [feature(x) for x in X] if embed else X
   from sklearn.cluster import KMeans
   kmeans = KMeans(n_clusters=n_samples)
   kmeans = kmeans.fit(X_emb)
@@ -59,17 +76,17 @@ def sub_select_cluster_feature(X, Y, n_samples):
     Y_sub.append(Y[closest[i]])
   return np.array(X_sub), np.array(Y_sub)
 
-  def make_knn(self, X, Y, embed=True):
-    X_emb = self.embed(X) if embed else X
-    from sklearn import neighbors
-    # I HRD SOMEWHERE THAT USING k = LOG(len(DATA)) is good
-    clf = neighbors.KNeighborsClassifier(1+int(np.log(len(Y))))
-    # clf = neighbors.KNeighborsClassifier(1+int(np.log(len(Y))), weights='distance')
-    knn_cl = clf.fit(X_emb, Y)
-    def classify(X_new):
-      X_new_emb = self.embed(X_new) if embed else X_new
-      return knn_cl.predict(X_new_emb)
-    return classify
+def make_knn(self, X, Y, embed=True):
+  X_emb = self.embed(X) if embed else X
+  from sklearn import neighbors
+  # I HRD SOMEWHERE THAT USING k = LOG(len(DATA)) is good
+  clf = neighbors.KNeighborsClassifier(1+int(np.log(len(Y))))
+  # clf = neighbors.KNeighborsClassifier(1+int(np.log(len(Y))), weights='distance')
+  knn_cl = clf.fit(X_emb, Y)
+  def classify(X_new):
+    X_new_emb = self.embed(X_new) if embed else X_new
+    return knn_cl.predict(X_new_emb)
+  return classify
 
 def sub_select_knn_feature_sample(X, Y, n_samples):
   X_emb = [feature(x) for x in X]
@@ -94,31 +111,48 @@ class LRegr:
 
 # ======================== RUNNING THE EXPERIMENT ===========================
 def run_subset_size(X_tr, Y_tr, X_t, Y_t, n_sub):
+  ret_dict = dict()
 
   print ("===================== running for ", n_sub, "==========================")
   lregr = LRegr()
   lregr.learn((X_tr, Y_tr))
-  print ( "gold_standard result : ", lregr.evaluate((X_t,Y_t)) )
+  all_result = lregr.evaluate((X_t,Y_t))
+  print ( "all result : ", all_result)
+  ret_dict['all'] = all_result
 
   X_rand, Y_rand = X_tr[:n_sub], Y_tr[:n_sub]
   lregr = LRegr()
   lregr.learn((X_rand, Y_rand))
-  print ( "rand_subset result : ", lregr.evaluate((X_t,Y_t)) )
+  rand_result = lregr.evaluate((X_t,Y_t)) 
+  print ( "rand_subset result : ", rand_result)
+  ret_dict['rand'] = rand_result
 
   X_sub, Y_sub = sub_select_hash_feature(X_tr, Y_tr, n_sub)
   lregr = LRegr()
   lregr.learn((X_sub, Y_sub))
-  print ( "hash_subset result : ", lregr.evaluate((X_t,Y_t)) )
+  hash_result = lregr.evaluate((X_t,Y_t))
+  print ( "hash_subset result : ", hash_result )
+  ret_dict['hash'] = hash_result
 
-  X_sub, Y_sub = sub_select_cluster_feature(X_tr, Y_tr, n_sub)
+  X_sub, Y_sub = sub_select_cluster(X_tr, Y_tr, n_sub, False)
   lregr = LRegr()
   lregr.learn((X_sub, Y_sub))
-  print ( "cluster_subset result : ", lregr.evaluate((X_t,Y_t)) )
+  clus_raw = lregr.evaluate((X_t,Y_t))
+  print ( "raw_cluster_subset result : ", clus_raw )
+  ret_dict['clus_raw'] = clus_raw
+
+  X_sub, Y_sub = sub_select_cluster(X_tr, Y_tr, n_sub, True)
+  lregr = LRegr()
+  lregr.learn((X_sub, Y_sub))
+  clus_feat = lregr.evaluate((X_t,Y_t)) 
+  print ( "feature_cluster_subset result : ", clus_feat )
+  ret_dict['clus_feat'] = clus_feat
+
+  return ret_dict
 
 if __name__ == "__main__":
   n = 2000
   n_tr = n // 2
-  n_sub = 20
 
   X, Y = make_dataset(n)
   X_tr, Y_tr = X[:n_tr], Y[:n_tr]
@@ -129,9 +163,25 @@ if __name__ == "__main__":
   # X_emb = [feature(x) for x in X]
   # tsne(X_emb, Y, "klas_feature")
   
-  sub_sizes = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+  sub_sizes = [10 * i for i in range(1, 31)]
+  run_dicts = []
   for sub_size in sub_sizes:
-    run_subset_size(X_tr, Y_tr, X_t, Y_t, sub_size)
+    run_dict = run_subset_size(X_tr, Y_tr, X_t, Y_t, sub_size)
+    run_dicts.append(run_dict)
+
+  sub_scores = []
+  keys = run_dicts[0].keys()
+  for key in keys:
+    key_vals = []
+    for run_dict in run_dicts:
+      key_vals.append(run_dict[key])
+    sub_scores.append( (key, key_vals) )
+
+  plot_progress(sub_sizes, sub_scores)
+
+
+
+
 
 
 
