@@ -1,12 +1,12 @@
 import numpy as np
 import random
 L = 10
-NOISE = 0.1
+NOISE = 1.0 / (2 * L)
 N_PROTO = 10
 
 # generate a structure vector
-def gen_struct(n_proto):
-  return [np.random.randint(0, 2, size=(L,)) for _ in range(n_proto)]
+def gen_struct(n_proto, l=L):
+  return [np.random.randint(0, 2, size=(l,)) for _ in range(n_proto)]
 
 # a simple 2 klass problem with pre-defined klass and style
 def gen_klass(n_proto):
@@ -31,10 +31,8 @@ def make_dataset(n):
     toss = random.random() < 0.5
     kl = random.choice(kl1s) if toss else random.choice(kl2s)
     common = random.choice(commons)
-    noise = np.random.randint(0, 2, size=(L,))
     signal = np.concatenate((kl, 
                              common, 
-                             noise,
                              ))
     signal = apply_noise(signal)
     X.append(signal)
