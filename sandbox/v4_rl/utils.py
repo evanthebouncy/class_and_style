@@ -1,20 +1,9 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn import neighbors
 import numpy as np
-from data import L
 import matplotlib.pyplot as plt
 
 # =========================== UTILITIES =============================
-# feature extraction made easy when u can cheat :D
-def get_class(x):
-  return x[:L]
-
-def get_common(x):
-  return x[L:2*L] 
-
-def get_style(x):
-  return x[L:] 
-
 # do a 2D visualization of the space of things
 def tsne(embedded_X, labels=None, name=None):
   cl_colors = np.linspace(0, 1, len(set(labels))) if (labels is not None) else ['blue']
@@ -73,3 +62,26 @@ def knn_loss(clf, X, Y):
   pred = clf(X)
   return np.sum((pred - Y) ** 2)
 
+# ============= torch related utils =============
+
+import torch
+from torch.autograd import Variable
+
+# if gpu is to be used
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+use_cuda = str(device) == "cuda"
+
+def to_torch(x, req = False, cuda=use_cuda):
+  dtype = torch.cuda.FloatTensor if cuda else torch.FloatTensor
+  x = Variable(torch.from_numpy(x).type(dtype), requires_grad = req)
+  return x
+
+def to_torch_int(x, req = False, cuda=use_cuda):
+  dtype = torch.cuda.LongTensor if cuda else torch.LongTensor
+  x = Variable(torch.from_numpy(x).type(dtype), requires_grad = req)
+  return x
+
+def to_torch_byte(x, req = False, cuda=use_cuda):
+  dtype = torch.cuda.ByteTensor if cuda else torch.ByteTensor
+  x = Variable(torch.from_numpy(x).type(dtype), requires_grad = req)
+  return x
