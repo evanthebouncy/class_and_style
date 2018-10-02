@@ -146,14 +146,16 @@ class ActionXform:
     return ret
 
 class SAXform:
-  def __init__(self, s_xform, a_xform):
+  def __init__(self):
     self.length = L*L*2 + L*L
-    self.s_xform, self.a_xform = s_xform, a_xform
+    self.s_xform, self.a_xform = StateXform(), ActionXform()
 
-  def sa_to_np(self, state, action):
-    state_vec = s_xform.state_to_np(state)
-    action_vec = a_xform.action_to_1hot(action)
+  def sa_to_np(self, state_action):
+    state, action = state_action
+    state_vec =  self.s_xform.state_to_np(state)
+    action_vec = self.a_xform.action_to_1hot(action)
     return np.concatenate((state_vec, action_vec))
+
 
 if __name__ == '__main__':
   print ('hi hi hi')

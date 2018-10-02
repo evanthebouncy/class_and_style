@@ -67,13 +67,11 @@ def sub_select_knn_anneal(X, Y, n_samples, weighted=True):
   # bit of redundant code but i need to find the right cluster counts for weight
   from sklearn import neighbors
   # fit with X_sub Y_sub, and see which elements in X gets assigned to which
-  clf = neighbors.KNeighborsClassifier(1+int(np.log(len(Y))))
-  knn_cl = clf.fit(X_sub, Y_sub)
-  # only assign weights for correctly classified Xs
-  correct_idxs = knn_cl.predict(X) == Y
-  correct_X = X[correct_idxs, :]
 
-  neighbors = knn_cl.kneighbors(correct_X, return_distance=False)
+  reg_class = neighbors.KNeighborsRegressor(1+int(np.log(len(Y))))
+  knn_reg = neighbors.KNeighborsRegressor(1+int(np.log(len(Y)))).fit(X, Y)
+
+  neighbors = knn_reg.kneighbors(X, return_distance=False)
   neighbors_flat = np.reshape(neighbors, (-1,))
   from collections import Counter
   cnt = Counter(neighbors_flat)
@@ -150,7 +148,7 @@ if __name__ == "__main__":
   clf_name = 'fcnet'
   clf = CLFS[clf_name]
   
-  sub_sizes = [10 * i for i in range(1, 31)]
+  sub_sizes = [10 * i for i in range(1, 21)]
   run_dicts = []
   for sub_size in sub_sizes:
     run_dict = run_subset_size(clf, X_tr, Y_tr, X_t, Y_t, sub_size)
