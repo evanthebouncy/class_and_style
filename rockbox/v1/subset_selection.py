@@ -4,6 +4,7 @@ from sklearn.metrics import pairwise_distances_argmin_min
 from sklearn import neighbors
 import numpy as np
 import random
+from copy import deepcopy
 
 # ========================= CLASSIFICATION ==============================
 def make_cl_knn(X, Y):
@@ -87,11 +88,20 @@ def sub_select_knn_anneal(kind, X, Y, n_samples, weighted=True):
   make_knn = make_cl_knn if kind == 'classification' else make_reg_knn
   knn_loss = knn_cl_loss if kind == 'classification' else knn_reg_loss
 
+  data_size = len(X)
+
+  def random_other_idx(sub_idxs):
+    ret = random.randint(0, data_size-1)
+    if ret in sub_idxs:
+      return random_other_idx(sub_idxs)
+    return ret
+
   def swap_one(sub_idxs, swap_idx):
-    sub_idxs = [x for x in sub_idxs]
-    sub_size = len(sub_idxs)
-    all_rem_idxs = [iii for iii in range(len(X)) if iii not in sub_idxs]
-    sub_idxs[swap_idx] = random.choice(all_rem_idxs)
+    sub_idxs = deepcopy(sub_idxs)
+    # all_rem_idxs = [iii for iii in range(len(X)) if iii not in sub_idxs]
+    # sub_idxs[swap_idx] = random.choice(all_rem_idxs)
+    # return sub_idxs
+    sub_idxs[swap_idx] = random_other_idx(sub_idxs)
     return sub_idxs
   
   _, sub_idxs = sub_select_cluster(X, Y, n_samples)
@@ -110,7 +120,7 @@ def sub_select_knn_anneal(kind, X, Y, n_samples, weighted=True):
       X_sub, Y_sub = new_X_sub, new_Y_sub
       sub_idxs = new_sub_idxs
       score_old = score_new
-      stuck_cnt = 0
+      stuck_cnt = stuck_cnt // 2
   return sub_idxs
   # # print ("score ", score_old)
 

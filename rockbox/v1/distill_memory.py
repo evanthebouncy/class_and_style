@@ -19,6 +19,7 @@ def knn_compress(dqn_target):
 
     n_sample = len(trace) // 2
 
+    print ("learning embedding . . . ")
     # make X and train the auto encoder
     ae = AEnet(SAXform())
     sas = [(tr.s, tr.a) for tr in trace]
@@ -29,8 +30,8 @@ def knn_compress(dqn_target):
     # produce the Y
     value_Y = dqn_target.get_targets(trace).data.cpu().numpy()
 
+    print ("computing knn . . . ")
     sub_idxs = sub_select_knn_anneal('regression', embed_X, value_Y, n_sample)
-    print (sub_idxs)
 
     sub_trace = []
     for sub_idx in sub_idxs:

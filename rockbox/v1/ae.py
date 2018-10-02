@@ -88,7 +88,7 @@ class AEnet():
       if len(losses) > 2000:
         far_loss = sum(losses[-2000:-1000]) 
         near_loss = sum(losses[-1000:])
-        if near_loss > 0.98 * far_loss:
+        if near_loss > 0.95 * far_loss:
           break
 
       if len(losses) % len(X) == 0:
