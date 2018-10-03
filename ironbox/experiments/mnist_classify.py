@@ -12,7 +12,11 @@ def run_subset_size(clf, X_tr, Y_tr, X_t, Y_t, n_sub, ae):
     n_sub : number of subset
     ae : the auto-encoder
   '''
-  ret_dict = dict()
+  ret_dict = {
+        'name' : 'mnist_classify',
+        'n_sub' : n_sub,
+        'evaluation_model' : clf().name,
+      }
 
   print ("================ running for ", n_sub, clf().name, "====================")
   data_holder = DataHolder(X_tr, Y_tr, [1.0] * len(X_tr))
@@ -42,13 +46,23 @@ def run_subset_size(clf, X_tr, Y_tr, X_t, Y_t, n_sub, ae):
   return ret_dict
 
 if __name__ == "__main__":
-  from datas.artificial_classify import gen_data
+  from datas.mnist_classify import gen_data
   from evaluation_models.data_holder import DataHolder
-  X_tr, Y_tr, X_t, Y_t = gen_data(2000)
+  X_tr, Y_tr, X_t, Y_t = gen_data('./datas')
 
-  from auto_encoders.null_auto_encoder import NullAE
-  ae = NullAE()
-  ae.learn(X_tr)
+
+  from auto_encoders.cnn_auto_encoder import CnnAE
+  ae = CnnAE(1, 28)
+
+  saved_model_path = 'saved_models/mnist_ae.mdl'
+  import os.path
+  if os.path.isfile(saved_model_path):
+    print ("loaded saved model at ", saved_model_path)
+    ae.load(saved_model_path)
+  else:
+    print ("no saved model found, training auto-encoder ")
+    ae.learn(X_tr)
+    ae.save(saved_model_path)
 
   from subset_selection.subset_selection import sub_select_cluster,\
                                                 sub_select_knn,\
@@ -56,7 +70,7 @@ if __name__ == "__main__":
   from evaluation_models.classify_fcnet import FCNet
 
   CLFS = {
-      'fcnet' : lambda : FCNet(20, 2).cuda(),
+      'fcnet' : lambda : FCNet(784, 10).cuda(),
   }
 
   # ================= parse some shit ! =================
@@ -64,6 +78,7 @@ if __name__ == "__main__":
   parser = argparse.ArgumentParser()
   parser.add_argument("eval_model_name")
   parser.add_argument("subset_size", type=int)
+
   args = parser.parse_args()
 
   # =============== run some shit on the parsed shit =================

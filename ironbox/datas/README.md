@@ -10,4 +10,8 @@ create X\_train, Y\_train, X\_test, Y\_test
 
 https://pypi.org/project/python-mnist/
 
+    pip install python-mnist
+
+
+
 
