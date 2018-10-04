@@ -1,5 +1,8 @@
-ipython
-tqdm
-numpy
-torch
 git+git://github.com/pytorch/text@499e327ea53bdf67c648f5747ed26764283b968a
+ipython
+nltk
+numpy
+spacy
+tensorflow
+torch
+tqdm
