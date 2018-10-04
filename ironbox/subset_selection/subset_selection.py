@@ -126,7 +126,7 @@ def sub_select_knn_dueling(X, Y, n_samples, ae,
     stuck_cnt = 0
     for i in range(n_samples * 100000):
       stuck_cnt += 1
-      if stuck_cnt > n_samples:
+      if stuck_cnt > 2 * n_samples:
         break
       swap_idx = i % n_samples
       new_sub_idxs = swap_one(sub_idxs, swap_idx)
@@ -148,7 +148,7 @@ def sub_select_knn_dueling(X, Y, n_samples, ae,
     stuck_cnt = 0
     for i in range(n_samples * 100000):
       stuck_cnt += 1
-      if stuck_cnt > n_samples:
+      if stuck_cnt > 2 * n_samples:
         break
       swap_idx = i % n_samples
       new_adv_idxs = swap_one(adv_idxs, swap_idx)
@@ -171,11 +171,14 @@ def sub_select_knn_dueling(X, Y, n_samples, ae,
 
   # set of adversaries
   data_size = len(Y)
-  adv_size = adv_size if adv_size else min(n_samples, data_size)
+  n_labels = len(set(Y))
+  adv_size = adv_size if adv_size else min(n_labels * n_samples, data_size)
   adv_idxs = sub_select_random(X, Y, adv_size)
   X_adv, Y_adv = X[adv_idxs, :], Y[adv_idxs]
+
   # set of candidates
-  sub_idxs = sub_select_label_cluster(X, Y, n_samples, ae)
+  #sub_idxs = sub_select_label_cluster(X, Y, n_samples, ae)
+  sub_idxs = sub_select_random(X, Y, n_samples)
 
   # ---------------- run the min / max optimization ----------------
   all_scores = []

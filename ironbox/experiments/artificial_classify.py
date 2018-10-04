@@ -53,6 +53,12 @@ def run_subset_size(clf, X_tr, Y_tr, X_t, Y_t, n_sub, ae):
   print ( "knn error : ", knnn )
   result_dict['knn'] = knnn
 
+  sub_idxs = sub_select_knn_dueling(X_tr, Y_tr, n_sub, ae)
+  data_holder = DataHolder(X_tr[sub_idxs], Y_tr[sub_idxs], [1.0] * n_sub)
+  knnn_dueling = get_acc(clf(), data_holder, X_t,Y_t)
+  print ( "knn dueling error : ", knnn_dueling )
+  result_dict['knn_dueling'] = knnn_dueling
+
   return ret_dict
 
 if __name__ == "__main__":
@@ -60,9 +66,18 @@ if __name__ == "__main__":
   from evaluation_models.data_holder import DataHolder
   X_tr, Y_tr, X_t, Y_t = gen_data(2000)
 
-  from auto_encoders.null_auto_encoder import NullAE
-  ae = NullAE()
-  ae.learn(X_tr)
+  from auto_encoders.fc_bit_auto_encoder import FcAE
+  ae = FcAE(20, 10)
+
+  saved_model_path = 'saved_models/artificial_ae.mdl'
+  import os.path
+  if os.path.isfile(saved_model_path):
+    print ("loaded saved model at ", saved_model_path)
+    ae.load(saved_model_path)
+  else:
+    print ("no saved model found, training auto-encoder ")
+    ae.learn(X_tr)
+    ae.save(saved_model_path)
 
   from subset_selection.subset_selection import sub_select_cluster,\
                                                 sub_select_knn,\

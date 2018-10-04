@@ -47,11 +47,11 @@ def run_subset_size(clf, X_tr, Y_tr, X_t, Y_t, n_sub, ae):
   print ( "label cluster error : ", clus )
   result_dict['label cluster'] = clus
 
-  sub_idxs = sub_select_knn(X_tr, Y_tr, n_sub, ae)
-  data_holder = DataHolder(X_tr[sub_idxs], Y_tr[sub_idxs], [1.0] * n_sub)
-  knnn = get_acc(clf(), data_holder, X_t,Y_t)
-  print ( "knn error : ", knnn )
-  result_dict['knn'] = knnn
+  # sub_idxs = sub_select_knn(X_tr, Y_tr, n_sub, ae)
+  # data_holder = DataHolder(X_tr[sub_idxs], Y_tr[sub_idxs], [1.0] * n_sub)
+  # knnn = get_acc(clf(), data_holder, X_t,Y_t)
+  # print ( "knn error : ", knnn )
+  # result_dict['knn'] = knnn
 
   sub_idxs = sub_select_knn_dueling(X_tr, Y_tr, n_sub, ae)
   data_holder = DataHolder(X_tr[sub_idxs], Y_tr[sub_idxs], [1.0] * n_sub)
