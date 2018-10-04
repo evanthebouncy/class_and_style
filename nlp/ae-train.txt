@@ -1,0 +1,8 @@
+CUDA_VISIBLE_DEVICES=0 python train.py --dataset sst --mode ae --epochs 500  --hidden-size 32 --emb-size 300 --model-dir models/ae/sst-wvrandom-do0-nl1 --dropout 0 --num-layers 1
+CUDA_VISIBLE_DEVICES=1 python train.py --dataset sst --mode ae --epochs 500  --hidden-size 32 --emb-size 300 --model-dir models/ae/sst-wvrandom-do0-nl2 --dropout 0 --num-layers 2
+CUDA_VISIBLE_DEVICES=2 python train.py --dataset sst --mode ae --epochs 500  --hidden-size 32 --emb-size 300 --model-dir models/ae/sst-wvrandom-do0.2-nl1 --dropout 0.2 --num-layers 1
+CUDA_VISIBLE_DEVICES=4 python train.py --dataset sst --mode ae --epochs 500  --hidden-size 32 --emb-size 300 --model-dir models/ae/sst-wvrandom-do0.2-nl2 --dropout 0.2 --num-layers 2
+CUDA_VISIBLE_DEVICES=5 python train.py --dataset sst --mode ae --epochs 500  --hidden-size 32 --emb-size 300 --model-dir models/ae/sst-wvrfasttext-do0-nl1 --dropout 0 --num-layers 1 --vectors fasttext.en.300d
+CUDA_VISIBLE_DEVICES=5 python train.py --dataset sst --mode ae --epochs 500  --hidden-size 32 --emb-size 300 --model-dir models/ae/sst-wvrfasttext-do0-nl2 --dropout 0 --num-layers 2 --vectors fasttext.en.300d
+CUDA_VISIBLE_DEVICES=7 python train.py --dataset sst --mode ae --epochs 500  --hidden-size 32 --emb-size 300 --model-dir models/ae/sst-wvrfasttext-do0.2-nl1 --dropout 0.2 --num-layers 1 --vectors fasttext.en.300d
+CUDA_VISIBLE_DEVICES=0 python train.py --dataset sst --mode ae --epochs 500  --hidden-size 32 --emb-size 300 --model-dir models/ae/sst-wvrfasttext-do0.2-nl2 --dropout 0.2 --num-layers 2 --vectors fasttext.en.300d
