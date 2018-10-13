@@ -16,10 +16,12 @@ class AE(nn.Module):
     self.n_hidden = n_hidden
     # for encding
     self.enc_fc1 = nn.Linear(n_feature, n_hidden_big)
-    self.enc_fc2 = nn.Linear(n_hidden_big, n_hidden)
+    self.enc_fc2 = nn.Linear(n_hidden_big, n_hidden_big // 2)
+    self.enc_fc3 = nn.Linear(n_hidden_big // 2, n_hidden)
     # for decoding
-    self.dec_fc1 = nn.Linear(n_hidden, n_hidden_big)
-    self.dec_fc2 = nn.Linear(n_hidden_big, n_feature)
+    self.dec_fc1 = nn.Linear(n_hidden, n_hidden_big // 2)
+    self.dec_fc2 = nn.Linear(n_hidden_big // 2, n_hidden_big)
+    self.dec_fc3 = nn.Linear(n_hidden_big, n_feature)
 
     self.opt = torch.optim.Adam(self.parameters(), lr=0.001)
 
@@ -30,11 +32,13 @@ class AE(nn.Module):
     x = x.view(-1, self.n_feature)
     x = F.relu(self.enc_fc1(x))
     x = F.relu(self.enc_fc2(x))
+    x = F.sigmoid(self.enc_fc3(x))
     return x
 
   def dec(self, x):
     x = F.relu(self.dec_fc1(x))
-    x = F.sigmoid(self.dec_fc2(x))
+    x = F.relu(self.dec_fc2(x))
+    x = F.sigmoid(self.dec_fc3(x))
     # add a smol constant because I am paranoid
     x = x.view(-1, self.n_feature)
     return x
