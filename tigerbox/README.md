@@ -19,3 +19,5 @@ subset\_select\_knn code that would cause infinite loop if going all the way to
 
 same as artificial classification. It will train an auto-encoder if the saved model dont exist
 you should try with different parameters, this take awhile to run . . . 
+
+hello :D
