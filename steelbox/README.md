@@ -28,4 +28,4 @@ scripts and code for embedding, takes things from data\_raw and output things in
 ### subset\_selection
 scripts and code for producing subsets from the embeddings, takes things from data\_embed and output things into data\_sub
 
-### evaluation
+### evaluationg

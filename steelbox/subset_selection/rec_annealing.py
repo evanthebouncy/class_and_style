@@ -343,7 +343,9 @@ def subluangao(X,Y,leng,ratio,wei):
 
         return np.append(Xleft,Xright,axis=0),np.append(Yleft,Yright,axis=0),np.append(weileft,weiright,axis=0)
 
-def luangao2(leng,ratio,chosepoint,X,Y,t=10000):
+def luangao2(leng,ratio,chosepoint,X,Y,KNNp,t=10000):
+    global KNNpoint
+    KNNpoint = KNNp
 
     rchosepoint = chosepoint
     from copy import deepcopy
@@ -359,9 +361,17 @@ def luangao2(leng,ratio,chosepoint,X,Y,t=10000):
 
     Y=Y.astype(int)
     xx,yy,ww= sub_select_knn_wei(X,Y,rchosepoint,wei)
-    return xx,yy
+    return xx,yy,ww
 
-
+def select(leng,ratio,chosepoint,X,Y,t=10000):
+    dic = {}
+    for i in range(X.shape[0]):
+        dic[X[i].tostring()]=i
+    xx,yy,ww = luangao2(leng,ratio,chosepoint,X,Y,t)
+    result = np.zeros(chosepoint)
+    for i in range(xx.shape[0]):
+        result[i]=dic[xx[i].tostring()]
+    return xx,yy,ww,result
 
 
 
@@ -387,7 +397,7 @@ if __name__ == '__main__':
   dat_size = X.shape[0]
 
   starttime = time.time()
-o
+
   xt1,yt1=luangao2(batchsize,ratio,chosepoint,X,Y)
   print(time.time()-starttime)
 
