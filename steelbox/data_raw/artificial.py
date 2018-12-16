@@ -60,7 +60,16 @@ def gen_data(n):
 
 
 if __name__ == '__main__':
-  X,Y = make_dataset(10)
-  together = zip(X,Y)
-  for zz in together:
-    print (zz[1], zz[0])
+    # X,Y = make_dataset(10)
+    # together = zip(X,Y)
+    # for zz in together:
+    #     print (zz[1], zz[0])
+
+    X_tr, Y_tr, X_t, Y_t = gen_data(2000)
+    save_path = './artificial/artificial.p'
+    import pickle
+    pickle.dump((X_tr, Y_tr, X_t, Y_t), open(save_path, 'wb'))
+    print ('saved data in : ', save_path)
+
+    
+

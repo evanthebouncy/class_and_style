@@ -7,13 +7,16 @@ from sklearn.cluster import KMeans
 from .knn import score_subset, update_weight
 
 # the base annealing algorithm with weights
-def sub_select_knn_wei(X, Y, W, n_samples):
+def sub_select_anneal_wei(X, Y, W, n_samples):
     from copy import deepcopy
     data_size = len(Y)
 
     # return a index _NOT_ present in the sub_idxs, not really efficient but ok . . . 
     def random_other_idx(sub_idxs):
         ret = random.randint(0, data_size - 1)
+        # prevent infinite loop
+        if len(sub_idxs) == data_size:
+            return ret
         if ret in sub_idxs:
             return random_other_idx(sub_idxs)
         return ret
@@ -51,7 +54,7 @@ def sub_select_knn_wei(X, Y, W, n_samples):
 
     return X_sub, Y_sub, update_weight(X_sub, Y_sub, X, Y, W)
 
-def subluangao(X, Y, W, bin_size, ratio):
+def sub_select_cell(X, Y, W, bin_size, ratio):
     """
         bin_size : if size_of_X less than bin_size, do annealing,
                    where n_sample is ratio * size_of_X
@@ -64,7 +67,7 @@ def subluangao(X, Y, W, bin_size, ratio):
     """
     # if recursive set size less than bin perform the usual annealing
     if (X.shape[0] <= bin_size):
-        return sub_select_knn_wei(X, Y, W, int(X.shape[0]*ratio))
+        return sub_select_anneal_wei(X, Y, W, max(1, int(X.shape[0]*ratio)))
 
     # otherwise recurse with 2 clusters in a binary fashion
     else:
@@ -77,38 +80,37 @@ def subluangao(X, Y, W, bin_size, ratio):
         X_left, Y_left, W_left = X[left_idxs], Y[left_idxs], W[left_idxs]
         X_right, Y_right, W_right = X[right_idxs], Y[right_idxs], W[right_idxs]
 
-        X_left_sub, Y_left_sub, W_left_sub = subluangao(X_left, Y_left, W_left, 
+        X_left_sub, Y_left_sub, W_left_sub = sub_select_cell(X_left, Y_left, W_left, 
                                                         bin_size, ratio)
-        X_right_sub, Y_right_sub, W_right_sub = subluangao(X_right, Y_right, W_right, 
+        X_right_sub, Y_right_sub, W_right_sub = sub_select_cell(X_right, Y_right, W_right, 
                                                         bin_size, ratio)
         X_sub = np.append(X_left_sub, X_right_sub, axis=0)
         Y_sub = np.append(Y_left_sub, Y_right_sub, axis=0)
         W_sub = np.append(W_left_sub, W_right_sub, axis=0)
         return X_sub, Y_sub, W_sub
 
-# def luangao2(leng, ratio, chosepoint, X, Y, KNNp, t=10000):
-def luangao2(X, Y, n_samples, bin_size, ratio, t=10000):
+# def sub_select_rec(leng, ratio, chosepoint, X, Y, KNNp, t=10000):
+def sub_select_rec(X, Y, n_samples, bin_size, ratio, t=10000):
 
     # hace mucho tiempo, los todo W estaban uno
     W = np.ones(Y.shape, float)
 
     for i in range(t):
-        X,  Y,  W = subluangao(X, Y, W, bin_size, ratio)
+        X,  Y,  W = sub_select_cell(X, Y, W, bin_size, ratio)
         if (X.shape[0] * ratio * 0.5 < n_samples):
             break
 
-    xx, yy, ww = sub_select_knn_wei(X, Y, W, n_samples)
+    xx, yy, ww = sub_select_anneal_wei(X, Y, W, n_samples)
     return xx, yy, ww
 
-def rec_select(leng,ratio,chosepoint,X,Y,t=10000):
+def recover_index(subset, whole_set):
     dic = {}
-    for i in range(X.shape[0]):
-        dic[X[i].tostring()]=i
-    xx,yy,ww = luangao2(leng,ratio,chosepoint,X,Y,t)
-    result = np.zeros(chosepoint)
-    for i in range(xx.shape[0]):
-        result[i]=dic[xx[i].tostring()]
-    return xx,yy,ww,result
+    for i, item in enumerate(whole_set):
+        dic[str(item)] = i
+    idxes = []
+    for item in subset:
+        idxes.append(dic[str(item)])
+    return idxes
 
 if __name__ == '__main__':
 
@@ -117,7 +119,7 @@ if __name__ == '__main__':
         X, Y, X_t, Y_t = gen_data(2000)
         W = np.ones(1000)
         X_rsub, Y_rsub = X[:100, :], Y[:100]
-        X_sub, Y_sub, W_sub = sub_select_knn_wei(X, Y, W, 100)
+        X_sub, Y_sub, W_sub = sub_select_anneal_wei(X, Y, W, 100)
         print ("score of rand subset\n", score_subset(X_rsub, Y_rsub, X, Y, W))
         print ("score of anneal subset\n", score_subset(X_sub, Y_sub, X, Y, W))
 
@@ -131,9 +133,9 @@ if __name__ == '__main__':
         # random subset
         X_rsub, Y_rsub = X[:100, :], Y[:100]
         # normal subset
-        X_sub, Y_sub, W_sub = sub_select_knn_wei(X, Y, W, 100)
+        X_sub, Y_sub, W_sub = sub_select_anneal_wei(X, Y, W, 100)
         # cell partition subset
-        X_sub_cell, Y_sub_cell, W_sub_cell = subluangao(X, Y, W, 100, 0.1)
+        X_sub_cell, Y_sub_cell, W_sub_cell = sub_select_cell(X, Y, W, 100, 0.1)
         print ("score of rand\n", score_subset(X_rsub, Y_rsub, X, Y, W))
         print ("score of anneal\n", score_subset(X_sub, Y_sub, X, Y, W))
         print ("score of cell-anneal\n", score_subset(X_sub_cell, Y_sub_cell, X, Y, W))
@@ -143,7 +145,7 @@ if __name__ == '__main__':
         ratios = [0.5, 0.7]
         for bin_size in bin_sizes:
             for ratio in ratios:
-                X_sub_rec, Y_sub_rec, W_sub_rec = luangao2(X, Y, 100, bin_size, ratio)
+                X_sub_rec, Y_sub_rec, W_sub_rec = sub_select_rec(X, Y, 100, bin_size, ratio)
                 print ("score of rec-anneal bin_size {} ratio {}\n".format(bin_size, ratio), score_subset(X_sub_rec, Y_sub_rec, X, Y, W))
 
     # test2()
@@ -158,13 +160,23 @@ if __name__ == '__main__':
         # random subset
         X_rsub, Y_rsub = X[:n_sample, :], Y[:n_sample]
         # normal subset
-        X_sub, Y_sub, W_sub = sub_select_knn_wei(X, Y, W, n_sample)
+        X_sub, Y_sub, W_sub = sub_select_anneal_wei(X, Y, W, n_sample)
         # cell partition subset
-        X_sub_cell, Y_sub_cell, W_sub_cell = subluangao(X, Y, W, n_sample, 0.1)
+        X_sub_cell, Y_sub_cell, W_sub_cell = sub_select_cell(X, Y, W, n_sample, 0.1)
         print ("\nscore of rand\n", score_subset(X_rsub, Y_rsub, X, Y, W))
         print ("\nscore of anneal\n", score_subset(X_sub, Y_sub, X, Y, W))
         print ("\nscore of cell-anneal\n", score_subset(X_sub_cell, Y_sub_cell, X, Y, W))
 
+        X_pos, Y_pos, W_pos = [], [], []
+        for i in range(len(W_sub_cell)):
+            if W_sub_cell[i] > 0:
+                X_pos.append(X_sub_cell[i])
+                Y_pos.append(Y_sub_cell[i])
+                W_pos.append(W_sub_cell[i])
+        print ("\nscore of cell-anneal with only positive \n", score_subset(X_pos, Y_pos, X, Y, W))
+
+        X_sub_cell_idxes = recover_index(X_sub_cell, X)
+        print ("\nsub_cell_index", X_sub_cell_idxes)
         # recursive subset
         print ("\nscore of rec-anneal\n")
         bin_sizes = [50, 100, 200]
@@ -172,32 +184,10 @@ if __name__ == '__main__':
         for bin_size in bin_sizes:
             for ratio in ratios:
                 try:
-                    X_sub_, Y_sub_, W_sub_ = luangao2(X, Y, n_sample, bin_size, ratio)
+                    X_sub_, Y_sub_, W_sub_ = sub_select_rec(X, Y, n_sample, bin_size, ratio)
                     msg = "bin_size {} ratio {}\n".format(bin_size, ratio)
                     print (msg, score_subset(X_sub_, Y_sub_, X, Y, W))
                 except:
                     pass
     test3()
 
-    # K = pd.read_pickle('mnist_dim32.p')
-    # print(K.shape)
-    # (x_train, y_train), (x_test, y_test) = mnist.load_data()
-    # print(y_train.shape,y_test.shape)
-    # X=K
-    # Y=y_train
-
-    # XX=deepcopy(X)
-    # YY=deepcopy(Y)
-    # together = zip(X,Y)
-    # chosepoint=100
-    # KNNpoint=1
-    # batchsize = 10
-    # ratio = 0.5
-    # dat_size = X.shape[0]
-
-    # starttime = time.time()
-
-    # xt1,yt1=luangao2(batchsize,ratio,chosepoint,X,Y)
-    # print(time.time()-starttime)
-
-    # print("to beat updated", evalModel(xt1, yt1, XX, YY, KNNpoint))

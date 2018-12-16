@@ -1,13 +1,16 @@
 import numpy as np
 from sklearn import neighbors
 
-def score_subset(X_sub, Y_sub, X, Y, W, one_near=False):
+# def score_subset(X_sub, Y_sub, X, Y, W, one_near=False, sub_bad=True):
+def score_subset(X_sub, Y_sub, X, Y, W, one_near=False, sub_bad=False):
     K = 1 if one_near else 1+int(np.log(len(Y_sub)))
     clf = neighbors.KNeighborsClassifier(K)
     knn_cl = clf.fit(X_sub, Y_sub)
     Y_pred = knn_cl.predict(X)
     true_pred = (Y_pred == Y)
-    score = true_pred * W - (1 - true_pred) * W
+
+    consider_bad = 1.0 if sub_bad else 0.0
+    score = true_pred * W - (1 - true_pred) * W * consider_bad
     return np.sum(score)
 
 def update_weight(X_sub, Y_sub, X, Y, W, one_near=False):
@@ -25,7 +28,9 @@ def update_weight(X_sub, Y_sub, X, Y, W, one_near=False):
     #print ('W_expand\n', W_expand)
     elders_correct = X_elders_lab == X_lab_expand
     #print (elders_correct)
-    elder_update = (1 * (elders_correct) + (-1) * (1 - elders_correct))
+    # elder_update = (1 * (elders_correct) + (-1) * (1 - elders_correct))
+    # only keeping the positive weight has better performance
+    elder_update = elders_correct
     elder_update = elder_update / K * W_expand
     #print (elder_update)
     #print (X_elders_idx)
