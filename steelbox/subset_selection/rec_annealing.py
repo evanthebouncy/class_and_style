@@ -6,8 +6,17 @@ from copy import deepcopy
 from sklearn.cluster import KMeans
 from .knn import score_subset, update_weight
 
+def k_means_idx(X, n_samples):
+    kmeans = KMeans(n_clusters = n_samples)
+    kmeans = kmeans.fit(X)
+    cluster_labels = list(kmeans.predict(X))
+    # print (cluster_labels[:100])
+    from sklearn.metrics import pairwise_distances_argmin_min
+    closest, _ = pairwise_distances_argmin_min(kmeans.cluster_centers_, X)
+    return closest 
+
 # the base annealing algorithm with weights
-def sub_select_anneal_wei(X, Y, W, n_samples):
+def sub_select_anneal_wei(X, Y, W, n_samples, kmean_init):
     from copy import deepcopy
     data_size = len(Y)
 
@@ -29,6 +38,9 @@ def sub_select_anneal_wei(X, Y, W, n_samples):
 
     # initialize the sub idxs and the corresponding subsets
     sub_idxs = np.random.choice(list(range(len(Y))), n_samples, replace=False)
+    if kmean_init:
+        sub_idxs = k_means_idx(X, n_samples)
+
     X_sub, Y_sub = X[sub_idxs, :], Y[sub_idxs]
     score_old = score_subset(X_sub, Y_sub, X, Y, W)
     stuck_cnt = 0
@@ -54,7 +66,7 @@ def sub_select_anneal_wei(X, Y, W, n_samples):
 
     return X_sub, Y_sub, update_weight(X_sub, Y_sub, X, Y, W)
 
-def sub_select_cell(X, Y, W, bin_size, ratio):
+def sub_select_cell(X, Y, W, bin_size, ratio, kmean_init):
     """
         bin_size : if size_of_X less than bin_size, do annealing,
                    where n_sample is ratio * size_of_X
@@ -67,7 +79,7 @@ def sub_select_cell(X, Y, W, bin_size, ratio):
     """
     # if recursive set size less than bin perform the usual annealing
     if (X.shape[0] <= bin_size):
-        return sub_select_anneal_wei(X, Y, W, max(1, int(X.shape[0]*ratio)))
+        return sub_select_anneal_wei(X, Y, W, max(1, int(X.shape[0]*ratio)), kmean_init)
 
     # otherwise recurse with 2 clusters in a binary fashion
     else:
@@ -81,27 +93,74 @@ def sub_select_cell(X, Y, W, bin_size, ratio):
         X_right, Y_right, W_right = X[right_idxs], Y[right_idxs], W[right_idxs]
 
         X_left_sub, Y_left_sub, W_left_sub = sub_select_cell(X_left, Y_left, W_left, 
-                                                        bin_size, ratio)
+                                                        bin_size, ratio, kmean_init)
         X_right_sub, Y_right_sub, W_right_sub = sub_select_cell(X_right, Y_right, W_right, 
-                                                        bin_size, ratio)
+                                                        bin_size, ratio, kmean_init)
         X_sub = np.append(X_left_sub, X_right_sub, axis=0)
         Y_sub = np.append(Y_left_sub, Y_right_sub, axis=0)
         W_sub = np.append(W_left_sub, W_right_sub, axis=0)
         return X_sub, Y_sub, W_sub
 
 # def sub_select_rec(leng, ratio, chosepoint, X, Y, KNNp, t=10000):
-def sub_select_rec(X, Y, n_samples, bin_size, ratio, t=10000):
+def sub_select_rec(X, Y, n_samples, bin_size, ratio, kmean_init, t=10000):
 
     # hace mucho tiempo, los todo W estaban uno
     W = np.ones(Y.shape, float)
 
     for i in range(t):
-        X,  Y,  W = sub_select_cell(X, Y, W, bin_size, ratio)
+        X,  Y,  W = sub_select_cell(X, Y, W, bin_size, ratio, kmean_init)
         if (X.shape[0] * ratio * 0.5 < n_samples):
             break
 
-    xx, yy, ww = sub_select_anneal_wei(X, Y, W, n_samples)
+    xx, yy, ww = sub_select_anneal_wei(X, Y, W, n_samples, kmean_init)
     return xx, yy, ww
+
+# the base annealing algorithm with weights
+def sub_select_anneal_approx(X, Y, W, n_samples, kmean_init, iter_n_multiplier, start_prob = 1.0):
+    from copy import deepcopy
+    data_size = len(Y)
+
+    # shuffle also decrease with temperature
+    def shuffle(sub_idxs, change_prob):
+        def same_or_other(idx):
+            if random.random() < change_prob:
+                return random.choice(range(data_size))
+            else:
+                return idx
+        ret = []
+        for idx in sub_idxs:
+            ret.append(same_or_other(idx))
+        return ret
+
+    # initialize the sub idxs and the corresponding subsets
+    sub_idxs = np.random.choice(list(range(len(Y))), n_samples, replace=False)
+    if kmean_init:
+        print ("[approx] doing kmeans init . . . ")
+        sub_idxs = k_means_idx(X, n_samples)
+
+    X_sub, Y_sub = X[sub_idxs, :], Y[sub_idxs]
+    score_old = score_subset(X_sub, Y_sub, X, Y, W)
+
+    # iterate for n_sample times
+    iter_n = n_samples * iter_n_multiplier 
+    for i in range(1, iter_n):
+
+        print (i, " out of ", iter_n, " score ", score_old)
+
+        change_prob = 2 ** -(10 * i / iter_n) * start_prob
+        print ('change_prob ', change_prob)
+        new_sub_idxs = shuffle(sub_idxs, change_prob)
+        new_X_sub, new_Y_sub = X[new_sub_idxs, :], Y[new_sub_idxs]
+
+        score_new = score_subset(new_X_sub, new_Y_sub, X, Y, W)
+
+        # if found a better subset OR randomly, update the current best
+        if score_new > score_old: # or random.random() < change_prob:
+            X_sub, Y_sub = new_X_sub, new_Y_sub
+            sub_idxs = new_sub_idxs
+            score_old = score_new
+
+    return X_sub, Y_sub, update_weight(X_sub, Y_sub, X, Y, W)
 
 def recover_index(subset, whole_set):
     dic = {}
@@ -160,23 +219,15 @@ if __name__ == '__main__':
         # random subset
         X_rsub, Y_rsub = X[:n_sample, :], Y[:n_sample]
         # normal subset
-        X_sub, Y_sub, W_sub = sub_select_anneal_wei(X, Y, W, n_sample)
+        X_sub, Y_sub, W_sub = sub_select_anneal_wei(X, Y, W, n_sample, True)
+        X_sub_prox, Y_sub_prox, W_sub_prox = sub_select_anneal_approx(X, Y, W, n_sample, True)
         # cell partition subset
-        X_sub_cell, Y_sub_cell, W_sub_cell = sub_select_cell(X, Y, W, n_sample, 0.1)
+        X_sub_cell, Y_sub_cell, W_sub_cell = sub_select_cell(X, Y, W, n_sample, 0.1, True)
         print ("\nscore of rand\n", score_subset(X_rsub, Y_rsub, X, Y, W))
         print ("\nscore of anneal\n", score_subset(X_sub, Y_sub, X, Y, W))
+        print ("\nscore of approx anneal\n", score_subset(X_sub_prox, Y_sub_prox, X, Y, W))
         print ("\nscore of cell-anneal\n", score_subset(X_sub_cell, Y_sub_cell, X, Y, W))
 
-        X_pos, Y_pos, W_pos = [], [], []
-        for i in range(len(W_sub_cell)):
-            if W_sub_cell[i] > 0:
-                X_pos.append(X_sub_cell[i])
-                Y_pos.append(Y_sub_cell[i])
-                W_pos.append(W_sub_cell[i])
-        print ("\nscore of cell-anneal with only positive \n", score_subset(X_pos, Y_pos, X, Y, W))
-
-        X_sub_cell_idxes = recover_index(X_sub_cell, X)
-        print ("\nsub_cell_index", X_sub_cell_idxes)
         # recursive subset
         print ("\nscore of rec-anneal\n")
         bin_sizes = [50, 100, 200]
@@ -184,7 +235,7 @@ if __name__ == '__main__':
         for bin_size in bin_sizes:
             for ratio in ratios:
                 try:
-                    X_sub_, Y_sub_, W_sub_ = sub_select_rec(X, Y, n_sample, bin_size, ratio)
+                    X_sub_, Y_sub_, W_sub_ = sub_select_rec(X, Y, n_sample, bin_size, ratio, True)
                     msg = "bin_size {} ratio {}\n".format(bin_size, ratio)
                     print (msg, score_subset(X_sub_, Y_sub_, X, Y, W))
                 except:
