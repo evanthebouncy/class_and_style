@@ -87,23 +87,20 @@ def select_mnist(n_samples = [100]):
     W = np.ones(N)
     for n_sample in n_samples:
 
-        """
         # random subset
         X_rsub, Y_rsub = X_tr_emb[:n_sample, :], Y_tr[:n_sample]
-        print ("\nscore of rand\n", score_subset(X_rsub, Y_rsub, X_tr_emb, Y_tr, W))
+        print ("\nscore of rand\n", score_subset(X_rsub, Y_rsub, X_tr_emb, Y_tr, W, one_near=True))
         rsub_idxes = recover_index(X_rsub, X_tr_emb)
         all1_wei = np.ones(n_sample)
         save_index_weight(rsub_idxes, all1_wei, 'mnist_{}_vae_rsub.p'.format(n_sample))
 
         # cluster subset
         X_sub, Y_sub, _ = sub_select_cluster(X_tr_emb, Y_tr, n_sample)
-        cluster_score = score_subset(X_sub, Y_sub, X_tr_emb, Y_tr, W)
+        cluster_score = score_subset(X_sub, Y_sub, X_tr_emb, Y_tr, W, one_near=True)
         print ("cluster score ", cluster_score)
         cluster_idxes = recover_index(X_sub, X_tr_emb)
         save_index_weight(cluster_idxes, all1_wei, 'mnist_{}_vae_cluster.p'.format(n_sample))
-        """
 
-        print ("going directly to approx annealing .  . remove this later")
 
         # approx annealing
         X_sub, Y_sub, W_sub = sub_select_anneal_approx(X_tr_emb, Y_tr, W, n_sample, True,100, 0.01)
