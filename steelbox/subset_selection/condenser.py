@@ -101,7 +101,7 @@ def condense_once_3(X, Y, X_orig, Y_orig):
     print (" score ", score_after, " size ", len(Y_sub))
     return X_sub, Y_sub
 
-def condense_once_4(X, Y, X_orig, Y_orig, throw_frac=0.1):
+def condense_once_4(X, Y, X_orig, Y_orig, throw_frac=0.01):
     tree = cKDTree(X)
     _, top2_idx = tree.query(X_orig, 2)
 
@@ -124,21 +124,25 @@ def condense_once_4(X, Y, X_orig, Y_orig, throw_frac=0.1):
                 removed_acc += 1
 
             # the safe removal of idx_rep is now dependent on other_rep as a buddy
-            if Y[idx_rep] == Y_orig[idx_villager] == Y[other_rep]:
-                rep_buddy[idx_rep].add(other_rep)
+            # if Y[idx_rep] == Y_orig[idx_villager] == Y[other_rep]:
+            rep_buddy[idx_rep].add(other_rep)
 
         return existing_acc - removed_acc
 
     remove_costs = sorted([(get_remove_cost(idx),idx) for idx in range(X.shape[0])])
+
+    score_tossed = 0
 
     throw_amt = int(max(1, throw_frac * len(Y)))
     ban_list = set()
     to_remove = []
     for i in range(throw_amt):
         throw_idx = remove_costs[i][1]
+        throw_score = remove_costs[i][0]
         if throw_idx in ban_list:
             continue
         else:
+            score_tossed += throw_score
             to_remove.append(throw_idx)
             ban_list.update(rep_buddy[throw_idx])
 
@@ -146,7 +150,7 @@ def condense_once_4(X, Y, X_orig, Y_orig, throw_frac=0.1):
     
     W_one = np.ones(len(Y_orig))
     score_after = score_subset(X_sub, Y_sub, X_orig, Y_orig, W_one, one_near=True)
-    print (" score ", score_after, " size ", len(Y_sub))
+    print (" score ", score_after, " size ", len(Y_sub), "threw ", score_tossed)
     return X_sub, Y_sub
 
 

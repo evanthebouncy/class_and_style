@@ -28,12 +28,7 @@ class FCNet(nn.Module):
     x = F.log_softmax(self.pred(x), dim=1)
     return x
 
-  def learn(self, train_corpus):
-
-    losses = []
-    while True:
-      X_sub, Y_sub = train_corpus.get_sample(40)
-      # convert to proper torch forms
+  def learn_once(self, X_sub, Y_sub):
       X_sub = to_torch(X_sub, "float")
       Y_sub = to_torch(Y_sub, "int")
 
@@ -41,12 +36,22 @@ class FCNet(nn.Module):
       self.opt.zero_grad()
       output = self.predict(X_sub)
       loss = F.nll_loss(output, Y_sub)
+      loss.backward()
+      self.opt.step()
+
+      return loss
+
+  def learn(self, train_corpus):
+
+    losses = []
+    while True:
+      X_sub, Y_sub = train_corpus.get_sample(40)
+      loss = self.learn_once(X_sub, Y_sub)
       losses.append( loss.data.cpu().numpy() )
       # terminate if no improvement
       if loss < 1e-3 or min(losses) < min(losses[-1000:]):
+        print (len(losses), " learn iter ")
         break
-      loss.backward()
-      self.opt.step()
 
   def evaluate(self, test_corpus):
     test_data, test_label = test_corpus
