@@ -65,6 +65,8 @@ class FcVAE():
         self.n_hidden = n_hidden
         self.loss_type = loss_type
 
+        self.vae = None
+
     def save(self, loc):
         torch.save(self.vae.state_dict(), loc)
 
@@ -118,6 +120,21 @@ class FcVAE():
 
         self.vae = vae
         return vae
+
+    def learn_once(self, X_sub):
+        if self.vae is None:
+            self.vae = VAE(self.n_feature, self.n_hidden, self.loss_type).cuda()
+
+        # X_sub = self.torchify(X_sub)
+
+        vae = self.vae
+        # optimize 
+        vae.opt.zero_grad()
+        rec, mu, logvar = vae(X_sub)
+        loss = vae.loss_function(rec, X_sub, mu, logvar)
+        loss.backward()
+        vae.opt.step()
+        return loss
 
     def embed(self, X):
         X = np.array(X)

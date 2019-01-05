@@ -12,7 +12,19 @@ from sklearn.metrics import pairwise_distances_argmin_min
 from scipy.spatial import cKDTree
 from .rec_annealing import recover_index
 
-def condense_once(X, Y, X_orig, Y_orig, throw_frac=0.01):
+def condense_once(X, Y, X_orig, Y_orig, throw_frac=0.01, loss='classification'):
+    def get_acc(y1, y2):
+        # computes accuracy for 2 different "labels"
+        # in case of classification, accuracy of 1 if match, 0 if not match
+        # in case of regression, return the negative of squared-loss
+        assert loss in ['classification', 'regression']
+        if loss == 'classification':
+            return 1 if y1 == y2 else 0
+        if loss == 'regression':
+            errr = abs(y1 - y2)
+            # errr = abs(y1 - y2) ** 2
+            return -errr
+
     tree = cKDTree(X)
     _, top2_idx = tree.query(X_orig, 2)
 
@@ -27,16 +39,18 @@ def condense_once(X, Y, X_orig, Y_orig, throw_frac=0.01):
         existing_acc = 0
         removed_acc = 0
         for idx_villager in nearests:
-            if Y_orig[idx_villager] == Y[idx_rep]:
-                existing_acc += 1
+
+            existing_acc += get_acc(Y_orig[idx_villager], Y[idx_rep])
+            # if Y_orig[idx_villager] == Y[idx_rep]:
+            #     existing_acc += 1
 
             other_rep = top2_idx[idx_villager][1]
-            if Y_orig[idx_villager] == Y[other_rep]:
-                removed_acc += 1
+            # if Y_orig[idx_villager] == Y[other_rep]:
+            #     removed_acc += 1
 
             # the safe removal of idx_rep is now dependent on other_rep as a buddy
-            if Y[idx_rep] == Y_orig[idx_villager] == Y[other_rep]:
-                rep_buddy[idx_rep].add(other_rep)
+            # if Y[idx_rep] == Y_orig[idx_villager] == Y[other_rep]:
+            rep_buddy[idx_rep].add(other_rep)
 
         # a small random amount to break ties
         smol_random = random.random() * 0.1
@@ -82,15 +96,41 @@ if __name__ == '__main__':
 
         X, Y = X_tr_emb, Y_tr
         for i in tqdm(range(700)):
+            X, Y, rm_idx = condense_once(X, Y, X_tr_emb, Y_tr, loss='regression')
+            print ("iteration ", i, " cur size ", len(Y))
+
+            remove_orders.append(rm_idx)
+
+            # saving stuff
+            # data_tier_path = 'data_sub/mnist_tiers.p'
+            # pickle.dump(remove_orders, open(data_tier_path, "wb"))
+            # print ("saved . . . ", data_tier_path)
+
+    test5()
+
+    def test6():
+        import time
+        import pickle
+        from tqdm import tqdm
+
+        print ("loading them pickle . . . ")
+        data_embed_path = 'data_embed/fashion_dim32.p'
+        X_tr_emb, Y_tr = pickle.load(open(data_embed_path, "rb"))
+        print ("loaded ")
+        N = X_tr_emb.shape[0]
+
+        remove_orders = []
+
+        X, Y = X_tr_emb, Y_tr
+        for i in tqdm(range(800)):
             X, Y, rm_idx = condense_once(X, Y, X_tr_emb, Y_tr)
             print ("iteration ", i, " cur size ", len(Y))
 
             remove_orders.append(rm_idx)
 
             # saving stuff
-            data_tier_path = 'data_sub/mnist_tiers.p'
+            data_tier_path = 'data_sub/fashion_tiers.p'
             pickle.dump(remove_orders, open(data_tier_path, "wb"))
             print ("saved . . . ", data_tier_path)
 
-    test5()
-
+    # test6()
