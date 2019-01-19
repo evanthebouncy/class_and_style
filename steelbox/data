@@ -1,0 +1,18 @@
+PWD:         /scratch/tiger/research/class_and_style/steelbox
+KRB5CCNAME:  /tmp/krb5cc_13637.longjob
+Command:     python -m subset_selection.make_subset
+
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/runpy.py", line 174, in _run_module_as_main
+    "__main__", fname, loader, pkg_name)
+  File "/usr/lib/python2.7/runpy.py", line 72, in _run_code
+    exec code in run_globals
+  File "/scratch/tiger/research/class_and_style/steelbox/subset_selection/make_subset.py", line 164, in <module>
+    condensor()
+  File "/scratch/tiger/research/class_and_style/steelbox/subset_selection/make_subset.py", line 20, in condensor
+    from tqdm import tqdm
+ImportError: No module named tqdm
+PWD:         /scratch/tiger/research/class_and_style/steelbox
+KRB5CCNAME:  /tmp/krb5cc_18608.longjob
+Command:     python -m subset_selection.make_subset_annealing
+

@@ -10,7 +10,6 @@ def k_means_idx(X, n_samples):
     kmeans = KMeans(n_clusters = n_samples)
     kmeans = kmeans.fit(X)
     cluster_labels = list(kmeans.predict(X))
-    # print (cluster_labels[:100])
     from sklearn.metrics import pairwise_distances_argmin_min
     closest, _ = pairwise_distances_argmin_min(kmeans.cluster_centers_, X)
     return closest 
@@ -66,6 +65,210 @@ def sub_select_anneal_wei(X, Y, W, n_samples, kmean_init):
 
     return X_sub, Y_sub, update_weight(X_sub, Y_sub, X, Y, W)
 
+def anneal_optimize(sub_idxs,X, Y,time_limit = 60):
+    from copy import deepcopy
+    data_size = len(Y)
+    W = np.ones(Y.shape)
+    n_samples = len(sub_idxs)
+    import time
+    start_time = time.time()
+    # return a index _NOT_ present in the sub_idxs, not really efficient but ok . . . 
+    def random_other_idx(sub_idxs):
+        ret = random.randint(0, data_size - 1)
+        # prevent infinite loop
+        if len(sub_idxs) == data_size:
+            return ret
+        if ret in sub_idxs:
+            return random_other_idx(sub_idxs)
+        return ret
+
+    # swap out an existing index with another one not in it
+    def swap_one(sub_idxs, swap_idx):
+        sub_idxs = deepcopy(sub_idxs)
+        sub_idxs[swap_idx] = random_other_idx(sub_idxs)
+        return sub_idxs
+
+    # initialize the sub idxs and the corresponding subsets
+    #sub_idxs = np.random.choice(list(range(len(Y))), n_samples, replace=False)
+    #if kmean_init:
+    #    sub_idxs = k_means_idx(X, n_samples)
+
+    X_sub, Y_sub = X[sub_idxs, :], Y[sub_idxs]
+    score_old = score_subset(X_sub, Y_sub, X, Y, W)
+    stuck_cnt = 0
+
+    # iterate for 100 times the n_sample size
+    for i in range(n_samples * 100):
+        stuck_cnt += 1
+        # break if local maximum is reached . . . 
+        if time.time()>start_time + time_limit:
+            break
+        swap_idx = i % n_samples
+        new_sub_idxs = swap_one(sub_idxs, swap_idx)
+        new_X_sub, new_Y_sub = X[new_sub_idxs, :], Y[new_sub_idxs]
+
+        score_new = score_subset(new_X_sub, new_Y_sub, X, Y, W)
+
+        # if found a better subset, reset the counters and update the current best
+        if score_new > score_old:
+            X_sub, Y_sub = new_X_sub, new_Y_sub
+            sub_idxs = new_sub_idxs
+            score_old = score_new
+            stuck_cnt = 0
+            print(score_new)
+    return sub_idxs
+
+
+def sub_select_anneal_series(subidxs,up,X, Y, n_samples, kmean_init):
+    from copy import deepcopy
+    data_size = len(Y)
+    W = np.ones(Y.shape)
+
+    # return a index _NOT_ present in the sub_idxs, not really efficient but ok . . . 
+    def random_other_idx(sub_idxs):
+        ret = random.randint(0, data_size - 1)
+        # prevent infinite loop
+        if len(sub_idxs) == data_size:
+            return ret
+        if ret in sub_idxs:
+            return random_other_idx(sub_idxs)
+        return ret
+
+    # swap out an existing index with another one not in it
+    def swap_one(sub_idxs, swap_idx):
+        sub_idxs = deepcopy(sub_idxs)
+        sub_idxs[swap_idx] = random_other_idx(sub_idxs)
+        return sub_idxs
+
+    # initialize the sub idxs and the corresponding subsets
+    #sub_idxs = np.random.choice(list(range(len(Y))), n_samples, replace=False)
+    #if kmean_init:
+    #    sub_idxs = k_means_idx(X, n_samples)
+
+    X_sub, Y_sub = X[sub_idxs, :], Y[sub_idxs]
+    score_old = score_subset(X_sub, Y_sub, X, Y, W)
+    stuck_cnt = 0
+
+    # iterate for 100 times the n_sample size
+    for i in range(n_samples * 100):
+        stuck_cnt += 1
+        # break if local maximum is reached . . . 
+        if stuck_cnt > n_samples:
+            break
+        swap_idx = i % n_samples
+        new_sub_idxs = swap_one(sub_idxs, swap_idx)
+        new_X_sub, new_Y_sub = X[new_sub_idxs, :], Y[new_sub_idxs]
+
+        score_new = score_subset(new_X_sub, new_Y_sub, X, Y, W)
+
+        # if found a better subset, reset the counters and update the current best
+        if (score_new > score_old and up) or (score_new < score_old and (not up)):
+            X_sub, Y_sub = new_X_sub, new_Y_sub
+            sub_idxs = new_sub_idxs
+            score_old = score_new
+            stuck_cnt = 0
+            print(score_new)
+
+
+def try_random(X,Y,n_samples):
+
+
+
+    def sub_select_anneal_series(sub_idxs,up,X, Y, n_samples):
+        from copy import deepcopy
+        data_size = len(Y)
+        W = np.ones(Y.shape)
+
+        # return a index _NOT_ present in the sub_idxs, not really efficient but ok . . . 
+        def random_other_idx(sub_idxs):
+            ret = random.randint(0, data_size - 1)
+            # prevent infinite loop
+            if len(sub_idxs) == data_size:
+                return ret
+            if ret in sub_idxs:
+                return random_other_idx(sub_idxs)
+            return ret
+
+        # swap out an existing index with another one not in it
+        def swap_one(sub_idxs, swap_idx):
+            sub_idxs = deepcopy(sub_idxs)
+            sub_idxs[swap_idx] = random_other_idx(sub_idxs)
+            return sub_idxs
+
+        # initialize the sub idxs and the corresponding subsets
+        #sub_idxs = np.random.choice(list(range(len(Y))), n_samples, replace=False)
+        #if kmean_init:
+        #    sub_idxs = k_means_idx(X, n_samples)
+
+        X_sub, Y_sub = X[sub_idxs, :], Y[sub_idxs]
+        score_old = score_subset(X_sub, Y_sub, X, Y, W)
+        stuck_cnt = 0
+
+        # iterate for 100 times the n_sample size
+        for i in range(int(n_samples/2)):               # need to change
+            stuck_cnt += 1
+            # break if local maximum is reached . . . 
+            if stuck_cnt > n_samples:
+                break
+            swap_idx = i % n_samples
+            new_sub_idxs = swap_one(sub_idxs, swap_idx)
+            new_X_sub, new_Y_sub = X[new_sub_idxs, :], Y[new_sub_idxs]
+
+            score_new = score_subset(new_X_sub, new_Y_sub, X, Y, W)
+
+            # if found a better subset, reset the counters and update the current best
+            if (score_new > score_old and up) or (score_new < score_old and (not up)):
+                X_sub, Y_sub = new_X_sub, new_Y_sub
+                index_series.append(new_sub_idxs)
+                score_series.append(score_new)
+                sub_idxs = new_sub_idxs
+                score_old = score_new
+                stuck_cnt = 0
+                print(score_new)
+    index_series=[]
+    score_series=[]
+    max_score = -1.0
+    min_score = 1e8
+
+    W=np.ones(Y.shape)
+    trial = 20
+    for i in range(100):
+        for j in range(trial):
+            sub_idxs = np.random.choice(list(range(len(Y))), n_samples, replace=False)
+            X_sub, Y_sub = X[sub_idxs, :], Y[sub_idxs]
+            score_old = score_subset(X_sub, Y_sub, X, Y, W)
+            print(score_old)
+            index_series.append(sub_idxs)
+            score_series.append(score_old)
+            max_score = max(max_score,score_old)
+            min_score = min(min_score,score_old)
+        for j in range(3*trial):
+            sub_idxs = np.random.choice(list(range(len(Y))), n_samples, replace=False)
+            X_sub, Y_sub = X[sub_idxs, :], Y[sub_idxs]
+            score_old = score_subset(X_sub, Y_sub, X, Y, W)
+            if score_old < min_score:
+                sub_select_anneal_series(sub_idxs,False,X, Y, n_samples)
+
+
+            if score_old > max_score:
+                sub_select_anneal_series(sub_idxs,True,X, Y, n_samples)
+        for j in range(int(trial/10)):
+            sub_idxs = k_means_idx(X, n_samples)
+            X_sub, Y_sub = X[sub_idxs, :], Y[sub_idxs]
+            score_old = score_subset(X_sub, Y_sub, X, Y, W)
+            print(score_old)
+            index_series.append(sub_idxs)
+            score_series.append(score_old)
+            sub_select_anneal_series(sub_idxs,False,X,Y,n_samples)
+        import pickle
+        with open('data_sub/mnist_series.p','wb') as f:
+            pickle.dump(index_series,f)
+            pickle.dump(score_series,f)
+        print('saved to mnist_series',i)
+
+
+
+           
 def sub_select_cell(X, Y, W, bin_size, ratio, kmean_init):
     """
         bin_size : if size_of_X less than bin_size, do annealing,
@@ -240,5 +443,10 @@ if __name__ == '__main__':
                     print (msg, score_subset(X_sub_, Y_sub_, X, Y, W))
                 except:
                     pass
-    test3()
+    def test4():
+        import pickle
+        X,Y = pickle.load(open('data_embed/mnist_dim32.p',"rb"))
+        try_random(X,Y,100)
+        #sub_select_anneal_series(X,Y,100,True)
+    test4()
 
