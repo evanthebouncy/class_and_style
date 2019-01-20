@@ -81,7 +81,7 @@ def test():
 # RICHARD PARALLELIZE THIS GIANT LOOP THINGIE THIS THING THIS THIS ! ! ! 
 def example():
     ans = []
-    models = ['FC','CNN','DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
+    models = ['LGR', 'FC','CNN','DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
     subset_names = ['random','tiers','kmeans','tiers_anneal','kmeans_anneal','random_anneal']
     for model in models:
         for subset_name in subset_names:
