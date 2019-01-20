@@ -3,9 +3,9 @@ import numpy as np
 
 import random
 from scipy import ndarray
-import skimage as sk
-from skimage import transform
-from skimage import util
+# import skimage as sk
+# from skimage import transform
+# from skimage import util
 
 def gen_data(data_dir):
     the_path = data_dir + "/mnist_data/"
