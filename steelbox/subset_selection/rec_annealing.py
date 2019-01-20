@@ -115,7 +115,6 @@ def anneal_optimize(sub_idxs,X, Y,time_limit = 60):
             sub_idxs = new_sub_idxs
             score_old = score_new
             stuck_cnt = 0
-            print(score_new)
     return sub_idxs
 
 

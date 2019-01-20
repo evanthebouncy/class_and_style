@@ -34,6 +34,38 @@ def eval_fc(dataset, tiers):
         # result_path = 'results/mnist_tiers.p'
         # pickle.dump(tier_results, open(result_path, "wb"))
         # print ('result saved')
+def eval_fc_new(dataset, tiers):
+
+    if dataset == 'artificial':
+        X_tr, Y_tr, X_t, Y_t = pickle.load(open('data_raw/artificial/artificial.p', 'rb'))
+    if dataset == 'mnist':
+        from data_raw.mnist_ import gen_data
+        X_tr, Y_tr, X_t, Y_t = gen_data("./data_raw")
+
+    tier_results = []
+    size = 100
+    while size < X_tr.shape[0]:
+        sub_idx = tiers[:size]
+        sub_wei = np.ones([len(sub_idx)],)
+
+        X_tr_sub = X_tr[sub_idx]
+        Y_tr_sub = Y_tr[sub_idx]
+
+        sampler = WSampler(X_tr_sub, Y_tr_sub, sub_wei)
+        X_dim = X_tr.shape[1]
+        Y_dim = len(np.unique(Y_tr))
+        fc = FCNet(X_dim, Y_dim).cuda()
+        fc.learn(sampler)
+        fc_score = fc.evaluate((X_t, Y_t))
+
+        print ("data len ", len(sub_idx), " has accuracy ", fc_score)
+        tier_results.append( (len(sub_idx), fc_score) )
+
+        result_path = 'results/mnist_tiers_new.p'
+        pickle.dump(tier_results, open(result_path, "wb"))
+        print ('result saved')
+        size = int(size * 1.1)
+
 
 def point_eval_fc(dataset, tiers, i, is_rand, is_aug):
 
@@ -107,15 +139,5 @@ if __name__ == '__main__':
 
     data_tier_path = 'data_sub/mnist_tiers.p'
     mnist_tiers = pickle.load(open(data_tier_path, "rb"))
-    tiers = make_tier_idx(mnist_tiers, 60000)
+    eval_fc_new('mnist',mnist_tiers)
 
-    # eval_fc(dataset, tiers)
-    def test_tiers_point():
-        while True:
-            i = int(input("enter i\n"))
-            is_rand = eval(input("enter is rand\n"))
-            is_aug = eval(input("enter is aug\n"))
-            point_eval_fc(dataset, tiers, i, is_rand, is_aug)
-
-    # eval_fc_order(dataset, tiers, True)
-    test_tiers_point()
