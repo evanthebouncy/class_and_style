@@ -65,7 +65,10 @@ def eval_model(model_name,subset_name,subset_size_index):
 
     score_m_m = model.evaluate((MNIST_X_t, MNIST_Y_t))
 
-    return_string = model_name+'_'+subset_name+'_'+str(len(Y_tr))+':'+str(score_m_m)
+    return_string = model_name+'_'+subset_name+'_'+\
+                    str(len(Y_tr))+\
+                    (('.'+str(subset_size_index)) if subset_name in ['random','random_anneal'] else '')\
+                    +':'+str(score_m_m)
     return return_string
 
 def test():
