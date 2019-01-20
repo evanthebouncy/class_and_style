@@ -1,4 +1,4 @@
-from evaluation.classifiers import FCNet, LRegr, EKNN, CNN1, \
+from evaluation.classifiers import FCNet, LGR, EKNN, CNN1, \
                                    SVM, SGD, DTREE, EKNN, QDA, \
                                    RFOREST, GP
 from evaluation.data_sampler import WSampler, make_tier_idx
@@ -35,7 +35,10 @@ def eval_model(model_name,subset_name,subset_size_index):
     if type(mnist_idx)==str:
         return 'bad_size'
 
-    models = {'FC': lambda : FCNet(X_dim, Y_dim).cuda(),
+    models = {
+              
+              'LGR': lambda : LGR(28 * 28, 10).cuda(),
+              'FC': lambda : FCNet(28 * 28, 10).cuda(),
               'CNN': lambda : CNN1((1, 28, 28), 10).cuda(),
               'SVMrbf': lambda : SVM('rbf'),
               'SVMLin': lambda : SVM('linear'),
@@ -62,17 +65,20 @@ def eval_model(model_name,subset_name,subset_size_index):
 
     score_m_m = model.evaluate((MNIST_X_t, MNIST_Y_t))
 
-    return_string = model_name+'_'+subset_name+'_'+str(len(Y_tr))+'_'+str(score_m_m)
+    return_string = model_name+'_'+subset_name+'_'+str(len(Y_tr))+':'+str(score_m_m)
     return return_string
 
 def test():
-    models = ['DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
+    #models = ['DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
+    #subset_names = ['random','tiers','kmeans','tiers_anneal','kmeans_anneal','random_anneal']
+    models = ['LGR', 'FC', 'CNN']
     subset_names = ['random','tiers','kmeans','tiers_anneal','kmeans_anneal','random_anneal']
     for model in models:
         for subset_name in subset_names:
             print(eval_model(model,subset_name,2))
-            print(eval_model(model, subset_name, 1000))
+            print(eval_model(model, subset_name, 60))
 
+# RICHARD PARALLELIZE THIS GIANT LOOP THINGIE THIS THING THIS THIS ! ! ! 
 def example():
     ans = []
     models = ['FC','CNN','DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
@@ -85,8 +91,6 @@ def example():
                     break
                 ans.append(str)
     return ans
-
-
 
 if __name__ == '__main__':
     test()

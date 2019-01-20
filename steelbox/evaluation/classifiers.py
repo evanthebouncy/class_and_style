@@ -16,7 +16,7 @@ def to_torch(x, dtype, req = False):
 
 class FCNet(nn.Module):
 
-  def __init__(self, in_dim, out_dim, stop_criteria = (0.001, 1000)):
+  def __init__(self, in_dim, out_dim, stop_criteria = (0.01, 1000)):
     super(FCNet, self).__init__()
     self.name = "FCNet"
     h_dim = (in_dim + out_dim) // 2
@@ -52,16 +52,13 @@ class FCNet(nn.Module):
     while True:
       X_sub, Y_sub = train_corpus.get_sample(40)
       loss = self.learn_once(X_sub, Y_sub)
-      losses.append( loss.data.cpu().numpy() )
+      losses.append( loss.data.cpu().numpy() + 1e-5 )
       # terminate if no improvement
       if len(losses) > 2 * loss_iter_bnd:
-          last_loss = losses[-loss_iter_bnd:]
-          last_last_loss = losses[-2 * loss_iter_bnd:-loss_iter_bnd]
-          if np.mean(last_loss) > np.mean(last_last_loss):
+          last_loss =      np.mean(losses[-loss_iter_bnd:])
+          last_last_loss = np.mean(losses[-2 * loss_iter_bnd:-loss_iter_bnd])
+          if abs(last_loss - last_last_loss) / last_last_loss < loss_th:
               break
-      #if loss < loss_th or min(losses) < min(losses[-loss_iter_bnd:]):
-      #  print (len(losses), " learn iter ", "cur loss ", loss)
-      #  break
 
   def evaluate(self, test_corpus):
     test_data, test_label = test_corpus
@@ -73,7 +70,7 @@ class FCNet(nn.Module):
 class CNN1(nn.Module):
 
     # init with (channel, height, width) and out_dim for classiication
-    def __init__(self, ch_h_w, out_dim, stop_criteria = (0.001, 1000)):
+    def __init__(self, ch_h_w, out_dim, stop_criteria = (0.01, 1000)):
         super(CNN1, self).__init__()
         self.name = "CNN1"
 
@@ -117,15 +114,13 @@ class CNN1(nn.Module):
         while True:
             X_sub, Y_sub = train_corpus.get_sample(40)
             loss = self.learn_once(X_sub, Y_sub)
-            losses.append( loss.data.cpu().numpy() )
+            losses.append( loss.data.cpu().numpy() + 1e-5)
+
             # terminate if no improvement
-            # if loss < loss_th or min(losses) < min(losses[-loss_iter_bnd:]):
-            #     print (len(losses), " learn iter ", "cur loss ", loss)
-            #     break
             if len(losses) > 2 * loss_iter_bnd:
-                last_loss = losses[-loss_iter_bnd:]
-                last_last_loss = losses[-2 * loss_iter_bnd:-loss_iter_bnd]
-                if np.mean(last_loss) > np.mean(last_last_loss):
+                last_loss =      np.mean(losses[-loss_iter_bnd:])
+                last_last_loss = np.mean(losses[-2 * loss_iter_bnd:-loss_iter_bnd])
+                if abs(last_loss - last_last_loss) / last_last_loss < loss_th:
                     break
   
     def evaluate(self, test_corpus):
@@ -137,21 +132,55 @@ class CNN1(nn.Module):
 
 
 # ========================= LOGISTIC REGRESSION CLASSIFIER ========================
-class LRegr:
+class LGR(nn.Module):
 
-  def __init__(self):
-    self.name = "LRegr"
+  def __init__(self, in_dim, out_dim, stop_criteria = (0.01, 1000)):
+    super(LGR, self).__init__()
+    self.name = "LGR"
+    self.pred = nn.Linear(in_dim, out_dim)
+    self.opt = torch.optim.Adam(self.parameters(), lr=0.001)
+
+    self.stop_criteria = stop_criteria
+
+  def predict(self, x):
+    x = F.log_softmax(self.pred(x), dim=1)
+    return x
+
+  def learn_once(self, X_sub, Y_sub):
+      X_sub = to_torch(X_sub, "float")
+      Y_sub = to_torch(Y_sub, "int")
+
+      # optimize 
+      self.opt.zero_grad()
+      output = self.predict(X_sub)
+      loss = F.nll_loss(output, Y_sub)
+      loss.backward()
+      self.opt.step()
+
+      return loss
 
   def learn(self, train_corpus):
-    train_data, train_label = train_corpus.X, train_corpus.Y
-    logisticRegr = LogisticRegression(multi_class='multinomial', solver='lbfgs')
-    logisticRegr.fit(train_data, train_label)
-    self.logisticRegr = logisticRegr
+
+    loss_th, loss_iter_bnd = self.stop_criteria
+
+    losses = []
+    while True:
+      X_sub, Y_sub = train_corpus.get_sample(40)
+      loss = self.learn_once(X_sub, Y_sub)
+      losses.append( loss.data.cpu().numpy() + 1e-5)
+      # terminate if no improvement
+      if len(losses) > 2 * loss_iter_bnd:
+          last_loss =      np.mean(losses[-loss_iter_bnd:])
+          last_last_loss = np.mean(losses[-2 * loss_iter_bnd:-loss_iter_bnd])
+          if abs(last_loss - last_last_loss) / last_last_loss < loss_th:
+              break
 
   def evaluate(self, test_corpus):
     test_data, test_label = test_corpus
-    label_pred = self.logisticRegr.predict(test_data)
+    test_data = to_torch(test_data, "float")
+    label_pred = np.argmax(self.predict(test_data).data.cpu().numpy(), axis=1)
     return np.sum(label_pred == test_label) / len(test_label)
+
 
 # ======================== K NAEREST NEIGBHR CLASSIFIER ==========================
 class EKNN:
