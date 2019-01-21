@@ -25,6 +25,7 @@ def learn_loop(self, train_corpus):
     while True:
         # break on time 
         if time.time() - time_s > stop_time:
+            self.term = 'timeout'
             break
 
         X_sub, Y_sub = train_corpus.get_sample(40)
@@ -35,6 +36,7 @@ def learn_loop(self, train_corpus):
             last_loss =            np.mean(losses[-loss_iter_bnd:])
             last_last_loss = np.mean(losses[-2 * loss_iter_bnd:-loss_iter_bnd])
             if abs(last_loss - last_last_loss) / last_last_loss < loss_th:
+                self.term = 'saturation'
                 break
 
 

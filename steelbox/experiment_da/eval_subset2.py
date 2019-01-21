@@ -77,11 +77,14 @@ def eval_model(model_name,subset_name,subset_size):
     score_m_m = model.evaluate((MNIST_X_t, MNIST_Y_t))
     time_spent = time.time() - t_start
 
+    terminate_cause = model.term if hasattr(model, 'term') else None
+
     return_string = json.dumps(
         {'model_name': model_name,
          'subset_name': subset_name,
          'num_samples': len(Y_tr),
          'time' : time_spent,
+         'term' : terminate_cause,
          'score_m_m': score_m_m})
 
     return return_string
@@ -94,7 +97,6 @@ def test():
     all_experiments = list(itertools.product(subset_sizes, subset_names, models))
 
     print (len(all_experiments))
-    print (all_experiments)
 
     random_exp = random.choice(all_experiments)
     print (random_exp)
