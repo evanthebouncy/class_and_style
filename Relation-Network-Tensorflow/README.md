@@ -1,3 +1,15 @@
+To train autoencoder:
+python run.py
+Note that it will not train model if model already exists in the local folder
+
+To visualize the decoded picture:
+python visualize.py
+
+Cuda is turned off. You need to add .cuda in the end of lines 14 of cnn_vae to use cuda.
+Variation penalty is not added yet.
+The questions are not encoded yet.
+
+
 # Relation Networks and Sort-of-CLEVR in Tensorflow
 
 As part of the implementation series of [Joseph Lim's group at USC](http://csail.mit.edu/~lim), our motivation is to accelerate (or sometimes delay) research in the AI community by promoting open-source projects. To this end, we implement state-of-the-art research papers, and publicly share them with concise reports. Please visit our [group github site](https://github.com/gitlimlab) for other projects.
