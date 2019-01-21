@@ -7,7 +7,7 @@ import random
 import matplotlib.pyplot as plt
 
 class VAE(nn.Module):
-    def __init__(self, n_feature, n_hidden, loss_type='xentropy'):
+    def __init__(self, n_feature, n_hidden, loss_type='xentropy', output_type='sigmoid'):
         super(VAE, self).__init__()
         assert loss_type in ['xentropy', 'L2']
         self.loss_type = loss_type
@@ -24,6 +24,8 @@ class VAE(nn.Module):
 
         self.opt = torch.optim.Adam(self.parameters(), lr=1e-3)
 
+        self.output_type = output_type
+
     def encode(self, x):
         h1 = F.relu(self.fc1(x))
         return self.fc_mu(h1), self.fc_logvar(h1)
@@ -34,20 +36,28 @@ class VAE(nn.Module):
         return eps.mul(std).add_(mu)
 
     def decode(self, z):
-        h3 = F.relu(self.fc3(z))
-        return torch.sigmoid(self.fc4(h3))
+        if self.output_type == 'sigmoid':
+            h3 = F.relu(self.fc3(z))
+            return torch.sigmoid(self.fc4(h3))
+        if self.output_type == 'tanh':
+            h3 = F.relu(self.fc3(z))
+            return torch.tanh(self.fc4(h3))
 
     def forward(self, x):
         mu, logvar = self.encode(x)
         z = self.reparameterize(mu, logvar)
         return self.decode(z), mu, logvar
 
+    def ae(self, x):
+        mu, logvar = self.encode(x)
+        return self.decode(mu)
+
     # Reconstruction + KL divergence losses summed over all elements and batch
     def loss_function(self, recon_x, x, mu, logvar):
-        BCE = F.binary_cross_entropy(recon_x, x)
-        L2L = torch.sum((recon_x - x) ** 2)
+        BCE = lambda : F.binary_cross_entropy(recon_x, x)
+        L2L = lambda : torch.sum((recon_x - x) ** 2)
 
-        REC = BCE if self.loss_type == 'xentropy' else L2L
+        REC = BCE() if self.loss_type == 'xentropy' else L2L()
 
 
         # see Appendix B from VAE paper:
@@ -59,12 +69,12 @@ class VAE(nn.Module):
         return REC + KLD
 
 class FcVAE():
-    def __init__(self, n_feature, n_hidden, loss_type):
+    def __init__(self, n_feature, n_hidden, loss_type, output_type='sigmoid'):
         self.name = "FcVAEnet"
         self.n_feature = n_feature
         self.n_hidden = n_hidden
         self.loss_type = loss_type
-
+        self.output_type = output_type
         self.vae = None
 
     def save(self, loc):
@@ -114,7 +124,6 @@ class FcVAE():
 
             # if len(losses) % len(X) == 0:
             #     print ("loss ", len(losses), loss)
-
             if i % 4000 == 0:
                 print (i, loss)
 
@@ -123,7 +132,7 @@ class FcVAE():
 
     def learn_once(self, X_sub):
         if self.vae is None:
-            self.vae = VAE(self.n_feature, self.n_hidden, self.loss_type).cuda()
+            self.vae = VAE(self.n_feature, self.n_hidden, self.loss_type, self.output_type).cuda()
 
         # X_sub = self.torchify(X_sub)
 
@@ -137,6 +146,8 @@ class FcVAE():
         return loss
 
     def embed(self, X):
+        if self.vae is None:
+            self.vae = VAE(self.n_feature, self.n_hidden, self.loss_type, self.output_type).cuda()
         X = np.array(X)
         X = self.torchify(X)
         encoded, _, = self.vae.encode(X)
