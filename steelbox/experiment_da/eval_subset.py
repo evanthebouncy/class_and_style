@@ -2,9 +2,13 @@ from evaluation.classifiers import FCNet, LGR, EKNN, CNN1, \
                                    SVM, SGD, DTREE, EKNN, QDA, \
                                    RFOREST, GP
 from evaluation.data_sampler import WSampler, make_tier_idx
+import json
 import numpy as np
 import pickle
 import random
+import itertools
+import ray
+import tqdm
 
 def get_size_from_index(size):
     import math
@@ -29,6 +33,7 @@ def get_idx(subset_name,subset_size_index):
             return 'bad_size'
         return mnist_idx[subset_size_index]
 
+@ray.remote
 def eval_model(model_name,subset_name,subset_size_index):
     import pickle
     mnist_idx = get_idx(subset_name,subset_size_index)
@@ -65,10 +70,18 @@ def eval_model(model_name,subset_name,subset_size_index):
 
     score_m_m = model.evaluate((MNIST_X_t, MNIST_Y_t))
 
-    return_string = model_name+'_'+subset_name+'_'+\
-                    str(len(Y_tr))+\
-                    (('.'+str(subset_size_index)) if subset_name in ['random','random_anneal'] else '')\
-                    +':'+str(score_m_m)
+    return_string = json.dumps(
+        {'model_name': model_name,
+         'subset_name': subset_name,
+         'num_samples': len(Y_tr),
+         'subset_size_index': subset_size_index if subset_name in ['random',
+         'random_anneal'] else None,
+         'score_m_m': score_m_m})
+
+    #return_string = model_name+'_'+subset_name+'_'+\
+    #                str(len(Y_tr))+\
+    #                (('.'+str(subset_size_index)) if subset_name in ['random','random_anneal'] else '')\
+    #                +':'+str(score_m_m)
     return return_string
 
 def test():
@@ -82,18 +95,38 @@ def test():
             print(eval_model(model, subset_name, 60))
 
 # RICHARD PARALLELIZE THIS GIANT LOOP THINGIE THIS THING THIS THIS ! ! ! 
-def example():
+def example(output_path):
+    output = open(output_path, 'w')
+
     ans = []
     models = ['LGR', 'FC','CNN','DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
     subset_names = ['random','tiers','kmeans','tiers_anneal','kmeans_anneal','random_anneal']
-    for model in models:
-        for subset_name in subset_names:
-            for subset_size_index in range(0,1000):
-                str = eval_model(model,subset_name,subset_size_index)
-                if str == 'bad_size':
-                    break
-                ans.append(str)
-    return ans
+    all_experiments = list(itertools.product(models,
+        subset_names, range(0, 1000)))
+
+
+    pbar = tqdm.tqdm(total=len(all_experiments), dynamic_ncols=True)
+    experiment_iter = iter(all_experiments)
+    ready, futures = [], []
+
+    while True:
+        while len(futures) < 1000:
+            try:
+                model, subset_name, subset_size_index = next(experiment_iter)
+                f = eval_model.remote(model, subset_name, subset_size_index)
+                futures.append(f)
+            except Stopiteration:
+                break
+        ready, futures = ray.wait(futures)
+        for f in ready:
+            result = ray.get(f)
+            output.write(result + '\n')
+            output.flush()
+            pbar.update(1)
+        if not futures:
+            break
+    output.close()
 
 if __name__ == '__main__':
-    test()
+    ray.init(num_cpus=64)
+    example('eval_subset_results.jsonl')
