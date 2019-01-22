@@ -36,12 +36,13 @@ class VAE(nn.Module):
         return eps.mul(std).add_(mu)
 
     def decode(self, z):
+        h3 = F.relu(self.fc3(z))
         if self.output_type == 'sigmoid':
-            h3 = F.relu(self.fc3(z))
             return torch.sigmoid(self.fc4(h3))
         if self.output_type == 'tanh':
-            h3 = F.relu(self.fc3(z))
             return torch.tanh(self.fc4(h3))
+        if self.output_type == 'linear':
+            return self.fc4(h3)
 
     def forward(self, x):
         mu, logvar = self.encode(x)
@@ -92,7 +93,7 @@ class FcVAE():
         return x
 
     def learn(self, X, learn_iter = 100000):
-        vae = VAE(self.n_feature, self.n_hidden, self.loss_type).cuda()
+        vae = VAE(self.n_feature, self.n_hidden, self.loss_type, self.output_type).cuda()
         losses = []
             # for i in range(99999999999):
         for i in range(learn_iter):

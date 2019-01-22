@@ -182,7 +182,7 @@ def embed_sentiment():
 
     X_size = X_tr.shape[1]
     from embed.fc_vae import FcVAE
-    vae = FcVAE(X_size, emb_dim, 'L2')
+    vae = FcVAE(X_size, emb_dim, 'L2', output_type='linear')
 
     saved_model_path = 'embed/saved_models/sentiment_vae_{}.mdl'.format(emb_dim)
     import os.path
@@ -191,7 +191,7 @@ def embed_sentiment():
         vae.load(saved_model_path)
     else:
         print ("no saved model found, training auto-encoder ")
-        vae.learn(X_tr, learn_iter = 100)
+        vae.learn(X_tr, learn_iter = 100000)
         vae.save(saved_model_path)
         print ("saved model at ", saved_model_path)
 
@@ -200,6 +200,9 @@ def embed_sentiment():
 
     data_embed_path = 'data_embed/sentiment_dim{}.p'.format(emb_dim)
     pickle.dump((X_tr_emb,Y_tr), open( data_embed_path, "wb" ) )
+
+    orig_embed_path = 'data_embed/sentiment_dim_bert.p'
+    pickle.dump((X_tr,Y_tr), open( orig_embed_path, "wb" ) )
 
 
 if __name__ == "__main__":

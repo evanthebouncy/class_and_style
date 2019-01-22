@@ -18,7 +18,7 @@ def plot2d(X, Y, name=None):
     plt.savefig('vis_'+name+'.png')
     plt.clf()
 
-if __name__ == '__main__':
+def mnist():
     MNIST_X, MNIST_Y = pickle.load(open("mnist_dim32.p", "rb"))
     rand_idx = np.random.choice(range(60000), 1000, replace=False)
 
@@ -32,3 +32,25 @@ if __name__ == '__main__':
     JOIN_X = JOIN_X[rand_idx]
     JOIN_Y = JOIN_Y[rand_idx]
     plot2d(JOIN_X, JOIN_Y, "join_32")
+
+def sentiment_bert():
+    SENT_X, SENT_Y = pickle.load(open("sentiment_dim_bert.p", "rb"))
+    print (np.unique(SENT_Y))
+    rand_idx = np.random.choice(range(len(SENT_Y)), 1000, replace=False)
+
+    SENT_X = SENT_X[rand_idx]
+    SENT_Y = SENT_Y[rand_idx]
+    plot2d(SENT_X, SENT_Y, "sentiment_bert")
+
+def sentiment_32():
+    SENT_X, SENT_Y = pickle.load(open("sentiment_dim32.p", "rb"))
+    print (np.unique(SENT_Y))
+    rand_idx = np.random.choice(range(len(SENT_Y)), 1000, replace=False)
+
+    SENT_X = SENT_X[rand_idx]
+    SENT_Y = SENT_Y[rand_idx]
+    plot2d(SENT_X, SENT_Y, "sentiment_32")
+
+if __name__ == '__main__':
+    # mnist()
+    sentiment_32()
