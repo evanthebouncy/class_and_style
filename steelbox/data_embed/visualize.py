@@ -42,6 +42,15 @@ def sentiment_bert():
     SENT_Y = SENT_Y[rand_idx]
     plot2d(SENT_X, SENT_Y, "sentiment_bert")
 
+def mnist_32():
+    MNIST_X, MNIST_Y = pickle.load(open("mnist_dim32.p", "rb"))
+    print (np.unique(MNIST_Y))
+    rand_idx = np.random.choice(range(len(MNIST_Y)), 1000, replace=False)
+
+    MNIST_X = MNIST_X[rand_idx]
+    MNIST_Y = MNIST_Y[rand_idx]
+    plot2d(MNIST_X, MNIST_Y, "mnist_32")
+
 def sentiment_32():
     SENT_X, SENT_Y = pickle.load(open("sentiment_dim32.p", "rb"))
     print (np.unique(SENT_Y))
@@ -53,6 +62,7 @@ def sentiment_32():
 
 def relation_32():
     SENT_X, SENT_Y = pickle.load(open("relation_dim32.p", "rb"))
+    print (SENT_X.shape)
     print (np.unique(SENT_Y))
     rand_idx = np.random.choice(range(len(SENT_Y)), 5000, replace=False)
 
@@ -65,4 +75,5 @@ def relation_32():
 if __name__ == '__main__':
     # mnist()
     # sentiment_32()
-    relation_32()
+    # relation_32()
+    mnist_32()
