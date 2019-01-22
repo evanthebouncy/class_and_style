@@ -10,9 +10,9 @@ from cnn_vae import to_torch
 
 
 def embed_Relation():
-    emb_dim = 64
+    emb_dim = 32
     images, questions, answers = getdata()
-    X_tr = images/255.0
+    X_tr = images / 255.0
     Y_tr = answers
 
 
@@ -21,16 +21,17 @@ def embed_Relation():
     #X_size = X_tr.shape[1]
     X_tr = np.array(X_tr)
     from cnn_vae import CNN
-    cnn = CNN(3)
+    cnn = CNN(3).cuda()
 
     saved_model_path = 'relation_model.mdl'
     import os.path
-    if os.path.isfile(saved_model_path):
+    if False:
+        # if os.path.isfile(saved_model_path):
         print ("loaded saved model at ", saved_model_path)
         cnn.load(saved_model_path)
     else:
         print ("no saved model found, training auto-encoder ")
-        cnn.learn(X_tr, learn_iter = 200)
+        cnn.learn(X_tr, learn_iter = 1000000)
         cnn.save(saved_model_path)
         print ("saved model at ", saved_model_path)
 
