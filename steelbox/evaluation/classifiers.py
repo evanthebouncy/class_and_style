@@ -32,6 +32,7 @@ def learn_loop(self, train_corpus):
         X_sub, Y_sub = train_corpus.get_sample(40)
         loss = self.learn_once(X_sub, Y_sub)
         losses.append( loss.data.cpu().numpy() + 1e-5 )
+        num_steps += 1
         # terminate if no improvement
         if len(losses) > 2 * loss_iter_bnd:
             last_loss =            np.mean(losses[-loss_iter_bnd:])
