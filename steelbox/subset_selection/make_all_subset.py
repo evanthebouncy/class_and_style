@@ -134,12 +134,12 @@ if __name__ == '__main__':
     parser.add_argument("type")
     args = parser.parse_args()
     import pickle
-    X,Y = pickle.load(open('data_embed/sentiment_dim32.p','rb'))
-    name = 'sentiment'
+    X,Y = pickle.load(open('data_embed/relation_dim32.p','rb'))
+    name = 'relation'
     print('Let the games begin:',args.type)
 
     if args.type == 'tiers':
-        condensor(X,Y,'sentiment')
+        condensor(X,Y,name)
         data_tier_path = 'data_sub/' + name + '_tiers.p'
         index = pickle.load(open(data_tier_path, "rb"))
         flat_anneal(X,Y,index,name)
