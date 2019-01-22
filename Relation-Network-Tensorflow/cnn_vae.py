@@ -15,21 +15,24 @@ def to_torch(x, dtype="float", req = False):
   x = Variable(torch.from_numpy(x).type(tor_type), requires_grad = req)
   return x
 
-class CNN(nn.Module):
+class ECLVR(nn.Module):
     def __init__(self, n_chan):
-        super(CNN, self).__init__()
+        super(ECLVR, self).__init__()
         # 1 channel input to 2 channel output of first time print and written
         self.conv1 = nn.Conv2d(n_chan, 8, Conv_W)
         self.conv2 = nn.Conv2d(8, 16, Conv_W)
         self.conv3 = nn.Conv2d(16, 32, Conv_W)
 
-        self.dense_enc = nn.Linear(CC*LL*WW, 100)
+        self.dense_enc = nn.Linear(CC*LL*WW + 11, 100)
 
         # variational bits
         self.fc_mu = nn.Linear(100, 32)
         self.fc_logvar = nn.Linear(100, 32)
-
+        self.fc_dec = nn.Linear(32, 100)
+        
         self.dense_dec = nn.Linear(100, CC*LL*WW)
+        self.dense_dec_qry1 = nn.Linear(100, 6)
+        self.dense_dec_qry2 = nn.Linear(100, 5)
 
         self.deconv3 = torch.nn.ConvTranspose2d(32, 16, Conv_W)
         self.deconv2 = torch.nn.ConvTranspose2d(16, 8, Conv_W)
@@ -40,7 +43,7 @@ class CNN(nn.Module):
 
         self.opt = torch.optim.Adam(self.parameters(), lr=0.001)
 
-    def forward(self, x):
+    def forward(self, x, x_qry):
         # conv1
         x = F.relu(self.conv1(x))
         size1 = x.size()
@@ -60,12 +63,18 @@ class CNN(nn.Module):
         # =================================================
         # reached the middle layer, some dense
         x = x.view(-1, CC*LL*WW)
-        #x = x.view(-1,8*60*60)
+        # add in the qury bits
+        x = torch.cat((x, x_qry), dim=1)
+
         x = torch.relu(self.dense_enc(x))
 
         mu, logvar = self.fc_mu(x), self.fc_logvar(x)
         x = self.reparameterize(mu, logvar)    
-        
+        x = F.relu(self.fc_dec(x))
+
+        x_qry_rec1 = torch.softmax(self.dense_dec_qry1(x), dim=1)
+        x_qry_rec2 = torch.softmax(self.dense_dec_qry2(x), dim=1)
+        x_qry_rec = torch.cat((x_qry_rec1, x_qry_rec2), dim=1)
 
         x = F.relu(self.dense_dec(x))
         x = x.view(-1, CC, LL, WW)
@@ -82,62 +91,51 @@ class CNN(nn.Module):
         # deconv1
         x = self.unpool(x, idx1, size1)
         x = torch.sigmoid(self.deconv1(x))
-        return x
+        return x, x_qry_rec, mu, logvar
 
-    #def decode(self, x):
+    def embed(self, x, x_qry):
+        x_rec, x_qry_rec, mu, logvar = self(x, x_qry)
+        return mu
 
-
-    def embed(self, x):
-        x = to_torch(x)
-        x = F.relu(self.conv1(x))
-        size1 = x.size()
-        x = F.relu(self.conv2(x))
-        size2 = x.size()
-        x = x.view(-1, CC*LL*WW)
-        x = torch.tanh(self.dense_enc(x))
-        return x
-
-    # VAE MAGIC =================
+    # ================== VAE MAGIC =================
  
     def reparameterize(self, mu, logvar):
         std = torch.exp(0.5*logvar)
         eps = torch.randn_like(std)
         return eps.mul(std).add_(mu)
  
- 45 
- 46     def forward(self, x):
- 47         mu, logvar = self.encode(x)
- 48         z = self.reparameterize(mu, logvar)
- 49         return self.decode(z), mu, logvar
- 50 
- 51     def ae(self, x):
- 52         mu, logvar = self.encode(x)
- 53         return self.decode(mu)
- 54 
- 55     # Reconstruction + KL divergence losses summed over all elements and batch
- 56     def loss_function(self, recon_x, x, mu, logvar):
- 57         BCE = lambda : F.binary_cross_entropy(recon_x, x)
- 58         L2L = lambda : torch.sum((recon_x - x) ** 2)
- 59 
- 60         REC = BCE() if self.loss_type == 'xentropy' else L2L()
- 61 
- 62 
- 63         # see Appendix B from VAE paper:
- 64         # Kingma and Welling. Auto-Encoding Variational Bayes. ICLR, 2014
- 65         # https://arxiv.org/abs/1312.6114
- 66         # 0.5 * sum(1 + log(sigma^2) - mu^2 - sigma^2)
- 67         KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
- 68 
- 69         return REC + KLD
+    def kld_loss(self, mu, logvar):
+
+        # see Appendix B from VAE paper:
+        # Kingma and Welling. Auto-Encoding Variational Bayes. ICLR, 2014
+        # https://arxiv.org/abs/1312.6114
+        # 0.5 * sum(1 + log(sigma^2) - mu^2 - sigma^2)
+        KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
+
+        return KLD
 
 
 
-    def learn_once(self, imgs):
-        img_rec = self(imgs)
-
+    def learn_once(self, imgs, qrys):
+        img_rec, qry_rec, mu, logvar = self(imgs, qrys)
+        
         self.opt.zero_grad()
+
         # compute all the cost LOL
-        loss = ((img_rec - imgs) ** 2).mean()
+        # rec_loss = ((img_rec - imgs) ** 2).mean()
+        L2L = torch.sum((imgs - img_rec) ** 2)
+        KLD = self.kld_loss(mu, logvar)
+        BCE = F.binary_cross_entropy(qry_rec, qrys)
+
+        # if (np.random.random() < 0.01) :
+        #     print ("LOSSSSSSSSSSSSS")
+        #     print (L2L, "IMG")
+        #     print (KLD, "REGULARIZE")
+        #     print (BCE, "BIT ERROR")
+
+        # loss = L2L + BCE + 0.1 * KLD
+        loss = L2L + 500 * BCE + 0.1 * KLD
+
         loss.backward()
 
         for param in self.parameters():
@@ -152,7 +150,7 @@ class CNN(nn.Module):
     def load(self, loc):
         self.load_state_dict(torch.load(loc))
 
-    def learn(self,X,learn_iter = 1000):
+    def learn(self, X, Q, learn_iter = 1000):
 
         losses = []
         # for i in range(99999999999):
@@ -162,16 +160,26 @@ class CNN(nn.Module):
             # indices = list(range(40))
             X_sub = X[indices]
             # convert to proper torch forms
+            Q_sub = Q[indices]
+
             X_sub = to_torch(X_sub)
+            Q_sub = to_torch(Q_sub)
 
             # optimize
-            losses.append(self.learn_once(X_sub).data.cpu().numpy())
+            losses.append(self.learn_once(X_sub, Q_sub).data.cpu().numpy())
 
             if i % 1000 == 0:
                 print(i, losses[len(losses)-1])
                 img_orig = X_sub[0].detach().cpu().numpy()
-                img_rec  = self(X_sub)[0].detach().cpu().numpy()
+                img_rec = self(X_sub, Q_sub)[0][0].detach().cpu().numpy()
+                qry_rec = self(X_sub, Q_sub)[1][0].detach().cpu().numpy()
 
+                print ("qry first part ")
+                print (Q_sub[0][:6])
+                print (qry_rec [:6])
+                print ("qry second part ")
+                print (Q_sub[0][6:])
+                print (qry_rec [6:])
                 draw(img_orig, 'orig_img.png')
                 draw(img_rec, 'rec_img.png')
 
