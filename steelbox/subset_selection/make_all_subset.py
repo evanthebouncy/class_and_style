@@ -28,12 +28,12 @@ def condensor(X_tr_emb,Y_tr,name,final_size=100):
     N = X_tr_emb.shape[0]
 
     remove_orders = []
-
+    losses = []
     X, Y = X_tr_emb, Y_tr
     for i in tqdm(range(1000)):
-        X, Y, rm_idx = condense_once(X, Y, X_tr_emb, Y_tr, 0.1)
-        print("iteration ", i, " cur size ", len(Y))
-
+        X, Y, rm_idx, loss = condense_once(X, Y, X_tr_emb, Y_tr, 0.1,True)
+        print("iteration ", i, " cur size ", len(Y), 'loss ',loss)
+        losses.append(loss)
         remove_orders.append(rm_idx)
         if X.shape[0] < final_size:
             break
@@ -45,6 +45,8 @@ def condensor(X_tr_emb,Y_tr,name,final_size=100):
         # print(index)
         data_tier_path = 'data_sub/' + name + '_tiers.p'
         pickle.dump(index, open(data_tier_path, "wb"))
+        data_tier_path = 'data_sub/' + name + '_tiers_loss.p'
+        pickle.dump(losses,open(data_tier_path,'wb'))
         print("saved . . .", data_tier_path)
 
 def kmeans(X_tr_emb,Y_tr,name,size = 100):

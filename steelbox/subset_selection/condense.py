@@ -78,7 +78,7 @@ def condense_once_old(X, Y, X_orig, Y_orig, throw_frac=0.01, loss='classificatio
     
     return X_sub, Y_sub, rm_idx
 
-def condense_once(X, Y, X_orig, Y_orig, throw_frac=0.01):
+def condense_once(X, Y, X_orig, Y_orig, throw_frac=0.01,require_loss = False):
     tree = cKDTree(X)
     _, top2_idx = tree.query(X_orig, 2)
 
@@ -136,7 +136,10 @@ def condense_once(X, Y, X_orig, Y_orig, throw_frac=0.01):
     # print ('projected loss ', projected_cost)
     # print ('# to remove before ban ', throw_amt)
     # print ('# to remove after ban ', len(rm_idx))
-    return X_sub, Y_sub, rm_idx
+    if require_loss:
+        return X_sub, Y_sub, rm_idx,projected_cost
+    else:
+        return X_sub, Y_sub, rm_idx
 
 
 if __name__ == '__main__':
