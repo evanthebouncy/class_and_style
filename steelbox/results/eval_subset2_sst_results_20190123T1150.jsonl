@@ -1,0 +1,416 @@
+{"subset_name": "random", "model": "DTREE", "score_m_m": 0.6073585941790225, "subset_size": 100, "time": 0.11318802833557129, "term": null, "num_samples": 100}
+{"subset_name": "random", "model": "SVMrbf", "score_m_m": 0.49917627677100496, "subset_size": 100, "num_samples": 100, "term": null, "time": 0.2654109001159668}
+{"subset_name": "random", "model": "SVMLin", "score_m_m": 0.7105985722130698, "subset_size": 100, "time": 0.45948100090026855, "term": null, "num_samples": 100}
+{"subset_name": "tiers", "model": "DTREE", "score_m_m": 0.5551894563426688, "subset_size": 100, "time": 0.05951642990112305, "term": null, "num_samples": 100}
+{"subset_name": "tiers", "model": "SVMrbf", "score_m_m": 0.49917627677100496, "subset_size": 100, "num_samples": 100, "term": null, "time": 0.23144316673278809}
+{"subset_name": "tiers", "model": "SVMLin", "score_m_m": 0.7545304777594728, "subset_size": 100, "time": 0.24135541915893555, "term": null, "num_samples": 100}
+{"subset_name": "tiers", "model": "EKNN", "score_m_m": 0.5579352004393191, "subset_size": 100, "time": 0.5203135013580322, "term": null, "num_samples": 100}
+{"subset_name": "tiers", "model": "RFOREST", "score_m_m": 0.7237781438769907, "subset_size": 100, "time": 0.697007417678833, "term": null, "num_samples": 100}
+{"subset_name": "kmeans", "model": "DTREE", "score_m_m": 0.6128500823723229, "subset_size": 100, "time": 0.1088709831237793, "term": null, "num_samples": 100}
+{"subset_name": "kmeans", "model": "SVMLin", "score_m_m": 0.8220757825370676, "subset_size": 100, "time": 0.7359490394592285, "term": null, "num_samples": 100}
+{"subset_name": "kmeans", "model": "EKNN", "score_m_m": 0.7078528281164196, "subset_size": 100, "num_samples": 100, "term": null, "time": 0.5134439468383789}
+{"subset_name": "kmeans_anneal", "model": "SVMrbf", "score_m_m": 0.49917627677100496, "subset_size": 100, "time": 0.305619478225708, "term": null, "num_samples": 100}
+{"subset_name": "tiers_anneal", "model": "DTREE", "score_m_m": 0.627677100494234, "subset_size": 100, "num_samples": 100, "term": null, "time": 0.09157609939575195}
+{"subset_name": "kmeans_anneal", "model": "SVMLin", "score_m_m": 0.8347062053816584, "subset_size": 100, "num_samples": 100, "term": null, "time": 0.32042789459228516}
+{"subset_name": "tiers_anneal", "model": "SVMrbf", "score_m_m": 0.49917627677100496, "subset_size": 100, "time": 0.5304653644561768, "term": null, "num_samples": 100}
+{"subset_name": "random_anneal", "model": "DTREE", "score_m_m": 0.6090060406370126, "subset_size": 100, "num_samples": 100, "term": null, "time": 0.06189131736755371}
+{"subset_name": "random_anneal", "model": "RFOREST", "score_m_m": 0.7375068643602416, "subset_size": 100, "time": 0.5522599220275879, "term": null, "num_samples": 100}
+{"subset_name": "kmeans_anneal", "model": "DTREE", "score_m_m": 0.5848434925864909, "subset_size": 100, "time": 0.07312464714050293, "term": null, "num_samples": 100}
+{"subset_name": "kmeans", "model": "SVMrbf", "score_m_m": 0.49917627677100496, "subset_size": 100, "time": 0.34694766998291016, "term": null, "num_samples": 100}
+{"subset_name": "random_anneal", "model": "EKNN", "score_m_m": 0.6809445359692476, "subset_size": 100, "time": 0.6663448810577393, "term": null, "num_samples": 100}
+{"subset_name": "random_anneal", "model": "SVMrbf", "score_m_m": 0.49917627677100496, "subset_size": 100, "time": 0.24042153358459473, "term": null, "num_samples": 100}
+{"subset_name": "tiers_anneal", "model": "SVMLin", "score_m_m": 0.7935200439319056, "subset_size": 100, "time": 0.33927321434020996, "term": null, "num_samples": 100}
+{"subset_name": "random", "model": "EKNN", "score_m_m": 0.6820428336079077, "subset_size": 100, "time": 0.5074367523193359, "term": null, "num_samples": 100}
+{"subset_name": "kmeans_anneal", "model": "EKNN", "score_m_m": 0.7040087863811093, "subset_size": 100, "time": 0.454425573348999, "term": null, "num_samples": 100}
+{"subset_name": "random_anneal", "model": "SVMLin", "score_m_m": 0.7885777045579352, "subset_size": 100, "num_samples": 100, "term": null, "time": 0.24646925926208496}
+{"subset_name": "random", "model": "RFOREST", "score_m_m": 0.7111477210323998, "subset_size": 100, "time": 0.5823848247528076, "term": null, "num_samples": 100}
+{"subset_name": "kmeans", "model": "RFOREST", "score_m_m": 0.7649643053267435, "subset_size": 100, "num_samples": 100, "term": null, "time": 1.0472619533538818}
+{"subset_name": "tiers_anneal", "model": "EKNN", "score_m_m": 0.613399231191653, "subset_size": 100, "time": 0.5249919891357422, "term": null, "num_samples": 100}
+{"subset_name": "tiers_anneal", "model": "RFOREST", "score_m_m": 0.7265238879736409, "subset_size": 100, "num_samples": 100, "term": null, "time": 0.5825085639953613}
+{"subset_name": "kmeans_anneal", "model": "RFOREST", "score_m_m": 0.8023064250411862, "subset_size": 100, "time": 0.6535792350769043, "term": null, "num_samples": 100}
+{"subset_name": "random", "model": "DTREE", "score_m_m": 0.6403075233388248, "subset_size": 263, "time": 0.17553305625915527, "term": null, "num_samples": 263}
+{"subset_name": "random", "model": "SVMLin", "score_m_m": 0.8528281164195497, "subset_size": 263, "num_samples": 263, "term": null, "time": 0.5347695350646973}
+{"subset_name": "random", "model": "SVMrbf", "score_m_m": 0.5024711696869851, "subset_size": 263, "time": 0.7144749164581299, "term": null, "num_samples": 263}
+{"subset_name": "tiers", "model": "DTREE", "score_m_m": 0.615595826468973, "subset_size": 263, "time": 0.23562240600585938, "term": null, "num_samples": 263}
+{"subset_name": "random", "model": "RFOREST", "score_m_m": 0.8264689730917079, "subset_size": 263, "num_samples": 263, "term": null, "time": 1.014998197555542}
+{"subset_name": "tiers", "model": "SVMLin", "score_m_m": 0.7929708951125755, "subset_size": 263, "num_samples": 263, "term": null, "time": 0.3612651824951172}
+{"subset_name": "random", "model": "EKNN", "score_m_m": 0.6452498627127952, "subset_size": 263, "time": 1.516036033630371, "term": null, "num_samples": 263}
+{"subset_name": "tiers", "model": "SVMrbf", "score_m_m": 0.8231740801757276, "subset_size": 263, "time": 1.0264256000518799, "term": null, "num_samples": 263}
+{"subset_name": "kmeans", "model": "DTREE", "score_m_m": 0.6331685886875343, "subset_size": 263, "time": 0.18736791610717773, "term": null, "num_samples": 248}
+{"subset_name": "tiers", "model": "EKNN", "score_m_m": 0.6018671059857221, "subset_size": 263, "time": 1.3557384014129639, "term": null, "num_samples": 263}
+{"subset_name": "tiers", "model": "RFOREST", "score_m_m": 0.7391543108182317, "subset_size": 263, "time": 0.9635882377624512, "term": null, "num_samples": 263}
+{"subset_name": "kmeans", "model": "SVMrbf", "score_m_m": 0.499725425590335, "subset_size": 263, "time": 0.6911559104919434, "term": null, "num_samples": 248}
+{"subset_name": "kmeans", "model": "SVMLin", "score_m_m": 0.8226249313563976, "subset_size": 263, "time": 0.7262864112854004, "term": null, "num_samples": 248}
+{"subset_name": "kmeans", "model": "RFOREST", "score_m_m": 0.8045030203185063, "subset_size": 263, "time": 0.8184182643890381, "term": null, "num_samples": 248}
+{"subset_name": "kmeans", "model": "EKNN", "score_m_m": 0.6754530477759473, "subset_size": 263, "time": 1.6907057762145996, "term": null, "num_samples": 248}
+{"subset_name": "tiers_anneal", "model": "DTREE", "score_m_m": 0.6221856123009335, "subset_size": 263, "time": 0.19859600067138672, "term": null, "num_samples": 256}
+{"subset_name": "tiers_anneal", "model": "SVMLin", "score_m_m": 0.8242723778143877, "subset_size": 263, "time": 0.3754584789276123, "term": null, "num_samples": 256}
+{"subset_name": "tiers_anneal", "model": "SVMrbf", "score_m_m": 0.513454146073586, "subset_size": 263, "time": 0.646315336227417, "term": null, "num_samples": 256}
+{"subset_name": "tiers_anneal", "model": "RFOREST", "score_m_m": 0.8088962108731467, "subset_size": 263, "time": 0.576693058013916, "term": null, "num_samples": 256}
+{"subset_name": "tiers_anneal", "model": "EKNN", "score_m_m": 0.6359143327841845, "subset_size": 263, "time": 1.4516596794128418, "term": null, "num_samples": 256}
+{"subset_name": "kmeans", "model": "DTREE", "score_m_m": 0.6963207029104888, "subset_size": 67340, "time": 69.10259342193604, "term": null, "num_samples": 13737}
+{"subset_name": "kmeans_anneal", "model": "DTREE", "score_m_m": 0.5930807248764415, "subset_size": 263, "time": 0.4218130111694336, "term": null, "num_samples": 248}
+{"subset_name": "kmeans_anneal", "model": "SVMrbf", "score_m_m": 0.499725425590335, "subset_size": 263, "time": 1.1186931133270264, "term": null, "num_samples": 248}
+{"subset_name": "kmeans_anneal", "model": "SVMLin", "score_m_m": 0.8270181219110379, "subset_size": 263, "time": 0.8435232639312744, "term": null, "num_samples": 248}
+{"subset_name": "kmeans_anneal", "model": "DTREE", "score_m_m": 0.7078528281164196, "subset_size": 67340, "num_samples": 13737, "term": null, "time": 75.98490738868713}
+{"subset_name": "kmeans_anneal", "model": "EKNN", "score_m_m": 0.6820428336079077, "subset_size": 263, "time": 2.3042683601379395, "term": null, "num_samples": 248}
+{"subset_name": "kmeans_anneal", "model": "RFOREST", "score_m_m": 0.8039538714991763, "subset_size": 263, "num_samples": 248, "term": null, "time": 1.0498793125152588}
+{"subset_name": "kmeans", "model": "EKNN", "score_m_m": 0.7331136738056013, "subset_size": 67340, "num_samples": 13737, "term": null, "time": 93.25053191184998}
+{"subset_name": "random_anneal", "model": "DTREE", "score_m_m": 0.6694124107633168, "subset_size": 263, "time": 0.34152936935424805, "term": null, "num_samples": 256}
+{"subset_name": "random_anneal", "model": "SVMrbf", "score_m_m": 0.499725425590335, "subset_size": 263, "time": 1.006371021270752, "term": null, "num_samples": 256}
+{"subset_name": "random_anneal", "model": "SVMLin", "score_m_m": 0.8314113124656782, "subset_size": 263, "time": 1.1563782691955566, "term": null, "num_samples": 256}
+{"subset_name": "random_anneal", "model": "EKNN", "score_m_m": 0.6924766611751785, "subset_size": 263, "time": 3.0346922874450684, "term": null, "num_samples": 256}
+{"subset_name": "kmeans", "model": "RFOREST", "score_m_m": 0.8550247116968699, "subset_size": 67340, "num_samples": 13737, "term": null, "time": 106.3957793712616}
+{"subset_name": "random_anneal", "model": "RFOREST", "score_m_m": 0.7737506864360242, "subset_size": 263, "time": 1.8221652507781982, "term": null, "num_samples": 256}
+{"subset_name": "kmeans_anneal", "model": "RFOREST", "score_m_m": 0.8522789676002197, "subset_size": 67340, "num_samples": 13737, "term": null, "time": 124.40964555740356}
+{"subset_name": "random", "model": "DTREE", "score_m_m": 0.6463481603514553, "subset_size": 526, "num_samples": 526, "term": null, "time": 1.085864543914795}
+{"subset_name": "kmeans_anneal", "model": "EKNN", "score_m_m": 0.7331136738056013, "subset_size": 67340, "time": 125.92344498634338, "term": null, "num_samples": 13737}
+{"subset_name": "random", "model": "SVMrbf", "score_m_m": 0.7935200439319056, "subset_size": 526, "num_samples": 526, "term": null, "time": 2.4922120571136475}
+{"subset_name": "random", "model": "SVMLin", "score_m_m": 0.8110928061504667, "subset_size": 526, "time": 2.339553117752075, "term": null, "num_samples": 526}
+{"subset_name": "random", "model": "RFOREST", "score_m_m": 0.8061504667764964, "subset_size": 526, "time": 2.1167404651641846, "term": null, "num_samples": 526}
+{"subset_name": "random", "model": "EKNN", "score_m_m": 0.6589785831960461, "subset_size": 526, "num_samples": 526, "term": null, "time": 4.968429327011108}
+{"subset_name": "kmeans_anneal", "model": "SVMrbf", "score_m_m": 0.8874244920373421, "subset_size": 67340, "num_samples": 13737, "term": null, "time": 260.17105650901794}
+{"subset_name": "tiers", "model": "DTREE", "score_m_m": 0.6776496430532675, "subset_size": 526, "num_samples": 526, "term": null, "time": 1.1152691841125488}
+{"subset_name": "tiers", "model": "SVMrbf", "score_m_m": 0.8023064250411862, "subset_size": 526, "num_samples": 526, "term": null, "time": 2.223243236541748}
+{"subset_name": "tiers", "model": "SVMLin", "score_m_m": 0.8489840746842394, "subset_size": 526, "num_samples": 526, "term": null, "time": 1.0101771354675293}
+{"subset_name": "tiers", "model": "EKNN", "score_m_m": 0.6738056013179572, "subset_size": 526, "num_samples": 526, "term": null, "time": 3.845597743988037}
+{"subset_name": "tiers", "model": "RFOREST", "score_m_m": 0.8253706754530478, "subset_size": 526, "num_samples": 526, "term": null, "time": 2.8294193744659424}
+{"subset_name": "kmeans", "model": "SVMrbf", "score_m_m": 0.886326194398682, "subset_size": 67340, "time": 284.4331238269806, "term": null, "num_samples": 13737}
+{"subset_name": "tiers", "model": "DTREE", "score_m_m": 0.7408017572762219, "subset_size": 67340, "num_samples": 67340, "term": null, "time": 410.2728500366211}
+{"subset_name": "kmeans", "model": "DTREE", "score_m_m": 0.642504118616145, "subset_size": 526, "num_samples": 515, "term": null, "time": 0.656174898147583}
+{"subset_name": "kmeans", "model": "SVMrbf", "score_m_m": 0.8237232289950577, "subset_size": 526, "num_samples": 515, "term": null, "time": 1.6357026100158691}
+{"subset_name": "kmeans", "model": "SVMLin", "score_m_m": 0.8253706754530478, "subset_size": 526, "num_samples": 515, "term": null, "time": 1.4289956092834473}
+{"subset_name": "kmeans", "model": "EKNN", "score_m_m": 0.6952224052718287, "subset_size": 526, "num_samples": 515, "term": null, "time": 4.67559552192688}
+{"subset_name": "kmeans", "model": "RFOREST", "score_m_m": 0.8215266337177375, "subset_size": 526, "num_samples": 515, "term": null, "time": 2.4235589504241943}
+{"subset_name": "kmeans_anneal", "model": "SVMLin", "score_m_m": 0.8813838550247117, "subset_size": 67340, "num_samples": 13737, "term": null, "time": 446.8793303966522}
+{"subset_name": "tiers_anneal", "model": "DTREE", "score_m_m": 0.729269632070291, "subset_size": 67340, "num_samples": 63175, "term": null, "time": 454.2017431259155}
+{"subset_name": "tiers_anneal", "model": "DTREE", "score_m_m": 0.6512904997254256, "subset_size": 526, "num_samples": 542, "term": null, "time": 0.9546687602996826}
+{"subset_name": "tiers_anneal", "model": "SVMrbf", "score_m_m": 0.8319604612850082, "subset_size": 526, "num_samples": 542, "term": null, "time": 2.578181028366089}
+{"subset_name": "tiers_anneal", "model": "SVMLin", "score_m_m": 0.8484349258649094, "subset_size": 526, "num_samples": 542, "term": null, "time": 0.7568449974060059}
+{"subset_name": "random_anneal", "model": "DTREE", "score_m_m": 0.7353102690829215, "subset_size": 67340, "num_samples": 63175, "term": null, "time": 460.96245884895325}
+{"subset_name": "tiers_anneal", "model": "EKNN", "score_m_m": 0.6749038989566173, "subset_size": 526, "num_samples": 542, "term": null, "time": 3.605181932449341}
+{"subset_name": "tiers_anneal", "model": "RFOREST", "score_m_m": 0.828116419549698, "subset_size": 526, "num_samples": 542, "term": null, "time": 2.793524742126465}
+{"subset_name": "random", "model": "EKNN", "score_m_m": 0.756727073036793, "subset_size": 67340, "time": 490.97365164756775, "term": null, "num_samples": 67340}
+{"subset_name": "kmeans_anneal", "model": "DTREE", "score_m_m": 0.6507413509060955, "subset_size": 526, "time": 0.5210258960723877, "term": null, "num_samples": 515}
+{"subset_name": "kmeans_anneal", "model": "SVMrbf", "score_m_m": 0.8336079077429983, "subset_size": 526, "time": 2.131556749343872, "term": null, "num_samples": 515}
+{"subset_name": "kmeans_anneal", "model": "SVMLin", "score_m_m": 0.8204283360790774, "subset_size": 526, "time": 1.6861143112182617, "term": null, "num_samples": 515}
+{"subset_name": "random_anneal", "model": "EKNN", "score_m_m": 0.7600219659527732, "subset_size": 67340, "time": 496.17180371284485, "term": null, "num_samples": 63175}
+{"subset_name": "kmeans_anneal", "model": "RFOREST", "score_m_m": 0.8160351455244371, "subset_size": 526, "time": 2.586944103240967, "term": null, "num_samples": 515}
+{"subset_name": "kmeans_anneal", "model": "EKNN", "score_m_m": 0.6941241076331686, "subset_size": 526, "time": 3.25048565864563, "term": null, "num_samples": 515}
+{"subset_name": "tiers", "model": "EKNN", "score_m_m": 0.757276221856123, "subset_size": 67340, "time": 534.4189767837524, "term": null, "num_samples": 67340}
+{"subset_name": "random_anneal", "model": "DTREE", "score_m_m": 0.6518396485447556, "subset_size": 526, "num_samples": 542, "term": null, "time": 0.7729887962341309}
+{"subset_name": "random_anneal", "model": "SVMrbf", "score_m_m": 0.8374519494783086, "subset_size": 526, "num_samples": 542, "term": null, "time": 2.875929355621338}
+{"subset_name": "random", "model": "DTREE", "score_m_m": 0.7490389895661724, "subset_size": 67340, "num_samples": 67340, "term": null, "time": 544.2654683589935}
+{"subset_name": "random_anneal", "model": "SVMLin", "score_m_m": 0.8270181219110379, "subset_size": 526, "num_samples": 542, "term": null, "time": 2.165659189224243}
+{"subset_name": "tiers_anneal", "model": "RFOREST", "score_m_m": 0.85612300933553, "subset_size": 67340, "num_samples": 63175, "term": null, "time": 544.9863331317902}
+{"subset_name": "random_anneal", "model": "RFOREST", "score_m_m": 0.8171334431630972, "subset_size": 526, "num_samples": 542, "term": null, "time": 2.1216399669647217}
+{"subset_name": "random_anneal", "model": "EKNN", "score_m_m": 0.6930258099945085, "subset_size": 526, "num_samples": 542, "term": null, "time": 5.719612121582031}
+{"subset_name": "random", "model": "RFOREST", "score_m_m": 0.8632619439868204, "subset_size": 67340, "time": 556.3537616729736, "term": null, "num_samples": 67340}
+{"subset_name": "random", "model": "DTREE", "score_m_m": 0.6452498627127952, "subset_size": 1052, "num_samples": 1052, "term": null, "time": 6.742324352264404}
+{"subset_name": "random", "model": "SVMrbf", "score_m_m": 0.8627127951674904, "subset_size": 1052, "time": 8.496877193450928, "term": null, "num_samples": 1052}
+{"subset_name": "random", "model": "SVMLin", "score_m_m": 0.8478857770455793, "subset_size": 1052, "num_samples": 1052, "term": null, "time": 9.60694432258606}
+{"subset_name": "random", "model": "EKNN", "score_m_m": 0.6798462383305875, "subset_size": 1052, "time": 26.41223931312561, "term": null, "num_samples": 1052}
+{"subset_name": "random", "model": "RFOREST", "score_m_m": 0.8374519494783086, "subset_size": 1052, "num_samples": 1052, "term": null, "time": 16.965752124786377}
+{"subset_name": "kmeans", "model": "SVMLin", "score_m_m": 0.8819330038440417, "subset_size": 67340, "time": 627.661524772644, "term": null, "num_samples": 13737}
+{"subset_name": "tiers", "model": "DTREE", "score_m_m": 0.657331136738056, "subset_size": 1052, "time": 5.905829429626465, "term": null, "num_samples": 1052}
+{"subset_name": "tiers", "model": "SVMrbf", "score_m_m": 0.85667215815486, "subset_size": 1052, "time": 6.327362060546875, "term": null, "num_samples": 1052}
+{"subset_name": "tiers", "model": "SVMLin", "score_m_m": 0.8621636463481603, "subset_size": 1052, "time": 1.7630603313446045, "term": null, "num_samples": 1052}
+{"subset_name": "tiers", "model": "EKNN", "score_m_m": 0.6974190005491488, "subset_size": 1052, "time": 17.000606060028076, "term": null, "num_samples": 1052}
+{"subset_name": "tiers_anneal", "model": "EKNN", "score_m_m": 0.7523338824821527, "subset_size": 67340, "num_samples": 63175, "term": null, "time": 670.6343030929565}
+{"subset_name": "tiers", "model": "RFOREST", "score_m_m": 0.8407468423942889, "subset_size": 1052, "time": 3.751085042953491, "term": null, "num_samples": 1052}
+{"subset_name": "tiers", "model": "LGR", "score_m_m": 0.8940142778693025, "subset_size": 67340, "time": 914.3555765151978, "term": ["saturation", 3141], "num_samples": 67340}
+{"subset_name": "kmeans", "model": "DTREE", "score_m_m": 0.6908292147171884, "subset_size": 1052, "time": 8.491971492767334, "term": null, "num_samples": 1069}
+{"subset_name": "kmeans", "model": "SVMrbf", "score_m_m": 0.8528281164195497, "subset_size": 1052, "time": 21.02261185646057, "term": null, "num_samples": 1069}
+{"subset_name": "kmeans", "model": "SVMLin", "score_m_m": 0.8374519494783086, "subset_size": 1052, "time": 14.959911108016968, "term": null, "num_samples": 1069}
+{"subset_name": "random_anneal", "model": "RFOREST", "score_m_m": 0.8555738605161999, "subset_size": 67340, "time": 998.2093245983124, "term": null, "num_samples": 63175}
+{"subset_name": "kmeans", "model": "EKNN", "score_m_m": 0.7325645249862712, "subset_size": 1052, "time": 37.18285250663757, "term": null, "num_samples": 1069}
+{"subset_name": "kmeans", "model": "RFOREST", "score_m_m": 0.814387699066447, "subset_size": 1052, "time": 12.153076648712158, "term": null, "num_samples": 1069}
+{"subset_name": "tiers_anneal", "model": "LGR", "score_m_m": 0.8890719384953323, "subset_size": 67340, "time": 1058.228055715561, "term": ["saturation", 3867], "num_samples": 63175}
+{"subset_name": "tiers_anneal", "model": "DTREE", "score_m_m": 0.6578802855573861, "subset_size": 1052, "time": 11.317567586898804, "term": null, "num_samples": 1053}
+{"subset_name": "random", "model": "LGR", "score_m_m": 0.8890719384953323, "subset_size": 67340, "num_samples": 67340, "term": ["saturation", 4049], "time": 1093.347904920578}
+{"subset_name": "tiers_anneal", "model": "SVMrbf", "score_m_m": 0.8599670510708401, "subset_size": 1052, "time": 25.842305421829224, "term": null, "num_samples": 1053}
+{"subset_name": "tiers_anneal", "model": "SVMLin", "score_m_m": 0.8616144975288303, "subset_size": 1052, "num_samples": 1053, "term": null, "time": 6.424940586090088}
+{"subset_name": "tiers_anneal", "model": "RFOREST", "score_m_m": 0.8303130148270181, "subset_size": 1052, "num_samples": 1053, "term": null, "time": 12.095067977905273}
+{"subset_name": "tiers_anneal", "model": "EKNN", "score_m_m": 0.6968698517298187, "subset_size": 1052, "time": 20.18301224708557, "term": null, "num_samples": 1053}
+{"subset_name": "kmeans", "model": "LGR", "score_m_m": 0.8879736408566722, "subset_size": 67340, "num_samples": 13737, "term": ["saturation", 4708], "time": 1124.5207064151764}
+{"subset_name": "kmeans_anneal", "model": "DTREE", "score_m_m": 0.7012630422844591, "subset_size": 1052, "time": 4.104117155075073, "term": null, "num_samples": 1069}
+{"subset_name": "kmeans_anneal", "model": "LGR", "score_m_m": 0.8879736408566722, "subset_size": 67340, "time": 1135.8912179470062, "term": ["saturation", 4395], "num_samples": 13737}
+{"subset_name": "kmeans_anneal", "model": "SVMrbf", "score_m_m": 0.8506315211422295, "subset_size": 1052, "time": 22.776183128356934, "term": null, "num_samples": 1069}
+{"subset_name": "kmeans_anneal", "model": "SVMLin", "score_m_m": 0.8374519494783086, "subset_size": 1052, "time": 21.84688425064087, "term": null, "num_samples": 1069}
+{"subset_name": "random_anneal", "model": "LGR", "score_m_m": 0.8945634266886326, "subset_size": 67340, "num_samples": 63175, "term": ["saturation", 3702], "time": 1186.0341577529907}
+{"subset_name": "kmeans_anneal", "model": "EKNN", "score_m_m": 0.7320153761669412, "subset_size": 1052, "time": 29.122867822647095, "term": null, "num_samples": 1069}
+{"subset_name": "kmeans_anneal", "model": "RFOREST", "score_m_m": 0.8121911037891268, "subset_size": 1052, "time": 25.968130350112915, "term": null, "num_samples": 1069}
+{"subset_name": "random_anneal", "model": "DTREE", "score_m_m": 0.6595277320153762, "subset_size": 1052, "time": 10.308676481246948, "term": null, "num_samples": 1053}
+{"subset_name": "tiers", "model": "RFOREST", "score_m_m": 0.85612300933553, "subset_size": 67340, "num_samples": 67340, "term": null, "time": 1214.1562554836273}
+{"subset_name": "random_anneal", "model": "SVMLin", "score_m_m": 0.8385502471169687, "subset_size": 1052, "num_samples": 1053, "term": null, "time": 10.879246234893799}
+{"subset_name": "random_anneal", "model": "SVMrbf", "score_m_m": 0.8632619439868204, "subset_size": 1052, "time": 28.968451261520386, "term": null, "num_samples": 1053}
+{"subset_name": "random_anneal", "model": "EKNN", "score_m_m": 0.71334431630972, "subset_size": 1052, "num_samples": 1053, "term": null, "time": 21.92826008796692}
+{"subset_name": "random_anneal", "model": "RFOREST", "score_m_m": 0.8325096101043383, "subset_size": 1052, "time": 19.029961109161377, "term": null, "num_samples": 1053}
+{"subset_name": "tiers", "model": "FC", "score_m_m": 0.8616144975288303, "subset_size": 1052, "num_samples": 1052, "term": ["saturation", 2343], "time": 2170.3320620059967}
+{"subset_name": "random", "model": "DTREE", "score_m_m": 0.6886326194398682, "subset_size": 2104, "num_samples": 2104, "term": null, "time": 13.148953914642334}
+{"subset_name": "random", "model": "SVMrbf", "score_m_m": 0.8649093904448105, "subset_size": 2104, "num_samples": 2104, "term": null, "time": 61.172688245773315}
+{"subset_name": "random", "model": "SVMLin", "score_m_m": 0.8325096101043383, "subset_size": 2104, "num_samples": 2104, "term": null, "time": 29.98702621459961}
+{"subset_name": "random", "model": "EKNN", "score_m_m": 0.6952224052718287, "subset_size": 2104, "num_samples": 2104, "term": null, "time": 60.944518089294434}
+{"subset_name": "random", "model": "RFOREST", "score_m_m": 0.8347062053816584, "subset_size": 2104, "num_samples": 2104, "term": null, "time": 23.18161416053772}
+{"subset_name": "random_anneal", "model": "FC", "score_m_m": 0.8088962108731467, "subset_size": 100, "time": 5009.601794242859, "term": ["saturation", 6114], "num_samples": 100}
+{"subset_name": "kmeans_anneal", "model": "FC", "score_m_m": 0.8412959912136189, "subset_size": 100, "time": 5798.879983186722, "term": ["saturation", 6613], "num_samples": 100}
+{"subset_name": "tiers", "model": "DTREE", "score_m_m": 0.6985172981878089, "subset_size": 2104, "time": 15.172544240951538, "term": null, "num_samples": 2104}
+{"subset_name": "tiers", "model": "SVMrbf", "score_m_m": 0.870950027457441, "subset_size": 2104, "time": 57.55688548088074, "term": null, "num_samples": 2104}
+{"subset_name": "tiers", "model": "SVMLin", "score_m_m": 0.8638110928061504, "subset_size": 2104, "time": 17.648357629776, "term": null, "num_samples": 2104}
+{"subset_name": "tiers", "model": "EKNN", "score_m_m": 0.7034596375617792, "subset_size": 2104, "time": 52.03247284889221, "term": null, "num_samples": 2104}
+{"subset_name": "tiers", "model": "RFOREST", "score_m_m": 0.8451400329489291, "subset_size": 2104, "time": 28.039311170578003, "term": null, "num_samples": 2104}
+{"subset_name": "kmeans", "model": "FC", "score_m_m": 0.8824821526633718, "subset_size": 67340, "num_samples": 13737, "term": ["saturation", 6834], "time": 5999.350623369217}
+{"subset_name": "random_anneal", "model": "LGR", "score_m_m": 0.8017572762218561, "subset_size": 100, "time": 6063.234740495682, "term": ["saturation", 19773], "num_samples": 100}
+{"subset_name": "kmeans_anneal", "model": "LGR", "score_m_m": 0.8390993959362988, "subset_size": 100, "time": 6069.881901025772, "term": ["saturation", 19947], "num_samples": 100}
+{"subset_name": "kmeans", "model": "DTREE", "score_m_m": 0.6908292147171884, "subset_size": 2104, "time": 15.994947671890259, "term": null, "num_samples": 2218}
+{"subset_name": "random", "model": "FC", "score_m_m": 0.8215266337177375, "subset_size": 100, "num_samples": 100, "term": ["saturation", 7081], "time": 6110.1853268146515}
+{"subset_name": "kmeans", "model": "SVMLin", "score_m_m": 0.8325096101043383, "subset_size": 2104, "time": 31.25727152824402, "term": null, "num_samples": 2218}
+{"subset_name": "kmeans", "model": "RFOREST", "score_m_m": 0.8336079077429983, "subset_size": 2104, "time": 20.375642776489258, "term": null, "num_samples": 2218}
+{"subset_name": "kmeans", "model": "SVMrbf", "score_m_m": 0.8605161998901703, "subset_size": 2104, "time": 84.79441142082214, "term": null, "num_samples": 2218}
+{"subset_name": "kmeans", "model": "EKNN", "score_m_m": 0.7353102690829215, "subset_size": 2104, "time": 64.48986911773682, "term": null, "num_samples": 2218}
+{"subset_name": "tiers_anneal", "model": "DTREE", "score_m_m": 0.6985172981878089, "subset_size": 2104, "time": 11.509218215942383, "term": null, "num_samples": 2049}
+{"subset_name": "tiers_anneal", "model": "SVMrbf", "score_m_m": 0.8698517298187809, "subset_size": 2104, "time": 99.06317162513733, "term": null, "num_samples": 2049}
+{"subset_name": "tiers_anneal", "model": "SVMLin", "score_m_m": 0.8654585392641406, "subset_size": 2104, "time": 20.95903992652893, "term": null, "num_samples": 2049}
+{"subset_name": "tiers_anneal", "model": "EKNN", "score_m_m": 0.7012630422844591, "subset_size": 2104, "time": 24.864275693893433, "term": null, "num_samples": 2049}
+{"subset_name": "tiers_anneal", "model": "LGR", "score_m_m": 0.8012081274025261, "subset_size": 100, "time": 6357.292037010193, "term": ["saturation", 19890], "num_samples": 100}
+{"subset_name": "tiers_anneal", "model": "RFOREST", "score_m_m": 0.8385502471169687, "subset_size": 2104, "time": 13.272661924362183, "term": null, "num_samples": 2049}
+{"subset_name": "tiers", "model": "LGR", "score_m_m": 0.771554091158704, "subset_size": 100, "time": 6450.708097696304, "term": ["saturation", 20078], "num_samples": 100}
+{"subset_name": "kmeans", "model": "LGR", "score_m_m": 0.8220757825370676, "subset_size": 100, "num_samples": 100, "term": ["saturation", 20131], "time": 6470.626832723618}
+{"subset_name": "kmeans_anneal", "model": "DTREE", "score_m_m": 0.6688632619439868, "subset_size": 2104, "time": 17.455219984054565, "term": null, "num_samples": 2218}
+{"subset_name": "kmeans_anneal", "model": "SVMLin", "score_m_m": 0.8358045030203185, "subset_size": 2104, "time": 16.81561303138733, "term": null, "num_samples": 2218}
+{"subset_name": "kmeans_anneal", "model": "EKNN", "score_m_m": 0.7353102690829215, "subset_size": 2104, "time": 24.862472534179688, "term": null, "num_samples": 2218}
+{"subset_name": "kmeans_anneal", "model": "SVMrbf", "score_m_m": 0.8599670510708401, "subset_size": 2104, "time": 49.23692512512207, "term": null, "num_samples": 2218}
+{"subset_name": "kmeans_anneal", "model": "RFOREST", "score_m_m": 0.8385502471169687, "subset_size": 2104, "time": 8.121861934661865, "term": null, "num_samples": 2218}
+{"subset_name": "random", "model": "FC", "score_m_m": 0.8665568369028006, "subset_size": 2104, "time": 5374.268326997757, "term": ["saturation", 5685], "num_samples": 2104}
+{"subset_name": "tiers_anneal", "model": "FC", "score_m_m": 0.800109829763866, "subset_size": 100, "num_samples": 100, "term": ["saturation", 7904], "time": 6651.485341787338}
+{"subset_name": "random", "model": "LGR", "score_m_m": 0.8165842943437671, "subset_size": 100, "num_samples": 100, "term": ["saturation", 20967], "time": 6657.172910451889}
+{"subset_name": "random_anneal", "model": "DTREE", "score_m_m": 0.6738056013179572, "subset_size": 2104, "time": 11.888079643249512, "term": null, "num_samples": 2049}
+{"subset_name": "kmeans_anneal", "model": "FC", "score_m_m": 0.8901702361339923, "subset_size": 67340, "time": 6679.651618480682, "term": ["saturation", 7678], "num_samples": 13737}
+{"subset_name": "random_anneal", "model": "SVMLin", "score_m_m": 0.828116419549698, "subset_size": 2104, "num_samples": 2049, "term": null, "time": 23.14783024787903}
+{"subset_name": "random_anneal", "model": "EKNN", "score_m_m": 0.7111477210323998, "subset_size": 2104, "time": 40.86383056640625, "term": null, "num_samples": 2049}
+{"subset_name": "random_anneal", "model": "SVMrbf", "score_m_m": 0.8643602416254805, "subset_size": 2104, "num_samples": 2049, "term": null, "time": 52.632039308547974}
+{"subset_name": "random_anneal", "model": "RFOREST", "score_m_m": 0.8473366282262493, "subset_size": 2104, "time": 25.514243125915527, "term": null, "num_samples": 2049}
+{"subset_name": "random", "model": "DTREE", "score_m_m": 0.6968698517298187, "subset_size": 4208, "num_samples": 4208, "term": null, "time": 50.79883003234863}
+{"subset_name": "random", "model": "SVMrbf", "score_m_m": 0.8676551345414607, "subset_size": 4208, "time": 179.44555354118347, "term": null, "num_samples": 4208}
+{"subset_name": "random", "model": "SVMLin", "score_m_m": 0.8473366282262493, "subset_size": 4208, "num_samples": 4208, "term": null, "time": 130.8016722202301}
+{"subset_name": "random", "model": "EKNN", "score_m_m": 0.7309170785282811, "subset_size": 4208, "time": 85.56784462928772, "term": null, "num_samples": 4208}
+{"subset_name": "kmeans_anneal", "model": "FC", "score_m_m": 0.8374519494783086, "subset_size": 263, "time": 7012.406732559204, "term": ["saturation", 8288], "num_samples": 248}
+{"subset_name": "random", "model": "RFOREST", "score_m_m": 0.8390993959362988, "subset_size": 4208, "num_samples": 4208, "term": null, "time": 161.85575366020203}
+{"subset_name": "tiers", "model": "DTREE", "score_m_m": 0.6781987918725975, "subset_size": 4208, "num_samples": 4208, "term": null, "time": 21.28263807296753}
+{"subset_name": "tiers", "model": "FC", "score_m_m": 0.7699066447007139, "subset_size": 100, "num_samples": 100, "term": ["saturation", 8076], "time": 7114.6572778224945}
+{"subset_name": "kmeans_anneal", "model": "LGR", "score_m_m": 0.829214717188358, "subset_size": 263, "time": 7144.684910774231, "term": ["saturation", 22882], "num_samples": 248}
+{"subset_name": "kmeans", "model": "FC", "score_m_m": 0.8237232289950577, "subset_size": 100, "num_samples": 100, "term": ["timeout", 8224], "time": 7200.930903434753}
+{"subset_name": "tiers_anneal", "model": "FC", "score_m_m": 0.9082921471718836, "subset_size": 67340, "time": 7201.7059807777405, "term": ["timeout", 7246], "num_samples": 63175}
+{"subset_name": "tiers", "model": "FC", "score_m_m": 0.9088412959912137, "subset_size": 67340, "time": 7201.540981054306, "term": ["timeout", 7451], "num_samples": 67340}
+{"subset_name": "random", "model": "LGR", "score_m_m": 0.8358045030203185, "subset_size": 263, "time": 7200.234840631485, "term": ["timeout", 23212], "num_samples": 263}
+{"subset_name": "random", "model": "FC", "score_m_m": 0.8731466227347611, "subset_size": 67340, "time": 7201.331950187683, "term": ["timeout", 7455], "num_samples": 67340}
+{"subset_name": "random_anneal", "model": "FC", "score_m_m": 0.8973091707852828, "subset_size": 67340, "time": 7200.929234266281, "term": ["timeout", 7576], "num_samples": 63175}
+{"subset_name": "tiers", "model": "LGR", "score_m_m": 0.8034047226798462, "subset_size": 263, "time": 7200.5219259262085, "term": ["timeout", 21725], "num_samples": 263}
+{"subset_name": "random", "model": "FC", "score_m_m": 0.8319604612850082, "subset_size": 263, "time": 7200.993778705597, "term": ["timeout", 8289], "num_samples": 263}
+{"subset_name": "tiers", "model": "FC", "score_m_m": 0.8226249313563976, "subset_size": 263, "time": 7200.976181507111, "term": ["timeout", 8241], "num_samples": 263}
+{"subset_name": "kmeans", "model": "LGR", "score_m_m": 0.8336079077429983, "subset_size": 263, "num_samples": 248, "term": ["timeout", 22321], "time": 7200.148824930191}
+{"subset_name": "kmeans", "model": "FC", "score_m_m": 0.8401976935749588, "subset_size": 263, "num_samples": 248, "term": ["timeout", 8123], "time": 7200.905170440674}
+{"subset_name": "tiers_anneal", "model": "LGR", "score_m_m": 0.8242723778143877, "subset_size": 263, "time": 7200.416978359222, "term": ["timeout", 22406], "num_samples": 256}
+{"subset_name": "tiers_anneal", "model": "FC", "score_m_m": 0.8308621636463481, "subset_size": 263, "time": 7200.68634223938, "term": ["timeout", 8148], "num_samples": 256}
+{"subset_name": "kmeans", "model": "EKNN", "score_m_m": 0.7303679297089511, "subset_size": 4208, "time": 22.967599153518677, "term": null, "num_samples": 3833}
+{"subset_name": "kmeans", "model": "SVMLin", "score_m_m": 0.8462383305875892, "subset_size": 4208, "time": 29.75576639175415, "term": null, "num_samples": 3833}
+{"subset_name": "tiers", "model": "EKNN", "score_m_m": 0.7204832509610104, "subset_size": 4208, "time": 76.19861030578613, "term": null, "num_samples": 4208}
+{"subset_name": "tiers", "model": "SVMrbf", "score_m_m": 0.8808347062053816, "subset_size": 4208, "num_samples": 4208, "term": null, "time": 157.94059205055237}
+{"subset_name": "kmeans", "model": "RFOREST", "score_m_m": 0.8511806699615596, "subset_size": 4208, "time": 44.20394778251648, "term": null, "num_samples": 3833}
+{"subset_name": "tiers_anneal", "model": "SVMrbf", "score_m_m": 0.8808347062053816, "subset_size": 4208, "time": 42.80006694793701, "term": null, "num_samples": 4385}
+{"subset_name": "tiers_anneal", "model": "RFOREST", "score_m_m": 0.8473366282262493, "subset_size": 4208, "time": 16.9568612575531, "term": null, "num_samples": 4385}
+{"subset_name": "kmeans", "model": "DTREE", "score_m_m": 0.6820428336079077, "subset_size": 4208, "time": 47.305774211883545, "term": null, "num_samples": 3833}
+{"subset_name": "tiers_anneal", "model": "DTREE", "score_m_m": 0.6776496430532675, "subset_size": 4208, "num_samples": 4385, "term": null, "time": 46.550724506378174}
+{"subset_name": "kmeans", "model": "SVMrbf", "score_m_m": 0.8742449203734212, "subset_size": 4208, "num_samples": 3833, "term": null, "time": 48.82758283615112}
+{"subset_name": "kmeans_anneal", "model": "DTREE", "score_m_m": 0.6776496430532675, "subset_size": 4208, "time": 13.706152200698853, "term": null, "num_samples": 3833}
+{"subset_name": "kmeans_anneal", "model": "SVMLin", "score_m_m": 0.844041735310269, "subset_size": 4208, "time": 15.939953565597534, "term": null, "num_samples": 3833}
+{"subset_name": "tiers_anneal", "model": "SVMLin", "score_m_m": 0.8725974739154311, "subset_size": 4208, "time": 67.78101754188538, "term": null, "num_samples": 4385}
+{"subset_name": "kmeans_anneal", "model": "SVMrbf", "score_m_m": 0.8747940691927513, "subset_size": 4208, "time": 28.35641050338745, "term": null, "num_samples": 3833}
+{"subset_name": "random_anneal", "model": "LGR", "score_m_m": 0.8270181219110379, "subset_size": 263, "time": 7200.326510667801, "term": ["timeout", 22123], "num_samples": 256}
+{"subset_name": "random_anneal", "model": "DTREE", "score_m_m": 0.6891817682591982, "subset_size": 4208, "time": 12.284505605697632, "term": null, "num_samples": 4385}
+{"subset_name": "random_anneal", "model": "FC", "score_m_m": 0.8363536518396485, "subset_size": 263, "num_samples": 256, "term": ["timeout", 8236], "time": 7201.196640014648}
+{"subset_name": "tiers_anneal", "model": "EKNN", "score_m_m": 0.7204832509610104, "subset_size": 4208, "time": 59.14160633087158, "term": null, "num_samples": 4385}
+{"subset_name": "random_anneal", "model": "RFOREST", "score_m_m": 0.842394288852279, "subset_size": 4208, "time": 21.071977853775024, "term": null, "num_samples": 4385}
+{"subset_name": "tiers", "model": "SVMLin", "score_m_m": 0.8687534321801208, "subset_size": 4208, "time": 190.0202338695526, "term": null, "num_samples": 4208}
+{"subset_name": "random", "model": "FC", "score_m_m": 0.842394288852279, "subset_size": 526, "time": 7200.68607711792, "term": ["timeout", 8014], "num_samples": 526}
+{"subset_name": "random", "model": "LGR", "score_m_m": 0.8478857770455793, "subset_size": 526, "num_samples": 526, "term": ["timeout", 22599], "time": 7200.515729665756}
+{"subset_name": "random_anneal", "model": "SVMLin", "score_m_m": 0.8588687534321802, "subset_size": 4208, "time": 33.72430777549744, "term": null, "num_samples": 4385}
+{"subset_name": "kmeans_anneal", "model": "RFOREST", "score_m_m": 0.8467874794069192, "subset_size": 4208, "num_samples": 3833, "term": null, "time": 57.45785331726074}
+{"subset_name": "random_anneal", "model": "EKNN", "score_m_m": 0.7331136738056013, "subset_size": 4208, "time": 40.39999461174011, "term": null, "num_samples": 4385}
+{"subset_name": "kmeans_anneal", "model": "EKNN", "score_m_m": 0.7303679297089511, "subset_size": 4208, "time": 72.61124300956726, "term": null, "num_samples": 3833}
+{"subset_name": "random", "model": "DTREE", "score_m_m": 0.7100494233937397, "subset_size": 8417, "time": 26.263525009155273, "term": null, "num_samples": 8417}
+{"subset_name": "tiers", "model": "LGR", "score_m_m": 0.8506315211422295, "subset_size": 526, "time": 7200.322506427765, "term": ["timeout", 21871], "num_samples": 526}
+{"subset_name": "tiers", "model": "FC", "score_m_m": 0.8555738605161999, "subset_size": 526, "num_samples": 526, "term": ["timeout", 8158], "time": 7201.460092544556}
+{"subset_name": "random_anneal", "model": "SVMrbf", "score_m_m": 0.8736957715540912, "subset_size": 4208, "time": 70.21623969078064, "term": null, "num_samples": 4385}
+{"subset_name": "random", "model": "RFOREST", "score_m_m": 0.8489840746842394, "subset_size": 8417, "time": 44.78776812553406, "term": null, "num_samples": 8417}
+{"subset_name": "tiers", "model": "RFOREST", "score_m_m": 0.844041735310269, "subset_size": 4208, "num_samples": 4208, "term": null, "time": 166.13448190689087}
+{"subset_name": "tiers", "model": "DTREE", "score_m_m": 0.6836902800658978, "subset_size": 8417, "time": 61.43275713920593, "term": null, "num_samples": 8417}
+{"subset_name": "tiers", "model": "EKNN", "score_m_m": 0.7045579352004393, "subset_size": 8417, "num_samples": 8417, "term": null, "time": 67.52401971817017}
+{"subset_name": "tiers", "model": "RFOREST", "score_m_m": 0.8533772652388797, "subset_size": 8417, "time": 101.74148368835449, "term": null, "num_samples": 8417}
+{"subset_name": "kmeans", "model": "LGR", "score_m_m": 0.8347062053816584, "subset_size": 526, "num_samples": 515, "term": ["timeout", 22237], "time": 7200.376496315002}
+{"subset_name": "tiers", "model": "SVMrbf", "score_m_m": 0.886326194398682, "subset_size": 8417, "time": 150.0946545600891, "term": null, "num_samples": 8417}
+{"subset_name": "kmeans", "model": "FC", "score_m_m": 0.8401976935749588, "subset_size": 526, "time": 7201.269633769989, "term": ["timeout", 8218], "num_samples": 515}
+{"subset_name": "kmeans", "model": "SVMrbf", "score_m_m": 0.8775398132894014, "subset_size": 8417, "num_samples": 7949, "term": null, "time": 86.44147777557373}
+{"subset_name": "random", "model": "EKNN", "score_m_m": 0.7397034596375618, "subset_size": 8417, "num_samples": 8417, "term": null, "time": 180.48136949539185}
+{"subset_name": "kmeans", "model": "RFOREST", "score_m_m": 0.8407468423942889, "subset_size": 8417, "time": 39.489956855773926, "term": null, "num_samples": 7949}
+{"subset_name": "random", "model": "SVMLin", "score_m_m": 0.8693025809994509, "subset_size": 8417, "time": 231.9991819858551, "term": null, "num_samples": 8417}
+{"subset_name": "tiers_anneal", "model": "DTREE", "score_m_m": 0.6600768808347062, "subset_size": 8417, "num_samples": 8540, "term": null, "time": 56.384339570999146}
+{"subset_name": "kmeans", "model": "DTREE", "score_m_m": 0.7084019769357496, "subset_size": 8417, "time": 182.97340631484985, "term": null, "num_samples": 7949}
+{"subset_name": "kmeans", "model": "SVMLin", "score_m_m": 0.8736957715540912, "subset_size": 8417, "time": 171.33540868759155, "term": null, "num_samples": 7949}
+{"subset_name": "tiers_anneal", "model": "LGR", "score_m_m": 0.8500823723228995, "subset_size": 526, "num_samples": 542, "term": ["timeout", 21095], "time": 7200.51886510849}
+{"subset_name": "tiers", "model": "SVMLin", "score_m_m": 0.8786381109280615, "subset_size": 8417, "time": 299.5665805339813, "term": null, "num_samples": 8417}
+{"subset_name": "tiers_anneal", "model": "FC", "score_m_m": 0.85722130697419, "subset_size": 526, "num_samples": 542, "term": ["timeout", 7679], "time": 7200.772256135941}
+{"subset_name": "kmeans_anneal", "model": "LGR", "score_m_m": 0.8325096101043383, "subset_size": 526, "num_samples": 515, "term": ["timeout", 22000], "time": 7200.233305215836}
+{"subset_name": "kmeans_anneal", "model": "FC", "score_m_m": 0.8445908841295992, "subset_size": 526, "num_samples": 515, "term": ["timeout", 8125], "time": 7200.964243650436}
+{"subset_name": "tiers_anneal", "model": "SVMrbf", "score_m_m": 0.8879736408566722, "subset_size": 8417, "time": 154.993262052536, "term": null, "num_samples": 8540}
+{"subset_name": "kmeans_anneal", "model": "DTREE", "score_m_m": 0.7188358045030203, "subset_size": 8417, "time": 44.084121227264404, "term": null, "num_samples": 7949}
+{"subset_name": "kmeans", "model": "EKNN", "score_m_m": 0.7473915431081823, "subset_size": 8417, "num_samples": 7949, "term": null, "time": 204.3189401626587}
+{"subset_name": "random_anneal", "model": "LGR", "score_m_m": 0.8363536518396485, "subset_size": 526, "time": 7200.47723865509, "term": ["timeout", 21031], "num_samples": 542}
+{"subset_name": "random_anneal", "model": "FC", "score_m_m": 0.8533772652388797, "subset_size": 526, "time": 7200.78492808342, "term": ["timeout", 7792], "num_samples": 542}
+{"subset_name": "tiers_anneal", "model": "EKNN", "score_m_m": 0.7062053816584294, "subset_size": 8417, "num_samples": 8540, "term": null, "time": 150.2583565711975}
+{"subset_name": "kmeans_anneal", "model": "RFOREST", "score_m_m": 0.8517298187808896, "subset_size": 8417, "time": 36.067615270614624, "term": null, "num_samples": 7949}
+{"subset_name": "tiers_anneal", "model": "SVMLin", "score_m_m": 0.8786381109280615, "subset_size": 8417, "time": 186.52238154411316, "term": null, "num_samples": 8540}
+{"subset_name": "tiers_anneal", "model": "RFOREST", "score_m_m": 0.8638110928061504, "subset_size": 8417, "time": 163.81614351272583, "term": null, "num_samples": 8540}
+{"subset_name": "random_anneal", "model": "DTREE", "score_m_m": 0.7221306974190006, "subset_size": 8417, "time": 40.71707201004028, "term": null, "num_samples": 8540}
+{"subset_name": "random", "model": "LGR", "score_m_m": 0.827567270730368, "subset_size": 1052, "num_samples": 1052, "term": ["timeout", 20530], "time": 7200.371826171875}
+{"subset_name": "random", "model": "FC", "score_m_m": 0.8577704557935201, "subset_size": 1052, "num_samples": 1052, "term": ["timeout", 7796], "time": 7201.144996404648}
+{"subset_name": "kmeans_anneal", "model": "SVMrbf", "score_m_m": 0.8775398132894014, "subset_size": 8417, "num_samples": 7949, "term": null, "time": 103.37382745742798}
+{"subset_name": "random_anneal", "model": "EKNN", "score_m_m": 0.7451949478308622, "subset_size": 8417, "time": 53.50968527793884, "term": null, "num_samples": 8540}
+{"subset_name": "random_anneal", "model": "RFOREST", "score_m_m": 0.8451400329489291, "subset_size": 8417, "time": 45.06747341156006, "term": null, "num_samples": 8540}
+{"subset_name": "tiers", "model": "LGR", "score_m_m": 0.85667215815486, "subset_size": 1052, "time": 7200.323918104172, "term": ["timeout", 21020], "num_samples": 1052}
+{"subset_name": "random", "model": "DTREE", "score_m_m": 0.7248764415156508, "subset_size": 16385, "num_samples": 16385, "term": null, "time": 82.9326844215393}
+{"subset_name": "kmeans_anneal", "model": "EKNN", "score_m_m": 0.7473915431081823, "subset_size": 8417, "num_samples": 7949, "term": null, "time": 164.79702281951904}
+{"subset_name": "random_anneal", "model": "SVMrbf", "score_m_m": 0.8802855573860516, "subset_size": 8417, "time": 147.07462549209595, "term": null, "num_samples": 8540}
+{"subset_name": "kmeans", "model": "FC", "score_m_m": 0.85612300933553, "subset_size": 1052, "time": 7200.99148106575, "term": ["timeout", 7787], "num_samples": 1069}
+{"subset_name": "kmeans", "model": "LGR", "score_m_m": 0.8473366282262493, "subset_size": 1052, "num_samples": 1069, "term": ["timeout", 21630], "time": 7200.211047172546}
+{"subset_name": "random", "model": "EKNN", "score_m_m": 0.7259747391543108, "subset_size": 16385, "time": 109.44104719161987, "term": null, "num_samples": 16385}
+{"subset_name": "random", "model": "SVMrbf", "score_m_m": 0.8835804503020318, "subset_size": 8417, "time": 568.1777014732361, "term": null, "num_samples": 8417}
+{"subset_name": "kmeans_anneal", "model": "SVMLin", "score_m_m": 0.8769906644700713, "subset_size": 8417, "num_samples": 7949, "term": null, "time": 220.17478799819946}
+{"subset_name": "random", "model": "RFOREST", "score_m_m": 0.844041735310269, "subset_size": 16385, "time": 115.13263487815857, "term": null, "num_samples": 16385}
+{"subset_name": "kmeans", "model": "DTREE", "score_m_m": 0.686436024162548, "subset_size": 16385, "time": 51.649112701416016, "term": null, "num_samples": 13737}
+{"subset_name": "tiers", "model": "RFOREST", "score_m_m": 0.8682042833607908, "subset_size": 16385, "time": 103.48011922836304, "term": null, "num_samples": 16385}
+{"subset_name": "tiers", "model": "DTREE", "score_m_m": 0.6595277320153762, "subset_size": 16385, "num_samples": 16385, "term": null, "time": 179.18839406967163}
+{"subset_name": "random_anneal", "model": "SVMLin", "score_m_m": 0.8764415156507414, "subset_size": 8417, "num_samples": 8540, "term": null, "time": 333.77462124824524}
+{"subset_name": "tiers", "model": "FC", "score_m_m": 0.8665568369028006, "subset_size": 2104, "time": 3083.932531118393, "term": ["saturation", 3506], "num_samples": 2104}
+{"subset_name": "tiers", "model": "EKNN", "score_m_m": 0.6847885777045579, "subset_size": 16385, "num_samples": 16385, "term": null, "time": 275.7686824798584}
+{"subset_name": "tiers_anneal", "model": "LGR", "score_m_m": 0.8577704557935201, "subset_size": 1052, "time": 7200.639265298843, "term": ["timeout", 21601], "num_samples": 1053}
+{"subset_name": "tiers_anneal", "model": "FC", "score_m_m": 0.85722130697419, "subset_size": 1052, "time": 7201.154282331467, "term": ["timeout", 8125], "num_samples": 1053}
+{"subset_name": "kmeans", "model": "SVMrbf", "score_m_m": 0.886326194398682, "subset_size": 16385, "time": 303.1313805580139, "term": null, "num_samples": 13737}
+{"subset_name": "kmeans", "model": "EKNN", "score_m_m": 0.7331136738056013, "subset_size": 16385, "num_samples": 13737, "term": null, "time": 300.5040509700775}
+{"subset_name": "kmeans_anneal", "model": "LGR", "score_m_m": 0.8445908841295992, "subset_size": 1052, "num_samples": 1069, "term": ["timeout", 21301], "time": 7200.203427314758}
+{"subset_name": "kmeans_anneal", "model": "FC", "score_m_m": 0.8632619439868204, "subset_size": 1052, "time": 7200.651063203812, "term": ["timeout", 7915], "num_samples": 1069}
+{"subset_name": "kmeans", "model": "RFOREST", "score_m_m": 0.8506315211422295, "subset_size": 16385, "num_samples": 13737, "term": null, "time": 334.76752185821533}
+{"subset_name": "random_anneal", "model": "LGR", "score_m_m": 0.8500823723228995, "subset_size": 1052, "num_samples": 1053, "term": ["timeout", 21766], "time": 7200.455600738525}
+{"subset_name": "random_anneal", "model": "FC", "score_m_m": 0.85667215815486, "subset_size": 1052, "time": 7200.898413896561, "term": ["timeout", 8052], "num_samples": 1053}
+{"subset_name": "tiers_anneal", "model": "RFOREST", "score_m_m": 0.8517298187808896, "subset_size": 16385, "num_samples": 16639, "term": null, "time": 117.8859338760376}
+{"subset_name": "kmeans", "model": "SVMLin", "score_m_m": 0.8819330038440417, "subset_size": 16385, "time": 456.5048189163208, "term": null, "num_samples": 13737}
+{"subset_name": "random", "model": "LGR", "score_m_m": 0.8407468423942889, "subset_size": 2104, "num_samples": 2104, "term": ["timeout", 21531], "time": 7200.379820823669}
+{"subset_name": "tiers_anneal", "model": "DTREE", "score_m_m": 0.6760021965952773, "subset_size": 16385, "time": 242.59576535224915, "term": null, "num_samples": 16639}
+{"subset_name": "tiers", "model": "LGR", "score_m_m": 0.8802855573860516, "subset_size": 8417, "num_samples": 8417, "term": ["saturation", 4434], "time": 1158.4024260044098}
+{"subset_name": "kmeans_anneal", "model": "DTREE", "score_m_m": 0.6968698517298187, "subset_size": 16385, "num_samples": 13737, "term": null, "time": 124.66741847991943}
+{"subset_name": "tiers", "model": "SVMrbf", "score_m_m": 0.8940142778693025, "subset_size": 16385, "time": 666.026403427124, "term": null, "num_samples": 16385}
+{"subset_name": "kmeans_anneal", "model": "EKNN", "score_m_m": 0.7331136738056013, "subset_size": 16385, "time": 96.8859920501709, "term": null, "num_samples": 13737}
+{"subset_name": "tiers", "model": "LGR", "score_m_m": 0.8824821526633718, "subset_size": 16385, "time": 745.3218860626221, "term": ["saturation", 2979], "num_samples": 16385}
+{"subset_name": "random", "model": "SVMLin", "score_m_m": 0.8841295991213619, "subset_size": 16385, "num_samples": 16385, "term": null, "time": 790.8314657211304}
+{"subset_name": "kmeans_anneal", "model": "RFOREST", "score_m_m": 0.8605161998901703, "subset_size": 16385, "num_samples": 13737, "term": null, "time": 94.7616457939148}
+{"subset_name": "tiers_anneal", "model": "EKNN", "score_m_m": 0.685337726523888, "subset_size": 16385, "num_samples": 16639, "term": null, "time": 270.8756847381592}
+{"subset_name": "kmeans_anneal", "model": "SVMrbf", "score_m_m": 0.8874244920373421, "subset_size": 16385, "time": 227.6907820701599, "term": null, "num_samples": 13737}
+{"subset_name": "random_anneal", "model": "EKNN", "score_m_m": 0.742998352553542, "subset_size": 16385, "time": 112.8708438873291, "term": null, "num_samples": 16639}
+{"subset_name": "random_anneal", "model": "RFOREST", "score_m_m": 0.8522789676002197, "subset_size": 16385, "num_samples": 16639, "term": null, "time": 110.64821076393127}
+{"subset_name": "random_anneal", "model": "DTREE", "score_m_m": 0.7270730367929709, "subset_size": 16385, "num_samples": 16639, "term": null, "time": 147.15580034255981}
+{"subset_name": "random", "model": "LGR", "score_m_m": 0.8830313014827018, "subset_size": 8417, "num_samples": 8417, "term": ["saturation", 5756], "time": 1416.910296678543}
+{"subset_name": "tiers_anneal", "model": "SVMrbf", "error": "('exception', 'AttributeError', ['str'], 'Traceback (most recent call last):\\n  File \"/srv/home/richard/class_and_style/steelbox/experiment_da/ray_utils.py\", line 40, in time_and_memory_limited\\n    return fn()\\n  File \"experiment_da/eval_subset2_sst.py\", line 133, in <lambda>\\n    lambda: eval_model(model, subset_name, subset_size),\\n  File \"experiment_da/eval_subset2_sst.py\", line 84, in eval_model\\n    model.learn(sampler)\\n  File \"/srv/home/richard/class_and_style/steelbox/evaluation/classifiers.py\", line 206, in learn\\n    self.svm = clf.fit(X, Y)\\n  File \"/home/richard/.local/share/virtualenvs/coreset/lib/python3.5/site-packages/sklearn/svm/base.py\", line 212, in fit\\n    fit(X, y, sample_weight, solver_type, kernel, random_seed=seed)\\n  File \"/home/richard/.local/share/virtualenvs/coreset/lib/python3.5/site-packages/sklearn/svm/base.py\", line 271, in _dense_fit\\n    max_iter=self.max_iter, random_seed=random_seed)\\n  File \"/srv/home/richard/class_and_style/steelbox/experiment_da/ray_utils.py\", line 26, in raise_timeout\\n    raise Timeout.TimeoutError\\nAttributeError: type object \\'Timeout\\' has no attribute \\'TimeoutError\\'\\n')", "subset_size": 67340}
+{"subset_name": "kmeans_anneal", "model": "LGR", "score_m_m": 0.8934651290499726, "subset_size": 8417, "time": 1161.0279581546783, "term": ["saturation", 4867], "num_samples": 7949}
+{"subset_name": "random", "model": "DTREE", "score_m_m": 0.7353102690829215, "subset_size": 33670, "time": 179.7109158039093, "term": null, "num_samples": 33670}
+{"subset_name": "kmeans_anneal", "model": "SVMLin", "score_m_m": 0.8813838550247117, "subset_size": 16385, "num_samples": 13737, "term": null, "time": 445.8354957103729}
+{"subset_name": "random_anneal", "model": "SVMrbf", "score_m_m": 0.8885227896760022, "subset_size": 16385, "time": 414.16681241989136, "term": null, "num_samples": 16639}
+{"subset_name": "tiers", "model": "DTREE", "score_m_m": 0.7193849533223503, "subset_size": 33670, "time": 131.48389387130737, "term": null, "num_samples": 33670}
+{"subset_name": "random", "model": "SVMrbf", "score_m_m": 0.8874244920373421, "subset_size": 16385, "num_samples": 16385, "term": null, "time": 1191.1881515979767}
+{"subset_name": "random_anneal", "model": "LGR", "score_m_m": 0.8753432180120813, "subset_size": 8417, "time": 1272.499342918396, "term": ["saturation", 5340], "num_samples": 8540}
+{"subset_name": "kmeans_anneal", "model": "LGR", "score_m_m": 0.8841295991213619, "subset_size": 16385, "time": 644.4572246074677, "term": ["saturation", 2840], "num_samples": 13737}
+{"subset_name": "kmeans", "model": "LGR", "score_m_m": 0.8885227896760022, "subset_size": 8417, "time": 1619.083193063736, "term": ["saturation", 6702], "num_samples": 7949}
+{"subset_name": "tiers", "model": "LGR", "score_m_m": 0.8758923668314114, "subset_size": 4208, "time": 2021.0256216526031, "term": ["saturation", 7884], "num_samples": 4208}
+{"subset_name": "tiers_anneal", "model": "LGR", "score_m_m": 0.8813838550247117, "subset_size": 16385, "time": 930.665812253952, "term": ["saturation", 3961], "num_samples": 16639}
+{"subset_name": "kmeans", "model": "DTREE", "score_m_m": 0.700164744645799, "subset_size": 33670, "time": 60.05505919456482, "term": null, "num_samples": 13737}
+{"subset_name": "random", "model": "FC", "score_m_m": 0.8720483250961011, "subset_size": 4208, "time": 2403.582384824753, "term": ["saturation", 3531], "num_samples": 4208}
+{"subset_name": "tiers_anneal", "model": "LGR", "score_m_m": 0.8786381109280615, "subset_size": 8417, "time": 1634.3501408100128, "term": ["saturation", 5374], "num_samples": 8540}
+{"subset_name": "random", "model": "LGR", "score_m_m": 0.8671059857221307, "subset_size": 4208, "num_samples": 4208, "term": ["saturation", 8243], "time": 2451.6858127117157}
+{"subset_name": "random", "model": "EKNN", "score_m_m": 0.7594728171334432, "subset_size": 33670, "num_samples": 33670, "term": null, "time": 481.2481195926666}
+{"subset_name": "tiers_anneal", "model": "LGR", "score_m_m": 0.8808347062053816, "subset_size": 4208, "time": 1947.8183407783508, "term": ["saturation", 8256], "num_samples": 4385}
+{"subset_name": "random", "model": "RFOREST", "score_m_m": 0.8555738605161999, "subset_size": 33670, "num_samples": 33670, "term": null, "time": 452.10247826576233}
+{"subset_name": "tiers", "model": "EKNN", "score_m_m": 0.729818780889621, "subset_size": 33670, "time": 236.5787570476532, "term": null, "num_samples": 33670}
+{"subset_name": "kmeans", "model": "EKNN", "score_m_m": 0.7331136738056013, "subset_size": 33670, "time": 141.36065006256104, "term": null, "num_samples": 13737}
+{"subset_name": "kmeans", "model": "RFOREST", "score_m_m": 0.8550247116968699, "subset_size": 33670, "time": 85.66554713249207, "term": null, "num_samples": 13737}
+{"subset_name": "random", "model": "LGR", "score_m_m": 0.8912685337726524, "subset_size": 16385, "time": 1515.6804254055023, "term": ["saturation", 5055], "num_samples": 16385}
+{"subset_name": "kmeans", "model": "SVMrbf", "score_m_m": 0.886326194398682, "subset_size": 33670, "time": 257.8834421634674, "term": null, "num_samples": 13737}
+{"subset_name": "kmeans", "model": "LGR", "score_m_m": 0.8907193849533224, "subset_size": 16385, "time": 1432.41334939003, "term": ["saturation", 4708], "num_samples": 13737}
+{"subset_name": "kmeans_anneal", "model": "DTREE", "score_m_m": 0.6979681493684788, "subset_size": 33670, "time": 54.456907749176025, "term": null, "num_samples": 13737}
+{"subset_name": "tiers_anneal", "model": "FC", "score_m_m": 0.8753432180120813, "subset_size": 2104, "time": 3158.1527032852173, "term": ["saturation", 3994], "num_samples": 2049}
+{"subset_name": "random_anneal", "model": "FC", "score_m_m": 0.8583196046128501, "subset_size": 2104, "time": 2811.6397581100464, "term": ["saturation", 3971], "num_samples": 2049}
+{"subset_name": "random", "model": "SVMrbf", "error": "('exception', 'AttributeError', ['str'], 'Traceback (most recent call last):\\n  File \"/srv/home/richard/class_and_style/steelbox/experiment_da/ray_utils.py\", line 40, in time_and_memory_limited\\n    return fn()\\n  File \"experiment_da/eval_subset2_sst.py\", line 133, in <lambda>\\n    lambda: eval_model(model, subset_name, subset_size),\\n  File \"experiment_da/eval_subset2_sst.py\", line 84, in eval_model\\n    model.learn(sampler)\\n  File \"/srv/home/richard/class_and_style/steelbox/evaluation/classifiers.py\", line 206, in learn\\n    self.svm = clf.fit(X, Y)\\n  File \"/home/richard/.local/share/virtualenvs/coreset/lib/python3.5/site-packages/sklearn/svm/base.py\", line 212, in fit\\n    fit(X, y, sample_weight, solver_type, kernel, random_seed=seed)\\n  File \"/home/richard/.local/share/virtualenvs/coreset/lib/python3.5/site-packages/sklearn/svm/base.py\", line 271, in _dense_fit\\n    max_iter=self.max_iter, random_seed=random_seed)\\n  File \"/srv/home/richard/class_and_style/steelbox/experiment_da/ray_utils.py\", line 26, in raise_timeout\\n    raise Timeout.TimeoutError\\nAttributeError: type object \\'Timeout\\' has no attribute \\'TimeoutError\\'\\n')", "subset_size": 67340}
+{"subset_name": "tiers_anneal", "model": "DTREE", "score_m_m": 0.6952224052718287, "subset_size": 33670, "num_samples": 32420, "term": null, "time": 242.56497240066528}
+{"subset_name": "tiers", "model": "RFOREST", "score_m_m": 0.85667215815486, "subset_size": 33670, "num_samples": 33670, "term": null, "time": 454.299742937088}
+{"subset_name": "random_anneal", "model": "SVMLin", "score_m_m": 0.8780889621087314, "subset_size": 16385, "time": 867.9478645324707, "term": null, "num_samples": 16639}
+{"subset_name": "random_anneal", "model": "LGR", "score_m_m": 0.871499176276771, "subset_size": 4208, "num_samples": 4385, "term": ["saturation", 9667], "time": 2157.8099975585938}
+{"subset_name": "tiers_anneal", "model": "EKNN", "score_m_m": 0.7265238879736409, "subset_size": 33670, "time": 247.0836465358734, "term": null, "num_samples": 32420}
+{"subset_name": "random", "model": "LGR", "score_m_m": 0.8934651290499726, "subset_size": 33670, "num_samples": 33670, "term": ["saturation", 3807], "time": 878.9894533157349}
+{"subset_name": "kmeans_anneal", "model": "RFOREST", "score_m_m": 0.8539264140582098, "subset_size": 33670, "time": 93.60020875930786, "term": null, "num_samples": 13737}
+{"subset_name": "kmeans", "model": "SVMLin", "score_m_m": 0.8819330038440417, "subset_size": 33670, "time": 403.5988829135895, "term": null, "num_samples": 13737}
+{"subset_name": "kmeans_anneal", "model": "EKNN", "score_m_m": 0.7331136738056013, "subset_size": 33670, "time": 154.62784624099731, "term": null, "num_samples": 13737}
+{"subset_name": "tiers_anneal", "model": "SVMrbf", "score_m_m": 0.8940142778693025, "subset_size": 16385, "time": 1255.6988852024078, "term": null, "num_samples": 16639}
+{"subset_name": "tiers", "model": "LGR", "score_m_m": 0.8819330038440417, "subset_size": 33670, "time": 764.6305165290833, "term": ["saturation", 3649], "num_samples": 33670}
+{"subset_name": "kmeans_anneal", "model": "FC", "score_m_m": 0.8808347062053816, "subset_size": 4208, "num_samples": 3833, "term": ["saturation", 3194], "time": 2301.8543362617493}
+{"subset_name": "tiers_anneal", "model": "RFOREST", "score_m_m": 0.8583196046128501, "subset_size": 33670, "time": 420.30386662483215, "term": null, "num_samples": 32420}
+{"subset_name": "random_anneal", "model": "DTREE", "score_m_m": 0.729269632070291, "subset_size": 33670, "num_samples": 32420, "term": null, "time": 247.11046600341797}
+{"subset_name": "random_anneal", "model": "RFOREST", "score_m_m": 0.8605161998901703, "subset_size": 33670, "num_samples": 32420, "term": null, "time": 230.49951338768005}
+{"subset_name": "random_anneal", "model": "EKNN", "score_m_m": 0.7331136738056013, "subset_size": 33670, "time": 249.8693356513977, "term": null, "num_samples": 32420}
+{"subset_name": "kmeans_anneal", "model": "SVMrbf", "score_m_m": 0.8874244920373421, "subset_size": 33670, "time": 381.3157846927643, "term": null, "num_samples": 13737}
+{"subset_name": "kmeans_anneal", "model": "SVMLin", "score_m_m": 0.8813838550247117, "subset_size": 33670, "time": 441.30479407310486, "term": null, "num_samples": 13737}
+{"subset_name": "kmeans_anneal", "model": "LGR", "score_m_m": 0.8929159802306426, "subset_size": 33670, "time": 597.6059324741364, "term": ["saturation", 3567], "num_samples": 13737}
+{"subset_name": "random", "model": "SVMrbf", "score_m_m": 0.8934651290499726, "subset_size": 33670, "time": 1146.4341139793396, "term": null, "num_samples": 33670}
+{"subset_name": "kmeans", "model": "LGR", "score_m_m": 0.885777045579352, "subset_size": 33670, "time": 853.6574864387512, "term": ["saturation", 4604], "num_samples": 13737}
+{"subset_name": "random_anneal", "model": "LGR", "score_m_m": 0.8802855573860516, "subset_size": 16385, "time": 1351.7596735954285, "term": ["saturation", 4900], "num_samples": 16639}
+{"subset_name": "kmeans", "model": "FC", "score_m_m": 0.885227896760022, "subset_size": 4208, "time": 2619.0102162361145, "term": ["saturation", 3690], "num_samples": 3833}
+{"subset_name": "kmeans_anneal", "model": "LGR", "score_m_m": 0.8704008786381109, "subset_size": 4208, "time": 2650.533993244171, "term": ["saturation", 9764], "num_samples": 3833}
+{"subset_name": "tiers", "model": "SVMLin", "score_m_m": 0.8775398132894014, "subset_size": 16385, "time": 2015.8931171894073, "term": null, "num_samples": 16385}
+{"subset_name": "tiers", "model": "LGR", "score_m_m": 0.8693025809994509, "subset_size": 2104, "num_samples": 2104, "term": ["saturation", 24568], "time": 6967.050013542175}
+{"subset_name": "random_anneal", "model": "LGR", "score_m_m": 0.885777045579352, "subset_size": 33670, "time": 570.9271724224091, "term": ["saturation", 3354], "num_samples": 32420}
+{"subset_name": "tiers_anneal", "model": "LGR", "score_m_m": 0.8890719384953323, "subset_size": 33670, "time": 868.7150721549988, "term": ["saturation", 3395], "num_samples": 32420}
+{"subset_name": "tiers_anneal", "model": "FC", "score_m_m": 0.8835804503020318, "subset_size": 4208, "num_samples": 4385, "term": ["saturation", 5052], "time": 2863.748923301697}
+{"subset_name": "random", "model": "FC", "score_m_m": 0.8901702361339923, "subset_size": 8417, "time": 2859.7164916992188, "term": ["saturation", 4900], "num_samples": 8417}
+{"subset_name": "kmeans", "model": "LGR", "score_m_m": 0.8577704557935201, "subset_size": 4208, "time": 3023.6292469501495, "term": ["saturation", 12030], "num_samples": 3833}
+{"subset_name": "tiers_anneal", "model": "SVMLin", "score_m_m": 0.8797364085667215, "subset_size": 16385, "time": 2021.9961712360382, "term": null, "num_samples": 16639}
+{"subset_name": "tiers_anneal", "model": "FC", "score_m_m": 0.885227896760022, "subset_size": 8417, "num_samples": 8540, "term": ["saturation", 5556], "time": 2779.3427362442017}
+{"subset_name": "kmeans_anneal", "model": "FC", "score_m_m": 0.8649093904448105, "subset_size": 8417, "num_samples": 7949, "term": ["saturation", 5141], "time": 2662.669242143631}
+{"subset_name": "random_anneal", "model": "FC", "score_m_m": 0.8791872597473915, "subset_size": 4208, "time": 3031.7017555236816, "term": ["saturation", 5821], "num_samples": 4385}
+{"subset_name": "tiers", "model": "FC", "score_m_m": 0.8605161998901703, "subset_size": 8417, "time": 2978.370617866516, "term": ["saturation", 5448], "num_samples": 8417}
+{"subset_name": "tiers", "model": "FC", "score_m_m": 0.8808347062053816, "subset_size": 4208, "time": 3368.383538007736, "term": ["saturation", 5260], "num_samples": 4208}
+{"subset_name": "kmeans", "model": "FC", "score_m_m": 0.8742449203734212, "subset_size": 8417, "num_samples": 7949, "term": ["saturation", 5200], "time": 3071.480366230011}
+{"subset_name": "tiers", "model": "SVMrbf", "score_m_m": 0.8923668314113125, "subset_size": 33670, "num_samples": 33670, "term": null, "time": 1580.8850495815277}
+{"subset_name": "random_anneal", "model": "SVMrbf", "score_m_m": 0.8929159802306426, "subset_size": 33670, "time": 1095.9064481258392, "term": null, "num_samples": 32420}
+{"subset_name": "random_anneal", "model": "FC", "score_m_m": 0.8830313014827018, "subset_size": 8417, "num_samples": 8540, "term": ["saturation", 5932], "time": 3138.5654578208923}
+{"subset_name": "random_anneal", "model": "SVMrbf", "error": "('exception', 'AttributeError', ['str'], 'Traceback (most recent call last):\\n  File \"/srv/home/richard/class_and_style/steelbox/experiment_da/ray_utils.py\", line 40, in time_and_memory_limited\\n    return fn()\\n  File \"experiment_da/eval_subset2_sst.py\", line 133, in <lambda>\\n    lambda: eval_model(model, subset_name, subset_size),\\n  File \"experiment_da/eval_subset2_sst.py\", line 84, in eval_model\\n    model.learn(sampler)\\n  File \"/srv/home/richard/class_and_style/steelbox/evaluation/classifiers.py\", line 206, in learn\\n    self.svm = clf.fit(X, Y)\\n  File \"/home/richard/.local/share/virtualenvs/coreset/lib/python3.5/site-packages/sklearn/svm/base.py\", line 212, in fit\\n    fit(X, y, sample_weight, solver_type, kernel, random_seed=seed)\\n  File \"/home/richard/.local/share/virtualenvs/coreset/lib/python3.5/site-packages/sklearn/svm/base.py\", line 271, in _dense_fit\\n    max_iter=self.max_iter, random_seed=random_seed)\\n  File \"/srv/home/richard/class_and_style/steelbox/experiment_da/ray_utils.py\", line 26, in raise_timeout\\n    raise Timeout.TimeoutError\\nAttributeError: type object \\'Timeout\\' has no attribute \\'TimeoutError\\'\\n')", "subset_size": 67340}
+{"subset_name": "random", "model": "FC", "score_m_m": 0.8890719384953323, "subset_size": 16385, "time": 3203.7786073684692, "term": ["saturation", 7859], "num_samples": 16385}
+{"subset_name": "kmeans", "model": "FC", "score_m_m": 0.8885227896760022, "subset_size": 16385, "num_samples": 13737, "term": ["saturation", 6256], "time": 3093.1243715286255}
+{"subset_name": "tiers_anneal", "model": "SVMrbf", "score_m_m": 0.8918176825919825, "subset_size": 33670, "time": 2017.281935453415, "term": null, "num_samples": 32420}
+{"subset_name": "kmeans", "model": "LGR", "score_m_m": 0.8407468423942889, "subset_size": 2104, "time": 5223.041918039322, "term": ["timeout_steps", 30000], "num_samples": 2218}
+{"subset_name": "tiers", "model": "FC", "score_m_m": 0.8819330038440417, "subset_size": 16385, "num_samples": 16385, "term": ["saturation", 8548], "time": 3367.9138910770416}
+{"subset_name": "kmeans_anneal", "model": "FC", "score_m_m": 0.885777045579352, "subset_size": 16385, "num_samples": 13737, "term": ["saturation", 6637], "time": 2827.3484904766083}
+{"subset_name": "kmeans_anneal", "model": "LGR", "score_m_m": 0.844041735310269, "subset_size": 2104, "time": 4894.569129705429, "term": ["timeout_steps", 30000], "num_samples": 2218}
+{"subset_name": "kmeans", "model": "FC", "score_m_m": 0.8769906644700713, "subset_size": 33670, "time": 2291.025065422058, "term": ["saturation", 7468], "num_samples": 13737}
+{"subset_name": "random_anneal", "model": "FC", "score_m_m": 0.8780889621087314, "subset_size": 16385, "num_samples": 16639, "term": ["saturation", 8826], "time": 2821.6086287498474}
+{"subset_name": "random_anneal", "model": "LGR", "score_m_m": 0.8352553542009885, "subset_size": 2104, "time": 4793.949576616287, "term": ["timeout_steps", 30000], "num_samples": 2049}
+{"subset_name": "kmeans_anneal", "model": "FC", "score_m_m": 0.8879736408566722, "subset_size": 33670, "time": 2097.5238955020905, "term": ["saturation", 6657], "num_samples": 13737}
+{"subset_name": "tiers_anneal", "model": "LGR", "score_m_m": 0.8671059857221307, "subset_size": 2104, "time": 5285.338686466217, "term": ["saturation", 29534], "num_samples": 2049}
+{"subset_name": "tiers_anneal", "model": "FC", "score_m_m": 0.8769906644700713, "subset_size": 16385, "num_samples": 16639, "term": ["saturation", 8676], "time": 3269.426695585251}
+{"subset_name": "kmeans_anneal", "model": "FC", "score_m_m": 0.8704008786381109, "subset_size": 2104, "time": 5159.181148529053, "term": ["saturation", 14817], "num_samples": 2218}
+{"subset_name": "kmeans", "model": "FC", "score_m_m": 0.8742449203734212, "subset_size": 2104, "time": 5583.703175783157, "term": ["saturation", 16283], "num_samples": 2218}
+{"subset_name": "tiers", "model": "FC", "score_m_m": 0.899505766062603, "subset_size": 33670, "time": 2925.8700058460236, "term": ["saturation", 13414], "num_samples": 33670}
+{"subset_name": "random_anneal", "model": "FC", "score_m_m": 0.8918176825919825, "subset_size": 33670, "num_samples": 32420, "term": ["saturation", 12195], "time": 2411.548003911972}
+{"subset_name": "random", "model": "FC", "score_m_m": 0.8874244920373421, "subset_size": 33670, "num_samples": 33670, "term": ["saturation", 14174], "time": 3270.05145406723}
+{"subset_name": "tiers", "model": "SVMrbf", "error": "('exception', 'AttributeError', ['str'], 'Traceback (most recent call last):\\n  File \"/srv/home/richard/class_and_style/steelbox/experiment_da/ray_utils.py\", line 40, in time_and_memory_limited\\n    return fn()\\n  File \"experiment_da/eval_subset2_sst.py\", line 133, in <lambda>\\n    lambda: eval_model(model, subset_name, subset_size),\\n  File \"experiment_da/eval_subset2_sst.py\", line 84, in eval_model\\n    model.learn(sampler)\\n  File \"/srv/home/richard/class_and_style/steelbox/evaluation/classifiers.py\", line 206, in learn\\n    self.svm = clf.fit(X, Y)\\n  File \"/home/richard/.local/share/virtualenvs/coreset/lib/python3.5/site-packages/sklearn/svm/base.py\", line 212, in fit\\n    fit(X, y, sample_weight, solver_type, kernel, random_seed=seed)\\n  File \"/home/richard/.local/share/virtualenvs/coreset/lib/python3.5/site-packages/sklearn/svm/base.py\", line 271, in _dense_fit\\n    max_iter=self.max_iter, random_seed=random_seed)\\n  File \"/srv/home/richard/class_and_style/steelbox/experiment_da/ray_utils.py\", line 26, in raise_timeout\\n    raise Timeout.TimeoutError\\nAttributeError: type object \\'Timeout\\' has no attribute \\'TimeoutError\\'\\n')", "subset_size": 67340}
+{"subset_name": "tiers_anneal", "model": "FC", "score_m_m": 0.8907193849533224, "subset_size": 33670, "num_samples": 32420, "term": ["saturation", 13955], "time": 2731.9740970134735}
+{"subset_name": "random_anneal", "model": "SVMLin", "score_m_m": 0.8846787479406919, "subset_size": 33670, "num_samples": 32420, "term": null, "time": 5401.747733831406}
+{"subset_name": "random", "model": "SVMLin", "score_m_m": 0.8956617243272927, "subset_size": 33670, "num_samples": 33670, "term": null, "time": 6287.510862588882}
+{"subset_name": "tiers_anneal", "model": "SVMLin", "error": "('exception', 'AttributeError', ['str'], 'Traceback (most recent call last):\\n  File \"/srv/home/richard/class_and_style/steelbox/experiment_da/ray_utils.py\", line 40, in time_and_memory_limited\\n    return fn()\\n  File \"experiment_da/eval_subset2_sst.py\", line 133, in <lambda>\\n    lambda: eval_model(model, subset_name, subset_size),\\n  File \"experiment_da/eval_subset2_sst.py\", line 84, in eval_model\\n    model.learn(sampler)\\n  File \"/srv/home/richard/class_and_style/steelbox/evaluation/classifiers.py\", line 206, in learn\\n    self.svm = clf.fit(X, Y)\\n  File \"/home/richard/.local/share/virtualenvs/coreset/lib/python3.5/site-packages/sklearn/svm/base.py\", line 212, in fit\\n    fit(X, y, sample_weight, solver_type, kernel, random_seed=seed)\\n  File \"/home/richard/.local/share/virtualenvs/coreset/lib/python3.5/site-packages/sklearn/svm/base.py\", line 271, in _dense_fit\\n    max_iter=self.max_iter, random_seed=random_seed)\\n  File \"/srv/home/richard/class_and_style/steelbox/experiment_da/ray_utils.py\", line 26, in raise_timeout\\n    raise Timeout.TimeoutError\\nAttributeError: type object \\'Timeout\\' has no attribute \\'TimeoutError\\'\\n')", "subset_size": 33670}
+{"subset_name": "tiers", "model": "SVMLin", "error": "('exception', 'AttributeError', ['str'], 'Traceback (most recent call last):\\n  File \"/srv/home/richard/class_and_style/steelbox/experiment_da/ray_utils.py\", line 40, in time_and_memory_limited\\n    return fn()\\n  File \"experiment_da/eval_subset2_sst.py\", line 133, in <lambda>\\n    lambda: eval_model(model, subset_name, subset_size),\\n  File \"experiment_da/eval_subset2_sst.py\", line 84, in eval_model\\n    model.learn(sampler)\\n  File \"/srv/home/richard/class_and_style/steelbox/evaluation/classifiers.py\", line 206, in learn\\n    self.svm = clf.fit(X, Y)\\n  File \"/home/richard/.local/share/virtualenvs/coreset/lib/python3.5/site-packages/sklearn/svm/base.py\", line 212, in fit\\n    fit(X, y, sample_weight, solver_type, kernel, random_seed=seed)\\n  File \"/home/richard/.local/share/virtualenvs/coreset/lib/python3.5/site-packages/sklearn/svm/base.py\", line 271, in _dense_fit\\n    max_iter=self.max_iter, random_seed=random_seed)\\n  File \"/srv/home/richard/class_and_style/steelbox/experiment_da/ray_utils.py\", line 26, in raise_timeout\\n    raise Timeout.TimeoutError\\nAttributeError: type object \\'Timeout\\' has no attribute \\'TimeoutError\\'\\n')", "subset_size": 33670}
