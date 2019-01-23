@@ -92,7 +92,7 @@ def eval_model(model_name, subset_name, subset_size):
 
 
 def test():
-    models = ['DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
+    models = ['LGR','FC','CNN','DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
     subset_names = [('random',60000),('tiers_anneal',10000)]
     # subset_names = ['random','tiers','kmeans','tiers_anneal','kmeans_anneal','random_anneal']
     #models = ['LGR', 'FC', 'CNN']
