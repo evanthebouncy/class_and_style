@@ -196,7 +196,7 @@ class Trainer(object):
         import matplotlib.pyplot as plt
         plt.plot(all_accs)
         plt.savefig('accs.png')
-        pickle.dump(all_accs, open('acc_pickle.p', "wb"))
+        pickle.dump(all_accs, open(self.pickle_name, "wb"))
         
         if step_time == 0:
             step_time = 0.001
@@ -255,6 +255,9 @@ def main():
 
     log.warning("dataset: %s, learning_rate: %f",
                 config.dataset_path, config.learning_rate)
+
+    pickle_name = config.dataset_path + '___' + config.model + '.p'
+    trainer.pickle_name = pickle_name
     trainer.train()
 
 if __name__ == '__main__':
