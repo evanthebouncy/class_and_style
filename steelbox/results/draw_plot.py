@@ -6,7 +6,7 @@ import pylab
 
 def getresult():
     all_results = []
-    for line in open('results/eval_subset2_mnist_results_20190122T1500.jsonl'):
+    for line in open('results/eval_subset2_mnist_results_nnonly20190122T1700.jsonl'):
         try:
             all_results.append(json.loads(line))
         except:
@@ -79,5 +79,5 @@ def draw_plot(model_name,all_results):
 
 if __name__ == '__main__':
     print(len(getresult()))
-    for models in ['LGR', 'FC','CNN','DTREE','SVMrbf','SVMLin','EKNN','RFOREST']:
+    for models in ['FC','CNN', 'LGR']:
         draw_plot(models,getresult())
