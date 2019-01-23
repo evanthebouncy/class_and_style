@@ -34,19 +34,21 @@ def get_idx(subset_name, subset_size_index):
 
 def eval_model(subset_name, subset_size_index):
     import pickle
-    mnist_idx = get_idx(subset_name, subset_size_index)
-    if type(mnist_idx) == str:
+    sentiment_idx = get_idx(subset_name, subset_size_index)
+    if type(sentiment_idx) == str:
         return 'bad_size'
 
+    from data_raw.sentiment_ import gen_data as sentiment_gen_data
+    Sentiment_X_tr, Sentiment_Y_tr, X_t, Y_t = sentiment_gen_data("./data_raw")
 
-    from data_raw.mnist_ import gen_data as mnist_gen_data
-    MNIST_X_tr, MNIST_Y_tr, MNIST_X_t, MNIST_Y_t = mnist_gen_data("./data_raw")
-
-    X_tr, Y_tr = MNIST_X_tr[mnist_idx], MNIST_Y_tr[mnist_idx]
-    W=np.ones(MNIST_Y_tr.shape)
+    X_tr, Y_tr = Sentiment_X_tr[sentiment_idx], Sentiment_Y_tr[sentiment_idx]
 
 
-    score_m_m = score_subset(X_tr,Y_tr,MNIST_X_tr,MNIST_Y_tr,W)/W.shape[0]
+
+    W=np.ones(Sentiment_Y_tr.shape)
+
+
+    score_m_m = score_subset(X_tr,Y_tr,Sentiment_X_tr,Sentiment_Y_tr,W)/W.shape[0]
     return score_m_m,Y_tr.shape[0]
 
 
@@ -54,12 +56,12 @@ def eval_model(subset_name, subset_size_index):
 def test():
     # models = ['DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
     # subset_names = ['random','tiers','kmeans','tiers_anneal','kmeans_anneal','random_anneal']
-    subset_names = ['random', 'tiers', 'kmeans', 'tiers_anneal', 'kmeans_anneal', 'random_anneal']
+    subset_names = ['tiers_anneal']
     min_siz_95=1e9
     min_siz_99=1e9
     min_subset = (0,0)
     for subset_name in subset_names:
-        for i in range(1000):
+        for i in range(50,51):
             score,siz = eval_model(subset_name,i)
             print(score,siz)
             if score>0.95:
