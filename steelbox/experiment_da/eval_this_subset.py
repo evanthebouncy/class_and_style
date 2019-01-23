@@ -52,9 +52,9 @@ def eval_model(model_name, subset_name, subset_size):
         # 'LGR': lambda : LGR(28 * 28, 10, stop_criteria).cuda(),
         # 'FC': lambda :  FCNet(28 * 28, 10, stop_criteria).cuda(),
         # 'CNN': lambda : CNN1((1, 28, 28), 10, stop_criteria).cuda(),
-        'LGR': lambda: LGR(28 * 28, 10, stop_criteria),
-        'FC': lambda: FCNet(28 * 28, 10, stop_criteria),
-        'CNN': lambda: CNN1((1, 28, 28), 10, stop_criteria),
+        'LGR': lambda: LGR(28 * 28, 10, stop_criteria).cuda(),
+        'FC': lambda: FCNet(28 * 28, 10, stop_criteria).cuda(),
+        'CNN': lambda: CNN1((1, 28, 28), 10, stop_criteria).cuda(),
         'SVMrbf': lambda: SVM('rbf'),
         'SVMLin': lambda: SVM('linear'),
         'DTREE': lambda: DTREE(),
@@ -112,7 +112,9 @@ def draw_plot():
     performance = []
     res = pickle.load(open('results/mnist_barchart.p','rb'))
     models = ['DTREE', 'SVMrbf', 'SVMLin', 'EKNN', 'RFOREST']
+    models = ['LGR','FC','CNN','DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
     subset_names = [('random', 60000), ('tiers_anneal', 10000)]
+    lin = [1,2,3,4]
     for model in models:
         for subset_name, siz in subset_names:
             for k in res:
@@ -120,9 +122,14 @@ def draw_plot():
                     if siz == 60000 and k['num_samples'] >40000:
                         objects.append(model+' all')
                         performance.append(k['score_m_m'])
+                        lin[0]=k['score_m_m']
+                        lin[2]=k['time']
                     elif siz == 10000 and k['num_samples']<30000:
                         objects.append(model + ' sub')
                         performance.append(k['score_m_m'])
+                        lin[1]=k['score_m_m']
+                        lin[3]=k['time']
+        print('{}&{}&{}&{}&{}'.format(model,lin[0],lin[1],int(lin[2]),int(lin[3])))
 
 
 
@@ -136,7 +143,7 @@ def draw_plot():
 
     plt.show()
 
-test()
+#test()
 draw_plot()
 
 
