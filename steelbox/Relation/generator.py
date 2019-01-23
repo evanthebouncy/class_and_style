@@ -165,9 +165,9 @@ def check_path(path):
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--dir_name', type=str, default='Sort-of-CLEVR_default')
+    parser.add_argument('--dir_name', type=str, default='Sort-of-CLEVR_test')
     parser.add_argument('--dataset_size', type=int, default=10000)
-    parser.add_argument('--img_size', type=int, default=128)
+    parser.add_argument('--img_size', type=int, default=64)
     args = parser.parse_args()
 
     basepath = './datasets'

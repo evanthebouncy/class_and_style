@@ -13,6 +13,9 @@ import os
 import time
 import tensorflow as tf
 
+import pickle
+
+all_accs = []
 
 class Trainer(object):
 
@@ -135,7 +138,7 @@ class Trainer(object):
             accuracy_test = \
                 self.run_test(self.batch_test, is_train=False)
 
-            if s % 10 == 0:
+            if s % 100 == 0:
                 self.log_step_message(step, accuracy, accuracy_test, loss, step_time)
 
             self.summary_writer.add_summary(summary, global_step=step)
@@ -186,6 +189,15 @@ class Trainer(object):
         return accuracy_test
 
     def log_step_message(self, step, accuracy, accuracy_test, loss, step_time, is_train=True):
+        
+        # some hacky hack
+        accc = accuracy_test*100
+        all_accs.append(accc)
+        import matplotlib.pyplot as plt
+        plt.plot(all_accs)
+        plt.savefig('accs.png')
+        pickle.dump(all_accs, open('acc_pickle.p', "wb"))
+        
         if step_time == 0:
             step_time = 0.001
         log_fn = (is_train and log.info or log.infov)
@@ -226,6 +238,7 @@ def main():
     config = parser.parse_args()
 
     path = os.path.join('./datasets', config.dataset_path)
+    test_path = os.path.join('./datasets', 'Sort-of-CLEVR_test')
 
     if check_data_path(path):
         import sort_of_clevr as dataset
@@ -235,6 +248,7 @@ def main():
     config.data_info = dataset.get_data_info()
     config.conv_info = dataset.get_conv_info()
     dataset_train, dataset_test = dataset.create_default_splits(path)
+    dataset_test, _ = dataset.create_default_splits(test_path)
 
     trainer = Trainer(config,
                       dataset_train, dataset_test)
