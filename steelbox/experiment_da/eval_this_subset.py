@@ -87,7 +87,7 @@ def eval_model(model_name, subset_name, subset_size):
     result['time'] = time_spent
     result['term'] = terminate_cause
     result['score_m_m'] = score_m_m
-    result['model']
+    result['model'] = model_name
     return result
 
 
@@ -95,7 +95,7 @@ def test():
     models = ['LGR','FC','CNN','DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
     subset_names = [('random',60000),('tiers_anneal',10000)]
     # subset_names = ['random','tiers','kmeans','tiers_anneal','kmeans_anneal','random_anneal']
-    #models = ['LGR', 'FC', 'CNN']
+    #models = ['DTREE']
     #subset_names = ['random', 'tiers', 'kmeans', 'tiers_anneal', 'kmeans_anneal', 'random_anneal']
     res = []
     for model in models:
@@ -105,8 +105,39 @@ def test():
             res.append(k)
             import pickle
             pickle.dump(res,open('results/mnist_barchart.p','wb'))
-test()
 
+def draw_plot():
+    import matplotlib.pyplot as plt
+    objects = []
+    performance = []
+    res = pickle.load(open('results/mnist_barchart.p','rb'))
+    models = ['DTREE', 'SVMrbf', 'SVMLin', 'EKNN', 'RFOREST']
+    subset_names = [('random', 60000), ('tiers_anneal', 10000)]
+    for model in models:
+        for subset_name, siz in subset_names:
+            for k in res:
+                if k['model'] == model:
+                    if siz == 60000 and k['num_samples'] >40000:
+                        objects.append(model+' all')
+                        performance.append(k['score_m_m'])
+                    elif siz == 10000 and k['num_samples']<30000:
+                        objects.append(model + ' sub')
+                        performance.append(k['score_m_m'])
+
+
+
+    y_pos = np.arange(len(objects))
+
+
+    plt.bar(y_pos, performance, align='center', alpha=0.5)
+    plt.xticks(y_pos, objects)
+    plt.ylabel('Accuracy')
+    #plt.title('Programming language usage')
+
+    plt.show()
+
+test()
+draw_plot()
 
 
 
