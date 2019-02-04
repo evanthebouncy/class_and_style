@@ -9,7 +9,7 @@ from scipy import ndarray
 
 def gen_data(data_dir):
     the_path = data_dir + "/mnist_data/"
-    print ("loading mnist from ", the_path)
+    #print ("loading mnist from ", the_path)
     mndata = MNIST(the_path)
     mndata.gz = True
     train_images, train_labels = mndata.load_training()

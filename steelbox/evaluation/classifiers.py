@@ -10,14 +10,20 @@ from torch.autograd import Variable
 import time
 
 # ===================== FC NN CLASSIFIER =====================
-def to_torch(x, dtype, req = False):
-  tor_type = torch.cuda.LongTensor if dtype == "int" else torch.cuda.FloatTensor
-  x = Variable(torch.from_numpy(x).type(tor_type), requires_grad = req)
-  return x
+if torch.cuda.is_available():
+  def to_torch(x, dtype, req = False):
+    tor_type = torch.cuda.LongTensor if dtype == "int" else torch.cuda.FloatTensor
+    x = Variable(torch.from_numpy(x).type(tor_type), requires_grad = req)
+    return x
+else:
+  def to_torch(x, dtype, req = False):
+    tor_type = torch.LongTensor if dtype == "int" else torch.FloatTensor
+    x = Variable(torch.from_numpy(x).type(tor_type), requires_grad = req)
+    return x
 
 def learn_loop(self, train_corpus):
 
-    loss_th, loss_iter_bnd, stop_time = self.stop_criteria
+    loss_th, loss_iter_bnd, stop_time, stop_steps = self.stop_criteria
     num_steps = 0
 
     losses = []
@@ -27,6 +33,9 @@ def learn_loop(self, train_corpus):
         # break on time 
         if time.time() - time_s > stop_time:
             self.term = 'timeout', num_steps
+            break
+        if num_steps >= stop_steps:
+            self.term = 'timeout_steps', num_steps
             break
 
         X_sub, Y_sub = train_corpus.get_sample(40)

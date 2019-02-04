@@ -2,7 +2,7 @@ import numpy as np
 
 def gen_data(data_dir):
     the_path = data_dir + "/sentiment/"
-    print ("loading sentiment from ", the_path)
+    #print ("loading sentiment from ", the_path)
     train = np.load(the_path + 'sst_binary_bert_large_avgpool_layer-2.npz')
     test  = np.load(the_path + 'sst_binary_test_bert_large_avgpool_layer-2.npz')
     return train['embeddings'], train['labels'], test['embeddings'], test['labels']

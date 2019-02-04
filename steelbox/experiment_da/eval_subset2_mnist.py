@@ -44,8 +44,10 @@ def eval_model(model_name,subset_name,subset_size):
         return result
 
     # timeout in seconds for the model LGR / FC / CNN which are implemented in pytorch
-    neural_timeout = 300
-    stop_criteria = (0.01, 1000, neural_timeout)
+    #neural_timeout = 300
+    neural_timeout = 3600
+    neural_steps = 20000
+    stop_criteria = (0.01, 1000, neural_timeout, neural_steps)
 
     models = {
               
@@ -109,7 +111,8 @@ def test():
 def example(output_path):
     output = open(output_path, 'w')
 
-    models = ['LGR', 'FC','CNN','DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
+    #models = ['LGR', 'FC','CNN','DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
+    models = ['LGR', 'FC','CNN']#,'DTREE','SVMrbf','SVMLin','EKNN','RFOREST']
     subset_names = ['random','tiers','kmeans','tiers_anneal','kmeans_anneal','random_anneal']
     # in this order, smallest, biggest, and in-between
     subset_sizes = [100, 60000, 250, 500, 1000, 2000, 4000, 8000, 15000, 30000]
@@ -126,7 +129,7 @@ def example(output_path):
                 subset_size, subset_name, model = next(experiment_iter)
                 f = ray_utils.time_and_memory_limited.remote(
                     lambda: eval_model(model, subset_name, subset_size),
-                    num_seconds=600, 
+                    num_seconds=3700, 
                     # 10 gibibytes
                     num_bytes=10 * 1024 * 1024 * 1024)
                 #f = eval_model(model, subset_name, subset_size_index)

@@ -7,7 +7,7 @@ import numpy as np
 import pickle
 import random
 import itertools
-# import ray
+import ray
 import tqdm
 
 neural_timeout = 60
@@ -41,7 +41,7 @@ def get_idx(subset_name, subset_size):
         return sentiment_idx[closest_idx]
 
 
-# @ray.remote
+@ray.remote
 def eval_model(model_name, subset_name, subset_size):
     import pickle
     sentiment_idx = get_idx(subset_name, subset_size)
@@ -49,7 +49,7 @@ def eval_model(model_name, subset_name, subset_size):
         return 'bad_size'
 
     # timeout in seconds for the model LGR / FC / CNN which are implemented in pytorch
-    neural_timeout = 60
+    neural_timeout = 600
     stop_criteria = (0.01, 1000, neural_timeout)
 
     models = {
@@ -114,11 +114,11 @@ def test():
 def example(output_path):
     output = open(output_path, 'w')
 
-    ans = []
     models = ['LGR', 'FC']
     subset_names = ['random', 'tiers', 'kmeans', 'tiers_anneal', 'kmeans_anneal', 'random_anneal']
-    all_experiments = list(itertools.product(models,
-                                             subset_names, range(0, 1000)))
+    # in this order, smallest, biggest, and in-between
+    subset_sizes = [100, 60000, 250, 500, 1000, 2000, 4000, 8000, 15000, 30000]
+    all_experiments = list(itertools.product(subset_sizes, subset_names, models))
 
     pbar = tqdm.tqdm(total=len(all_experiments), dynamic_ncols=True)
     experiment_iter = iter(all_experiments)

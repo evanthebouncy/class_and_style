@@ -42,9 +42,12 @@ def eval_model(model_name,subset_name,subset_size_index):
 
     models = {
               
-              'LGR': lambda : LGR(28 * 28, 10).cuda(),
-              'FC': lambda : FCNet(28 * 28, 10).cuda(),
-              'CNN': lambda : CNN1((1, 28, 28), 10).cuda(),
+              #'LGR': lambda : LGR(28 * 28, 10).cuda(),
+              #'FC': lambda : FCNet(28 * 28, 10).cuda(),
+              #'CNN': lambda : CNN1((1, 28, 28), 10).cuda(),
+              'LGR': lambda : LGR(28 * 28, 10),
+              'FC': lambda : FCNet(28 * 28, 10),
+              'CNN': lambda : CNN1((1, 28, 28), 10),
               'SVMrbf': lambda : SVM('rbf'),
               'SVMLin': lambda : SVM('linear'),
               'DTREE' : lambda : DTREE(),
